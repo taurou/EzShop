@@ -288,7 +288,10 @@ A clerk, when working at the cash desk, must login in the application in order t
 | | |
 |  Precondition     | The clerk is succesfully logged in the system and the cash-opening procedure has been performed before   |  
 |  Post condition     | The checkout procedure ends and the inventory is updated |
-|  Nominal Scenario     | The clerk scans the products (the customer can check the price of each item on the cash register display) and, eventually, the fidelity card; the system computes the total, the clerk selects the desired paying method, the cashout procedure ends and the inventory is updated |
+|  Nominal Scenario     | The clerk scans the products (the customer can check the price of each item on the cash register display) and, eventually, the fidelity card; the system computes the total, the clerk selects cash as paying method, the cashout procedure ends,  the inventory is updated and a receipt is printed |
+| Variant |   The clerk scans the products (the customer can check the price of each item on the cash register display) and, eventually, the fidelity card; the system computes the total, the clerk selects Credit Card as paying method, the customer authorizes the transaction by inserting the card (and the PIN, eventually) in the POS; the system receives a confirmation of the payment from the POS, the cashout procedure ends, the inventory is updated and a receipt is printed  |
+| Variant |  The clerk scans the products (the customer can check the price of each item on the cash register display) and, eventually, the fidelity card; the system computes the total, the clerk selects Electronic Voucher as paying method, the customer authorizes the transaction by inserting the voucher card (and the PIN, eventually) in the POS; the system receives a confirmation of the payment from the POS, if the amount that must be paid is greater than the vouchers' value, the difference must be paid either by cash or credit card, otherwise if the amount is less, the difference is lost; then the cashout procedure ends, the inventory is updated and a receipt is printed  |
+
 
 
 USE CASES:
@@ -297,12 +300,12 @@ USE CASES:
 - Clerk performs checkout for a customer X
 - Customer checks price ad bar code scanner inside market X
 - Clerk manages return of a product  X
-- Logistic employee CRUD product 
+- Logistic employee CRUD product X(create)
 
-OK 10 minutes 
-- Check points of fidelity card at bar code scanner
-- Convert points into prizes at information box
-- Insert customer into fidelity program
+
+- Check points of fidelity card at bar code scanner AMR
+- Convert points into prizes at information box ANDREA
+- Insert customer into fidelity program FRANCESCO
 -
 -
 
