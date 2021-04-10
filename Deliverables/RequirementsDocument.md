@@ -45,10 +45,8 @@ EZShop is a software application to:
 | Shop manager(s)| Person(s) managing the shop |
 | Shop clerks | People working at cash registers |
 | Logistic employees | People working in the logistic department |
-| Accountant | (External) Person in charge of tax/fiscal reports |
 | IT employee(s) | Person(s) in charge of installing/maintaining IT infrastructure  |
 | Electronic Payment system(s)  | IT system(s) (credit card and/or meal vouchers) to process various electronic payments|
-| *Suppliers* | Suppliers of the various products sold in the market|
 | Customer | Whoever buys something from the market |
 | Cash register | Cash register hardware integration  |
 | Software developer(s)/mainter(s) | Whoever is involved in the development of the app |
@@ -63,10 +61,8 @@ EZShop is a software application to:
 Shop manager
 Shop clerks
 Logistic employees
-Accountant
 IT employee(s)
 Electronic Payment system(s)
-Suppliers
 Cash register
 Fidelity program system
 Customer
@@ -80,10 +76,8 @@ Customer
 | Shop manager    | GUI  | Screen, keyboard, mouse |
 | Shop clerks | GUI | Touchscreen display, cash register |
 | Logistic employees | GUI |Screen, keyboard, mouse |
-| Accountant | GUI | Screen, keyboard, mouse |
 | IT employee(s) | GUI | Screen, keyboard, mouse |
 | Electronic Payment system(s) | API | Internet cable and POS hardware | 
-| *Suppliers* | *API | *Internet cable | 
 | Cash register | API | Connectors |
 | Fidelity Program system | API | Internet cable |
 | Customer | GUI | Mini-display/Bar code scanner (inside market) |
@@ -99,15 +93,9 @@ A customer enters the supermarket to buy some products. While walking inside te 
 --Cashier 
 
 A clerk, when working at the cash desk, must login in the application in order to use it. If it is the first login of the day, a cash-opening procedure must be performed (the amounts of money in the cash register is reported in the application to allow automatic counting). Then, he/she waits for customers to show up. When a customer shows up, the clerk starts scanning all products. In front of him, a touchscreen display (connect to a computer) is available, in order to manage the check out process. Various options are present, such as remove items, apply discounts and so on. While scanning products (at the end, in between or at the start) the customer can show the fidelity card and the cashier can scan it in order to link the transaction to the customer. Some additional info are present if the the fidelity card is scanned (such as overall points and not sensible data). After all products have been scanned, the cashier can conclude the checkout and select the payment the customer desires to pay with. After the payment completes, a receipt is printed and the check-out ends. At the of the day or when he/she needs, the clerk must logout from the system. At the end of the day, the cashier must perform a cash-closing procedure. It consists in counting all money inside the cash register and check if the amount is the same the system has calculated throughout the day. In case of inconsistency the shop manager must deal with it.
---Shop manager
 
-The shop manager has a dedicated GUI page where several options are available:
--Select cash desk (to review all transactions of that cash desk)
--Select cashier (to review all transactions of that clerk)
--Add cashier user
--Manage inventory and orders
--Show overview of most important financial data od the last x days
--Manage returns of products
+--Logistic employee
+
 
 
 
@@ -138,7 +126,9 @@ The shop manager has a dedicated GUI page where several options are available:
 | | Remove scanned product |
 | | Apply discount on product |
 | | Cancel check-out transaction | 
-| | Put transaction on hold | 
+| | Put transaction on hold |
+| | Keep track of scanned products|
+| | Compute total cost |
 | | Select payment method | 
 | | Insert number of voucher |
 | | Show fidelity card info (points, name...)|
@@ -152,39 +142,19 @@ The shop manager has a dedicated GUI page where several options are available:
 | | Add new product |
 | | Delete product |
 | | Update Product |
-| | Send order to supplier |
+| | Add Product quantity |
+| | Show list of suppliers | 
+| | Show product supplied by supplier |
 | | Show list of items (and related info)|
 | | Show value (in money) of inventory |
-| | Show pending orders (not yet received)| 
-| | Show not paid orders (received but not paid)|
-| | Show orders (Received and paid) |
 | FR5 | Manage customer (in fidelity program) | 
 | | Add new customer |
 | | Delete customer |
 | | Update customer | 
 | | Show points of a customer|
 | | Convert points to prizes |
-| | Send advertising messages (e-mail, sms..) |
-| | Show transactions of customer |
-| FR6 | Support orders accounting |
-| | Show financial overview |
-| | Show debt of market (for orders) |
-| | Show money that market has available | 
-| | Show net income (Money that enters supermarket - money to pay orders) of the period x | 
-| | Show cashier performance |
-| | Show financial data of orders |
-| | Show financial forecast for period x |
-| | Export financial data | 
-
-| FR7 | Support employees accounting |
-| | Emit paycheck for employees |
-| | Emit invoice for external personnel|
-| | Manage employee paycheck |
-| | Manage employee monthly wage  and bonuses|
-| | Manage employee financial data|
 
 
-| FR8 | Gather data to perform data analysis |
 
 
 ## Non Functional Requirements
@@ -211,11 +181,29 @@ The shop manager has a dedicated GUI page where several options are available:
 \<define here UML Use case diagram UCD summarizing all use cases, and their relationships>
 
 USE CASES:
-1) Cleark managine customer bill
-   -Payment through credit card
-   -Payment through voucher
-   -Product not recognized by the system
-   -Bill on hold
+- Clerk performs login operations
+- Clerk performs cash-opening/closing procedure
+- Clerk performs checkout for a customer
+- Customer checks price ad bar code scanner inside market
+- Clerk manages return of a product  
+- Logistic employee CRUD product
+- Check points of fidelity card at bar code scanner
+- Convert points into prizes at information box
+- Insert customer into fidelity program
+-
+-
+
+
+
+
+
+
+
+
+
+
+
+
 2) Automatic reorder of product
    -Logistic employee sets an automatic reorder when product is below a threshold
    -Program orders the product
@@ -290,6 +278,17 @@ USE CASES:
 
 # Glossary
 
+-Check-out
+-Shop-clerk
+-Shop manager
+-Logistic employee
+-Bar code scanner inside market
+-cash-opening/closing procedure
+-Fidelity card
+-Fidelity points
+-CRUD 
+-Supplier
+
 \<use UML class diagram to define important terms, or concepts in the domain of the system, and their relationships> 
 
 \<concepts are used consistently all over the document, ex in use cases, requirements etc>
@@ -302,3 +301,8 @@ USE CASES:
 # Deployment Diagram 
 
 \<describe here deployment diagram >
+
+
+
+----Add portable tablets to update prices ---
+---Issue invoice instead of receipt---
