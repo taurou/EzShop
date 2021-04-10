@@ -180,18 +180,6 @@ A clerk, when working at the cash desk, must login in the application in order t
 ## Use case diagram
 \<define here UML Use case diagram UCD summarizing all use cases, and their relationships>
 
-USE CASES:
-- Clerk performs login operations
-- Clerk performs cash-opening/closing procedure
-- Clerk performs checkout for a customer
-- Customer checks price ad bar code scanner inside market
-- Clerk manages return of a product  
-- Logistic employee CRUD product
-- Check points of fidelity card at bar code scanner
-- Convert points into prizes at information box
-- Insert customer into fidelity program
--
--
 
 
 
@@ -237,13 +225,87 @@ USE CASES:
 
 
 \<next describe here each use case in the UCD>
-### Use case 1, UC1
-| Actors Involved        |  |
+### Use case Clerk performs login operations, UC1
+| Actors Involved        | Shop clerk  |
 | ------------- |:-------------:| 
-|  Precondition     | \<Boolean expression, must evaluate to true before the UC can start> |  
-|  Post condition     | \<Boolean expression, must evaluate to true after UC is finished> |
-|  Nominal Scenario     | \<Textual description of actions executed by the UC> |
-|  Variants     | \<other executions, ex in case of errors> |
+| | |
+|  Precondition     | The whole system is up and running |  
+|  Post condition     | The shop clerk is logged in the system |
+|  Nominal Scenario     | The shop clerks inserts username and password on the touch screen attached to the cash register. If the U/P are correct the system allows the log in |
+|  Variants     | The U/P are not correct|
+| | After 5 unsuccessful tries the system blocks|
+| | The manager must perform the log in in order to unlock the system and allow others to login |
+
+
+### Clerk performs cash-opening procedure, UC2
+| Actors Involved        | Shop clerk  |
+| ------------- |:-------------:| 
+| | |
+|  Precondition     | The clerk is logged in the system, the last operation performed is a cash-closing procedure |  
+|  Post condition     | The system is ready to perform checkout operations |
+|  Nominal Scenario     | The shop clerk initiates the procedure and counts all the money inside the cash register, and inserts the amount in the proper field on the touch screen |
+
+### Clerk performs cash-closing procedure, UC3
+| Actors Involved        | Shop clerk  |
+| ------------- |:-------------:| 
+| | |
+|  Precondition     | The clerk is logged in the system, the last operation performed is a cash-opening procedure |  
+|  Post condition     | The system is not able to perform checkout operations |
+|  Nominal Scenario     | The shop clerk initiates the procedure and counts all the money inside the cash register, and inserts the amount in the proper field on the touch screen, the amount is correct (Amount at cash-opening+earning[cash]=amount at cash-closing) and the cash - closing procedure ends succesfully |
+|  Variant     |  The shop clerk initiates the procedure and counts all the money inside the cash register, and inserts the amount in the proper field on the touch screen, the amount is not correct (Amount at cash-opening+earning[cash]=amount at cash-closing) an error message is shown and the cash-closing procedure is not performed. Only the manager has the right to perform this operation anyway |
+
+
+### Customer checks price ad bar code scanner inside market, UC4
+| Actors Involved        | Customer  |
+| ------------- |:-------------:| 
+| | |
+|  Precondition     | The whole system is up and running, the barcode scanner must be working and connected to the system |  
+|  Post condition     | The barcode scanner display shows the price of the scanned item |
+|  Nominal Scenario     | The customer takes a product and scans its barcode on the barcode scanner, the price is displayed |
+|  Variant        | The customer takes a product and scans its barcode on the barcode scanner, the price is not displayed because the product is not in the inventory and a "Go to information box" message is shown |
+| Variant |    The customer takes a product and attempts to scan its barcode on the barcode scanner, but the barcode is corrupt and no message is shown on the barcode reader display |
+
+### Manager handles return of a product, UC5
+| Actors Involved        | Shop manager, customer  |
+| ------------- |:-------------:| 
+| | |
+|  Precondition     | The customer has the cashout receipt and the product  |  
+|  Post condition     | The item is returned, the quantity in the inventory is updated and the money is returned to the customer |
+|  Nominal Scenario     | The customer brings the product to the store manager, shows the receipt, the manager accepts the return request, the manager scans the product, the system updates the inventory and the money is returned. After completing the procedure, the system updates the amount of money inside the cash register (used to perform the return) |
+|  Variant        | The customer brings the product to the store manager, shows the receipt, the product is visibly used and the manager declines the return request |
+
+### Logistic employee create product, UC6
+| Actors Involved        | Shop manager, logistic employee  |
+| ------------- |:-------------:| 
+| | |
+|  Precondition     | The product does not exist in the inventory (yet)  |  
+|  Post condition     | The product is added in the inventory |
+|  Nominal Scenario     | The (logistic) employee clicks "add new product", inserts all the necessary data (name, producer, category, barcode, price....), confirms the operation and the inventory is updated |
+
+### Clerk performs checkout for a customer, UC7
+| Actors Involved        | Clerk, customer, fidelity card system, Electronic Payment System, cash register  |
+| ------------- |:-------------:| 
+| | |
+|  Precondition     | The clerk is succesfully logged in the system and the cash-opening procedure has been performed before   |  
+|  Post condition     | The checkout procedure ends and the inventory is updated |
+|  Nominal Scenario     | The clerk scans the products (the customer can check the price of each item on the cash register display) and, eventually, the fidelity card; the system computes the total, the clerk selects the desired paying method, the cashout procedure ends and the inventory is updated |
+
+
+USE CASES:
+- Clerk performs login operations X
+- Clerk performs cash-opening/closing procedure X
+- Clerk performs checkout for a customer X
+- Customer checks price ad bar code scanner inside market X
+- Clerk manages return of a product  X
+- Logistic employee CRUD product 
+
+OK 10 minutes 
+- Check points of fidelity card at bar code scanner
+- Convert points into prizes at information box
+- Insert customer into fidelity program
+-
+-
+
 
 ##### Scenario 1.1 
 
