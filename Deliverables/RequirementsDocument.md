@@ -66,6 +66,7 @@ Electronic Payment system(s)
 Cash register
 Fidelity program system
 Customer
+----Bar Code scanner
 ## Interfaces
 \<describe here each interface in the context diagram>
 
@@ -80,7 +81,7 @@ Customer
 | Electronic Payment system(s) | API | Internet cable and POS hardware | 
 | Cash register | API | Connectors |
 | Fidelity Program system | API | Internet cable |
-| Customer | GUI | Mini-display/Bar code scanner (inside market) |
+| Customer | GUI | Mini-display of cash register |
 
 # Stories and personas
 \<A Persona is a realistic impersonation of an actor. Define here a few personas and describe in plain text how a persona interacts with the system>
@@ -95,7 +96,9 @@ A customer enters the supermarket to buy some products. While walking inside te 
 A clerk, when working at the cash desk, must login in the application in order to use it. If it is the first login of the day, a cash-opening procedure must be performed (the amounts of money in the cash register is reported in the application to allow automatic counting). Then, he/she waits for customers to show up. When a customer shows up, the clerk starts scanning all products. In front of him, a touchscreen display (connect to a computer) is available, in order to manage the check out process. Various options are present, such as remove items, apply discounts and so on. While scanning products (at the end, in between or at the start) the customer can show the fidelity card and the cashier can scan it in order to link the transaction to the customer. Some additional info are present if the the fidelity card is scanned (such as overall points and not sensible data). After all products have been scanned, the cashier can conclude the checkout and select the payment the customer desires to pay with. After the payment completes, a receipt is printed and the check-out ends. At the of the day or when he/she needs, the clerk must logout from the system. At the end of the day, the cashier must perform a cash-closing procedure. It consists in counting all money inside the cash register and check if the amount is the same the system has calculated throughout the day. In case of inconsistency the shop manager must deal with it.
 
 --Logistic employee
-
+A logistic can login into the system and has access to the inventory. He/She can performs some operation on it. I has Create, Read, Update or Delete a product
+inside the inventory. When a new product is delivered to the supermarket, the logist employee accesses the inventory and uses the function create new product.
+He/She inserts all necesseray data (price, name, producer, bar code...) and define the available amount of it. The new product is now present in the inventory. The logistic employee may also Update some information of the product following by visualizing it and clicking on the edit button in the page. Eventually he/she can delete a product by clicking on the delete button. During the delition, some conflicts may arise (a product has some available units) and the he/she must decide wether to definitely remove and loose track of the quantities still available or to move a list of deleted items still present in the market.
 
 
 
@@ -369,5 +372,4 @@ USE CASES:
 
 
 
-----Add portable tablets to update prices ---
----Issue invoice instead of receipt---
+
