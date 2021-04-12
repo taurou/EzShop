@@ -59,15 +59,7 @@ EZShop is a software application to:
 <img src="../Images/UseCaseDiagram1.jpg" width="400" height="500">
 
 \<actors are a subset of stakeholders>
-Shop manager
-Shop clerks
-Logistic employees
-IT employee(s)
-Electronic Payment system(s)
-Cash register
-Fidelity program system
-Customer
-----Bar Code scanner
+
 ## Interfaces
 \<describe here each interface in the context diagram>
 
@@ -94,7 +86,7 @@ A customer enters the supermarket to buy some products. While walking inside te 
 
 --Cashier 
 
-A clerk, when working at the cash desk, must login in the application in order to use it. If it is the first login of the day, a cash-opening procedure must be performed (the amounts of money in the cash register is reported in the application to allow automatic counting). Then, he/she waits for customers to show up. When a customer shows up, the clerk starts scanning all products. In front of him, a touchscreen display (connect to a computer) is available, in order to manage the check out process. Various options are present, such as remove items, apply discounts and so on. While scanning products (at the end, in between or at the start) the customer can show the fidelity card and the cashier can scan it in order to link the transaction to the customer. Some additional info are present if the the fidelity card is scanned (such as overall points and not sensible data). After all products have been scanned, the cashier can conclude the checkout and select the payment the customer desires to pay with. After the payment completes, a receipt is printed and the check-out ends. At the of the day or when he/she needs, the clerk must logout from the system. At the end of the day, the cashier must perform a cash-closing procedure. It consists in counting all money inside the cash register and check if the amount is the same the system has calculated throughout the day. In case of inconsistency the shop manager must deal with it.
+A clerk, when working at the cash desk, must login in the application in order to use it. If it is the first login of the day, a cash-opening procedure must be performed (the amounts of money in the cash register is reported in the application to allow automatic counting). Then, he/she waits for customers to show up. When a customer shows up, the clerk starts scanning all products. In front of him, a touchscreen display (connect to a computer) is available, in order to manage the check out process. Various options are present, such as remove items, apply discounts and so on. While scanning products (at the end, in between or at the start) the customer can show the fidelity card and the cashier can scan it in order to link the transaction to the customer. Some additional info are present if the the fidelity card is scanned (such as overall points and not sensible data). After all products have been scanned, the cashier  selects the payment the customer desires to pay with and con continue with the check-out. After the payment completes, a receipt is printed and the check-out ends. At the of the day or when he/she needs, the clerk must logout from the system. At the end of the day, the cashier must perform a cash-closing procedure. It consists in counting all money inside the cash register and check if the amount is the same the system has calculated throughout the day. In case of inconsistency the shop manager must deal with it.
 
 --Logistic employee
 A logistic can login into the system and has access to the inventory. He/She can performs some operation on it. I has Create, Read, Update or Delete a product
@@ -125,7 +117,7 @@ He/She inserts all necesseray data (price, name, producer, bar code...) and defi
 | | Perform cash-closing procedure |
 | | Update amount of cash in the cash register| 
 | FR2 | Check-out of a customer |
-| | Start transaction |
+| | Start new check-out |
 | | Scan a product/fidelity card | 
 | | Remove scanned product |
 | | Apply discount on product |
@@ -139,6 +131,11 @@ He/She inserts all necesseray data (price, name, producer, bar code...) and defi
 | | Print receipt |
 | | Update inventory (done automatically)*|
 | | Update fidelity card points (done automatically) |
+| | Insert manual barcode |
+| | View open check-outs |
+| | Delete check-out | 
+| | Close check out |
+| | Show screen calculator | 
 | FR3 | Manage return of a product |
 | | Delete product from a already carried-out transaction |
 | | Update inventory (done automatically)*|
@@ -183,48 +180,6 @@ He/She inserts all necesseray data (price, name, producer, bar code...) and defi
 
 ## Use case diagram
 \<define here UML Use case diagram UCD summarizing all use cases, and their relationships>
-
-
-
-
-
-
-
-
-
-
-
-
-
-2) Automatic reorder of product
-   -Logistic employee sets an automatic reorder when product is below a threshold
-   -Program orders the product
-   -The product is not available
-   -The payment of an order is not possible due to various cases
-3) Manager or logistic clerk want to have an overview of products in the market
-   -An overview is displayed
-   -Employee clicks on specific product to know details
-   -Employee orders some quantities of a product
-   -Employee deletes orders
-   -Employee adds products
-   -Employee adds suppliers
-   -Employee adds automatic order for a product
-   -Employee updates prices
-   -Employee checks pending order
-   -Employee checks pending payments
-   -Employee wants some data on group of products
-4) Employee wants to check fidelity card of a customer
-   -Wants to delete it
-   -Wants to add new one
-   -Wants to check accumulated points
-   -Wants to convert points into discount
-   -Wants to update customer data
-   -Wants to perform data analysis on groups of customers
-5) Manager or accountant wants to gather some fiscal informations
-   -...Manager wants to...
-6) Manager wants to have an overview of sold products during last period
-   -...
-   -...
 
 
 
@@ -369,13 +324,7 @@ USE CASES:
 
 # Deployment Diagram 
 
-\<describe here deployment diagram >
+<img src="../Images/DeploymentDiagram.png" width="700" height="500">
 
 
 
-<<<<<<< HEAD
-
-=======
-----Add portable tablets to update prices ---
----Issue invoice instead of receipt---
->>>>>>> 5939a8f9fdd0ca106f11b10db681e5ce27279120
