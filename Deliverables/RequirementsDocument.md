@@ -225,13 +225,14 @@ He/She inserts all necesseray data (price, name, producer, bar code...) and defi
 | Variant |    The customer takes a product and attempts to scan its barcode on the barcode scanner, but the barcode is corrupt and no message is shown on the barcode reader display |
 
 ### Manager handles return of a product, UC5
-| Actors Involved        | Shop manager, customer  |
+| Actors Involved        | Shop manager, customer, cash register  |
 | ------------- |:-------------:| 
 | | |
 |  Precondition     | The customer has the cashout receipt and the product  |  
 |  Post condition     | The item is returned, the quantity in the inventory is updated and the money is returned to the customer |
 |  Nominal Scenario     | The customer brings the product to the store manager, shows the receipt, the manager accepts the return request, the manager scans the product, the system updates the inventory and the money is returned. After completing the procedure, the system updates the amount of money inside the cash register (used to perform the return) |
 |  Variant        | The customer brings the product to the store manager, shows the receipt, the product is visibly used and the manager declines the return request |
+|  Variant    | The customer brings the product to the store manager, shows the receipt, the manager accepts the return request, the manager scans the product, the system updates the inventory and a store credit barcode is emitted |
 
 ### Logistic employee create product, UC6
 | Actors Involved        | Shop manager, logistic employee  |
@@ -250,6 +251,18 @@ He/She inserts all necesseray data (price, name, producer, bar code...) and defi
 |  Nominal Scenario     | The clerk scans the products (the customer can check the price of each item on the cash register display) and, eventually, the fidelity card; the system computes the total, the clerk selects cash as paying method, the cashout procedure ends,  the inventory is updated and a receipt is printed |
 | Variant |   The clerk scans the products (the customer can check the price of each item on the cash register display) and, eventually, the fidelity card; the system computes the total, the clerk selects Credit Card as paying method, the customer authorizes the transaction by inserting the card (and the PIN, eventually) in the POS; the system receives a confirmation of the payment from the POS, the cashout procedure ends, the inventory is updated and a receipt is printed  |
 | Variant |  The clerk scans the products (the customer can check the price of each item on the cash register display) and, eventually, the fidelity card; the system computes the total, the clerk selects Electronic Voucher as paying method, the customer authorizes the transaction by inserting the voucher card (and the PIN, eventually) in the POS; the system receives a confirmation of the payment from the POS, if the amount that must be paid is greater than the vouchers' value, the difference must be paid either by cash or credit card, otherwise if the amount is less, the difference is lost; then the cashout procedure ends, the inventory is updated and a receipt is printed  |
+| Variant |  The clerk scans the products (the customer can check the price of each item on the cash register display) and the fidelity card; the system computes the total, the clerk selects Store Credit as paying method, scans the Store Credits' barcode and the system receives a confirmation of its validity; if the amount that must be paid is greater than the store credit value, the difference must be paid either by cash or credit card, otherwise if the amount is less, the difference is lost; then the cashout procedure ends, the inventory is updated and a receipt is printed  |
+
+
+
+### Convert points into prizes at information box, UC9
+| Actors Involved        | Shop clerk/manager, customer, fidelity card system  |
+| ------------- |:-------------:| 
+| | |
+|  Precondition     | The clerk/manager is logged in the fidelity card system, the customer has a fidelity card with enough points to be converted in store credit ( at least N points ->  N points = 1 euro ) |  
+|  Post condition     | The amount of points converted in store credit is deducted from the customer's fidelity card, a store credit barcode is printed |
+|  Nominal Scenario     | The shop manager/clerk at the information box scans the fidelity card, the fidelity card holder information and the available points are shown on the display, the manager/clerk inserts the desired amount M in euros (1 euro for N points, M is integer), M*N points are deducted from the fidelity card available points and a store credit receipt with a barcode is printed |
+|  Variant     |  The shop manager/clerk at the information box scans the fidelity card, the fidelity card holder information and the available points are shown on the display; the manager/clerk inserts the desired amount M in euros (1 euro for N points), M*N is greater than the available points, an error message is shown and the shop manager/clerk is prompted to insert a correct value |
 
 ### Insert customer into fidelity program, UC10
 | Actors Involved        | Shop manager, customer, fidelity program system  |
