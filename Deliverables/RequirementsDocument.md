@@ -251,6 +251,15 @@ He/She inserts all necesseray data (price, name, producer, bar code...) and defi
 | Variant |   The clerk scans the products (the customer can check the price of each item on the cash register display) and, eventually, the fidelity card; the system computes the total, the clerk selects Credit Card as paying method, the customer authorizes the transaction by inserting the card (and the PIN, eventually) in the POS; the system receives a confirmation of the payment from the POS, the cashout procedure ends, the inventory is updated and a receipt is printed  |
 | Variant |  The clerk scans the products (the customer can check the price of each item on the cash register display) and, eventually, the fidelity card; the system computes the total, the clerk selects Electronic Voucher as paying method, the customer authorizes the transaction by inserting the voucher card (and the PIN, eventually) in the POS; the system receives a confirmation of the payment from the POS, if the amount that must be paid is greater than the vouchers' value, the difference must be paid either by cash or credit card, otherwise if the amount is less, the difference is lost; then the cashout procedure ends, the inventory is updated and a receipt is printed  |
 
+### Insert customer into fidelity program, UC10
+| Actors Involved        | Shop manager, customer, fidelity program system  |
+| ------------- |:-------------:| 
+| | |
+|  Precondition     | The fidelity program system is up and running |  
+|  Post condition     | The customer is present in the fidelity program |
+|  Nominal Scenario     | The customer goes to the information box asking for a new fidelity card, the shop manager logs in the system, the customer submits his sensible data(name,surname,birth), the system checks if the customer is already present. If the customer is not present a new fidelity card is assigned to the customer |
+| Variant | If the customer is already present, but he lost his previous fidelity card, the system tries to recover the informations of the previous card (points, prizes,...) and to include these informations in the new fidelity card |
+
 
 
 USE CASES:
