@@ -1,10 +1,14 @@
 # Requirements Document 
 
-Authors:
+Authors: Davide Perticone 
 
-Date:
+Date: 16/01/2021
 
-Version:
+Version: 1.0
+
+To do: - Update UCs (with list inside nominal case, left align)
+       - Do scenarios
+        - UC diagram
 
 # Contents
 
@@ -82,16 +86,17 @@ EZShop is a software application to:
 # Stories and personas
 
 
---Customer
+- Customer
 
 A customer enters the supermarket to buy some products. While walking inside te market to take what he needs, he/she can check the price of a product using the bar code scanner(s) placed somewhere (in case the price is not written clearly below the product). After taking all the products he/she wants, the customer goes to the shop clerk in order to initiate the check-out process. While the clerk scans all the products, the customer can check the price of each single scanned product in the mini-display put on the cash desk. Then, the customer must pay with cash, credit card or food voucher. After payment the check-out is complete.
 
 
---shop clerk 
+- Shop clerk 
 
 A clerk, when working at the cash desk, must login in the application in order to use it. If it is the first login of the day, a cash-opening procedure must be performed (the amounts of money in the cash register is reported in the application to allow automatic counting). Then, he/she waits for customers to show up. When a customer shows up, the clerk starts scanning all products. In front of him, a touchscreen display (connect to a computer) is available, in order to manage the check out process. Various options are present, such as remove items, apply discounts and so on. While scanning products (at the end, in between or at the start) the customer can show the fidelity card and the shop clerk can scan it in order to link the transaction to the customer. Some additional info are present if the the fidelity card is scanned (such as overall points and not sensible data). After all products have been scanned, the shop clerk  selects the payment the customer desires to pay with and con continue with the check-out. After the payment completes, a receipt is printed and the check-out ends. At the of the day or when he/she needs, the clerk must logout from the system. At the end of the day, the shop clerk must perform a cash-closing procedure. It consists in counting all money inside the cash register and check if the amount is the same the system has calculated throughout the day. In case of inconsistency the shop manager must deal with it.
 
---Logistic employee
+- Logistic employee
+
 A logistic can login into the system and has access to the inventory. He/She can performs some operation on it. I has Create, Read, Update or Delete a product
 inside the inventory. When a new product is delivered to the supermarket, the logist employee accesses the inventory and uses the function create new product.
 He/She inserts all necesseray data (price, name, producer, bar code...) and define the available amount of it. The new product is now present in the inventory. The logistic employee may also Update some information of the product following by visualizing it and clicking on the edit button in the page. Eventually he/she can delete a product by clicking on the delete button. During the delition, some conflicts may arise (a product has some available units) and the he/she must decide wether to definitely remove and loose track of the quantities still available or to move a list of deleted items still present in the market.
@@ -307,13 +312,14 @@ He/She inserts all necesseray data (price, name, producer, bar code...) and defi
 - Create employee account UC
 
 
--
+
 
 
 
 # Glossary
 
 <img src="../Images/Glossary.png" width="700" height="500">
+
 # System Design
 
 Not really meaningful in this case.  Only software components are needed.
@@ -326,6 +332,3 @@ Not really meaningful in this case.  Only software components are needed.
 
 
 
-Update UCs (with list inside nominal case, left align)
-Do scenarios
-UC diagram
