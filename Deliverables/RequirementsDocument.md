@@ -284,7 +284,7 @@ He/She inserts all necesseray data (price, name, producer, barcode...) and defin
 |  4     | The product is added to the inventory |
 
 
-### Logistic employee creates product, UC6
+### Logistic employee create product, UC6
 | Actors Involved        | Shop manager, logistic employee  |
 | ------------- |:-------------:| 
 |  Precondition     | The product does not exist in the inventory (yet)  |  
@@ -311,7 +311,7 @@ He/She inserts all necesseray data (price, name, producer, barcode...) and defin
 |  Variant  2   |  The shop clerk and/or the customer at the barcode scanner system scans the fidelity card, but the card is expired, then a message of "Expired Card" is displayed on the screen |
 
 ### Convert points into prizes at information box, UC9
-| Actors Involved        | Shop clerk/manager, customer, fidelity card system  |
+| Actors Involved        | Shop clerk/manager, fidelity card system  |
 | ------------- |:-------------:| 
 |  Precondition     | The clerk/manager is logged in the fidelity card system, the customer has a fidelity card with enough points to be converted in store credit ( at least N points ->  N points = 1 euro ) |  
 |  Post condition     | The amount of points converted in store credit is deducted from the customer's fidelity card, a store credit barcode is printed |
@@ -319,12 +319,42 @@ He/She inserts all necesseray data (price, name, producer, barcode...) and defin
 |  Variant     |  The shop manager/clerk at the information box scans the fidelity card, the fidelity card holder information and the available points are shown on the display; the manager/clerk inserts the desired amount M in euros (1 euro for N points), M*N is greater than the available points, an error message is shown and the shop manager/clerk is prompted to insert a correct value |
 
 ### Insert customer into fidelity program, UC10
-| Actors Involved        | Shop manager, customer, fidelity program system  |
+| Actors Involved        | Shop manager, fidelity program system  |
 | ------------- |:-------------:| 
 |  Precondition     | The shop manager in logged in the system, the fidelity program server is active |  
 |  Post condition     | The customer is present in the fidelity program |
-|  Nominal Scenario     | The customer goes to the information box asking for a new fidelity card, the shop manager logs in the system, the customer submits his sensible data(name,surname,birth), the system checks if the customer is already present. If the customer is not present a new fidelity card is assigned to the customer |
-| Variant | If the customer is already present, but he lost his previous fidelity card, the system tries to recover the informations of the previous card (points, prizes,...) and to include these informations in the new fidelity card |
+|  Nominal Scenario     | 1. The shop manager enters in the manage customer menu (fidelity program) <br> 2. The shop manager select "add a new customer" in the fidelity program menu <br> 3. The shop manager submits customer's sensible data (name, surname, birth, ...) <br> 4. The system checks if the customer is already present <br> 5. If the customer is not present a new fidelity card is assigned to the customer <br> |
+| Variant | If the customer is already present (for example he lost his fidelity card) the system tries to recover the informations of the previous card (points, prizes,...) and to include these informations in the new fidelity card |
+
+##### Scenario 10.1 
+
+
+| Scenario 10.1 | New customer inserted |
+| ------------- |:-------------:| 
+|  Precondition     | The shop manager in logged in the system, the fidelity program server is active |  
+|  Post condition     | The customer enters in the fidelity program |
+| Step#        | Description  |
+|  1     | Shop manager is in the fidelity program menu |  
+|  2     | Shop manager selects "add a new customer" |
+|  3     | Shop manager submits sensible data  |
+|  4     | The fidelity program system insert the new customer |
+
+
+##### Scenario 10.2 
+
+
+| Scenario 10.1 | Customer already present |
+| ------------- |:-------------:| 
+|  Precondition     | The shop manager in logged in the system, the fidelity program server is active |  
+|  Post condition     | The system recovers the informations of the previous card |
+| Step#        | Description  |
+|  1     | Shop manager is in the fidelity program menu |  
+|  2     | Shop manager selects "add a new customer" |
+|  3     | Shop manager submits sensible data  |
+|  4     | The fidelity program system detects a duplication anomaly in the sensible data inserted |
+|  5     | The fidelity program system recovers informations |
+
+
 
 
 ### Create account for employee, UC11
@@ -353,7 +383,7 @@ He/She inserts all necesseray data (price, name, producer, barcode...) and defin
 
 # Glossary
 
-<img src="../Images/Glossary.png" width="850" height="500">
+<img src="../Images/Glossary.png" width="700" height="500">
 
 # System Design
 
@@ -361,7 +391,7 @@ Not really meaningful in this case.  Only software components are needed.
 
 # Deployment Diagram 
 
-<img src="../Images/DeploymentDiagram.png" width="850" height="500">
+<img src="../Images/DeploymentDiagram.png" width="700" height="500">
 
 
 
