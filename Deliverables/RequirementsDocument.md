@@ -9,6 +9,7 @@ Version: 1.0
 To do: - Update UCs (with list inside nominal case, left align)
        - Do scenarios
         - UC diagram
+		- Remove customer, he is not an actor
 
 # Contents
 
@@ -55,7 +56,7 @@ EZShop is a software application to:
 | Cash register | Hardware device where that stores money and print receipts  |
 | Software developer(s)/mainter(s) | Whoever is involved in the development of the app |
 | Fidelity program circuit | The fidelity program that the market uses to retain customers(may be common to many markets) | 
-| Bar code scanner | Hardware device to scan products' barcode|
+| barcode scanner | Hardware device to scan products' barcode|
 | Product | Products sold by the supermarket |
 | POS credit card | Hardware device to accept credit cards |
 # Context Diagram and interfaces
@@ -78,17 +79,14 @@ EZShop is a software application to:
 | Electronic Payment system(s) | API | Internet cable | 
 | Cash register | API | LAN Connectors |
 | Fidelity Program system | API | Internet cable |
-| Customer | GUI | Mini-display of cash register |
-| Bar code scanner | API | Cable |
+| barcode scanner | API | Cable |
 | POS credit card | API | Cable |
 
 
 # Stories and personas
 
 
-- Customer
-
-A customer enters the supermarket to buy some products. While walking inside te market to take what he needs, he/she can check the price of a product using the bar code scanner(s) placed somewhere (in case the price is not written clearly below the product). After taking all the products he/she wants, the customer goes to the shop clerk in order to initiate the check-out process. While the clerk scans all the products, the customer can check the price of each single scanned product in the mini-display put on the cash desk. Then, the customer must pay with cash, credit card or food voucher. After payment the check-out is complete.
+-Manager (add new account)
 
 
 - Shop clerk 
@@ -99,7 +97,7 @@ A clerk, when working at the cash desk, must login in the application in order t
 
 A logistic can login into the system and has access to the inventory. He/She can performs some operation on it. I has Create, Read, Update or Delete a product
 inside the inventory. When a new product is delivered to the supermarket, the logist employee accesses the inventory and uses the function create new product.
-He/She inserts all necesseray data (price, name, producer, bar code...) and define the available amount of it. The new product is now present in the inventory. The logistic employee may also Update some information of the product following by visualizing it and clicking on the edit button in the page. Eventually he/she can delete a product by clicking on the delete button. During the delition, some conflicts may arise (a product has some available units) and the he/she must decide wether to definitely remove and loose track of the quantities still available or to move a list of deleted items still present in the market.
+He/She inserts all necesseray data (price, name, producer, barcode...) and define the available amount of it. The new product is now present in the inventory. The logistic employee may also Update some information of the product following by visualizing it and clicking on the edit button in the page. Eventually he/she can delete a product by clicking on the delete button. During the delition, some conflicts may arise (a product has some available units) and the he/she must decide wether to definitely remove and loose track of the quantities still available or to move a list of deleted items still present in the market.
 
 
 
@@ -124,22 +122,22 @@ He/She inserts all necesseray data (price, name, producer, bar code...) and defi
 | FR2.4| Apply discount on product |
 | FR2.5| Cancel check-out transaction | 
 | FR2.6| Put transaction on hold |
-| FR2.7| Keep track of scanned products|
+| FR2.7| Add product to scanned products|
 | FR2.8| Compute total cost |
 | FR2.9| Select payment method | 
 | FR2.10| Insert number of voucher |
 | FR2.11| Show fidelity card info (points, name...)|
 | FR2.12| Print receipt |
-| FR2.13| Update inventory (done automatically)*|
-| FR2.14| Update fidelity card points (done automatically) |
+| FR2.13| Update fidelity card points  |
+| FR2.15 | Update balance of cash register |
 | FR2.15| Insert manual barcode |
 | FR2.16| View open check-outs |
 | FR2.17| Delete check-out | 
 | FR2.18| Close check out |
 | FR2.19| Show screen calculator | 
+| FR2.20 | Get product code |
 | FR3 | Manage return of a product |
 | FR3.1| Delete product from a already carried-out transaction |
-| FR3.2| Update inventory (done automatically)*|
 | FR4 | Manage inventory |
 | FR4.1| Add new product |
 | FR4.2| Delete product |
@@ -149,6 +147,8 @@ He/She inserts all necesseray data (price, name, producer, bar code...) and defi
 | FR4.6| Show product supplied by supplier |
 | FR4.7| Show list of items (and related info)|
 | FR4.8| Show value (in money) of inventory |
+| FR4.9| Get price of product |
+| FR4.10| Remove product quantity from inventory|
 | FR5.1 | Manage customer (in fidelity program) | 
 | FR5.2| Add new customer |
 | FR5.3| Delete customer |
@@ -232,7 +232,7 @@ He/She inserts all necesseray data (price, name, producer, bar code...) and defi
 |  Precondition     | The clerk is logged in the system, the last operation performed (in the check-out option) is a cash-closing procedure |
 |  Post condition     | The system is ready to perform checkout operations |
 | Step#        | Description  |
-|  1     | Shop clerk selects check-out option in the main menu |  
+|  1     | Shop clerk selects cashdesk option in the main menu |  
 |  2     | Shop clerk selects "Open cash-desk" |
 |  3     | Shop clerk insert amount of money present in cash register in the form |
 |  4     | Application enable check-out operations |
@@ -246,23 +246,35 @@ He/She inserts all necesseray data (price, name, producer, bar code...) and defi
 |  Variant     |  The shop clerk initiates the procedure and counts all the money inside the cash register, and inserts the amount in the proper field on the touch screen, the amount is not correct (Amount at cash-opening+earning[cash]=amount at cash-closing) an error message is shown and the cash-closing procedure is not performed. Only the manager has the right to perform this operation anyway |
 
 
-### Customer checks price ad bar code scanner inside market, UC4
-| Actors Involved        | Customer  |
+### Customer checks price ad barcode scanner inside market, UC4
+| Actors Involved        | Customer, barcode scanner  |
 | ------------- |:-------------:| 
 |  Precondition     | The whole system is up and running, the barcode scanner must be working and connected to the system |  
 |  Post condition     | The barcode scanner display shows the price of the scanned item |
-|  Nominal Scenario     | The customer takes a product and scans its barcode on the barcode scanner, the price is displayed |
+|  Nominal Scenario     | 1. The customer takes a product and scans its barcode on the barcode scanner <br> 2. The barcode scanner asks the application for the price <br> 3. The price is displayed |
 |  Variant        | The customer takes a product and scans its barcode on the barcode scanner, the price is not displayed because the product is not in the inventory and a "Go to information box" message is shown |
 | Variant |    The customer takes a product and attempts to scan its barcode on the barcode scanner, but the barcode is corrupt and no message is shown on the barcode reader display |
 
 ### Manager handles return of a product, UC5
-| Actors Involved        | Shop manager, customer, cash register  |
+| Actors Involved        | Shop manager, cash register, barcode scanner  |
 | ------------- |:-------------:| 
-|  Precondition     | The customer has the cashout receipt and the product  |  
+|  Precondition     |  The customer has the cashout receipt and the product, the manager is logged in the system  |  
 |  Post condition     | The item is returned, the quantity in the inventory is updated and the money is returned to the customer |
-|  Nominal Scenario     | The customer brings the product to the store manager, shows the receipt, the manager accepts the return request, the manager scans the product, the system updates the inventory and the money is returned. After completing the procedure, the system updates the amount of money inside the cash register (used to perform the return) |
-|  Variant        | The customer brings the product to the store manager, shows the receipt, the product is visibly used and the manager declines the return request |
-|  Variant    | The customer brings the product to the store manager, shows the receipt, the manager accepts the return request, the manager scans the product, the system updates the inventory and a store credit barcode is emitted |
+|  Nominal Scenario     | 1. The manager scans the product(s) t0 get product code <br> 2. The product is deleted from the transaction <br> 3. The application updates balance of cash register <br> 4. The system removes the retuned product from the inventory |
+
+##### Scenario 5.1 
+
+
+| Scenario 5.1 | |
+| ------------- |:-------------:| 
+|  Precondition     | The customer has the cashout receipt and the product, the manager is logged in the system |
+|  Post condition     | The product is returned, inventory and cash register are updated  |
+| Step#        | Description  |
+|  1     | Shop manager scans the product to obtain product code |  
+|  2     | He Deletes product from transactio |
+|  3     |The balance of the cash register is updated |
+|  4     | The product is added to the inventory |
+
 
 ### Logistic employee create product, UC6
 | Actors Involved        | Shop manager, logistic employee  |
@@ -281,7 +293,7 @@ He/She inserts all necesseray data (price, name, producer, bar code...) and defi
 | Variant |  The clerk scans the products (the customer can check the price of each item on the cash register display) and, eventually, the fidelity card; the system computes the total, the clerk selects Electronic Voucher as paying method, the customer authorizes the transaction by inserting the voucher card (and the PIN, eventually) in the POS; the system receives a confirmation of the payment from the POS, if the amount that must be paid is greater than the vouchers' value, the difference must be paid either by cash or credit card, otherwise if the amount is less, the difference is lost; then the cashout procedure ends, the inventory is updated and a receipt is printed  |
 | Variant |  The clerk scans the products (the customer can check the price of each item on the cash register display) and the fidelity card; the system computes the total, the clerk selects Store Credit as paying method, scans the Store Credits' barcode and the system receives a confirmation of its validity; if the amount that must be paid is greater than the store credit value, the difference must be paid either by cash or credit card, otherwise if the amount is less, the difference is lost; then the cashout procedure ends, the inventory is updated and a receipt is printed  |
 
-### Check points of fidelity card at bar code scanner, UC8
+### Check points of fidelity card at barcode scanner, UC8
 | Actors Involved        | Shop clerk, customer, fidelity card system  |
 | ------------- |:-------------:| 
 |  Precondition     | The customer has the fidelity card of the shop, the fidelity program system is working, and the barcode scanner is working and connected to fidelity system|  
@@ -301,15 +313,16 @@ He/She inserts all necesseray data (price, name, producer, bar code...) and defi
 ### Insert customer into fidelity program, UC10
 | Actors Involved        | Shop manager, customer, fidelity program system  |
 | ------------- |:-------------:| 
-|  Precondition     | The fidelity program system is up and running |  
+|  Precondition     | The shop manager in logged in the system, the fidelity program server is active |  
 |  Post condition     | The customer is present in the fidelity program |
 |  Nominal Scenario     | The customer goes to the information box asking for a new fidelity card, the shop manager logs in the system, the customer submits his sensible data(name,surname,birth), the system checks if the customer is already present. If the customer is not present a new fidelity card is assigned to the customer |
 | Variant | If the customer is already present, but he lost his previous fidelity card, the system tries to recover the informations of the previous card (points, prizes,...) and to include these informations in the new fidelity card |
 
 
+### Create account for employee, UC11
 
-
-- Create employee account UC
+| Actors Involved        | Shop manager  |
+| ------------- |:-------------:| 
 
 
 
