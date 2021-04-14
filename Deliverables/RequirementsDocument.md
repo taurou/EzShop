@@ -273,7 +273,15 @@ He/She inserts all necesseray data (price, name, producer, bar code...) and defi
 |  Nominal Scenario     | The customer goes to the information box asking for a new fidelity card, the shop manager logs in the system, the customer submits his sensible data(name,surname,birth), the system checks if the customer is already present. If the customer is not present a new fidelity card is assigned to the customer |
 | Variant | If the customer is already present, but he lost his previous fidelity card, the system tries to recover the informations of the previous card (points, prizes,...) and to include these informations in the new fidelity card |
 
-
+### Check points of fidelity card at bar code scanner, UC11
+| Actors Involved        | Shop clerk, customer, fidelity card system  |
+| ------------- |:-------------:| 
+| | |
+|  Precondition     | The customer has the fidelity card of the shop, the fidelity program system is working, and the barcode scanner is working and connected to fidelity system|  
+|  Post condition     | The number of points of the card, the card serial number, the last name of the customer, and the date of expiry are shown at the screen |
+|  Nominal Scenario     | The shop clerk and/or the customer at the barcode scanner system scans the fidelity card, the fidelity card holder lastname, the number of points in the card balance, and the card's serial number are shown on the display |
+|  Variant  1   |  The shop clerk and/or the customer at the barcode scanner system scans the fidelity card, but the barcode is corrupted, then a message of "Corrupted barcode" is displayed on the screen |
+|  Variant  2   |  The shop clerk and/or the customer at the barcode scanner system scans the fidelity card, but the card is expired, then a message of "Expired Card" is displayed on the screen |
 
 USE CASES:
 - Clerk performs login operations X
