@@ -276,7 +276,7 @@ He/She inserts all necesseray data (price, name, producer, barcode...) and defin
 |  4     | The product is added to the inventory |
 
 
-### Logistic employee create product, UC6
+### Logistic employee creates product, UC6
 | Actors Involved        | Shop manager, logistic employee  |
 | ------------- |:-------------:| 
 |  Precondition     | The product does not exist in the inventory (yet)  |  
@@ -331,7 +331,7 @@ He/She inserts all necesseray data (price, name, producer, barcode...) and defin
 
 # Glossary
 
-<img src="../Images/Glossary.png" width="700" height="500">
+<img src="../Images/Glossary.png" width="850" height="500">
 
 # System Design
 
@@ -339,7 +339,7 @@ Not really meaningful in this case.  Only software components are needed.
 
 # Deployment Diagram 
 
-<img src="../Images/DeploymentDiagram.png" width="700" height="500">
+<img src="../Images/DeploymentDiagram.png" width="850" height="500">
 
 
 
