@@ -9,7 +9,7 @@ Version: 1.0
 To do: - Update UCs (with list inside nominal case, left align)
        - Do scenarios
         - UC diagram
-		- Remove customer, he is not an actor
+		
 
 # Contents
 
@@ -63,7 +63,7 @@ EZShop is a software application to:
 
 ## Context Diagram
 
-<img src="../Images/UseCaseDiagram1.jpg" width="606" height="500">
+<img src="../Images/UseCaseDiagram1.png" width="606" height="500">
 
 \<actors are a subset of stakeholders>
 
@@ -86,7 +86,11 @@ EZShop is a software application to:
 # Stories and personas
 
 
--Manager (add new account)
+- Manager
+The manager is the one in charge of the supermaket. He/she must supervise everything. When a new clerk is hired, the manager must someway give to the new employee an account to log in the system to carry out daily operations. The manager wants this to be a quick and painless procedure, without the need to insert too much date.
+He also wants to set up privileges for the account, as the employee must no be able to access some part of the system.
+The manager is also in charge of returns. Typically, a customer shows up at any time with a recipt and the product(s) to return. The supermarket does not earn money from this operation, so the manager must be quick in dealing with it. He/she wants to tell the system to initiate a product, scan the barcode of the product and return the money to the customer. He/she does not want to deal with updating the inventory, the amount of money in the cash register and so on.
+The manager can also deal with converting fidelity points into prizes for the customer. Again, this procedure is just a way to attract more customer, but the supermarket does not earn anything (directly). The manager wants to be able to do this procedure in less than 1 minute. He/she just wants to scan the fidelity card of the customer and convert the points into credit store.
 
 
 - Shop clerk 
@@ -163,7 +167,11 @@ He/She inserts all necesseray data (price, name, producer, barcode...) and defin
 | FR5.5 | View account statistics |
 | FR5.6 | View account list |
 | FR5.7 | View account privileges |
-
+| FR6 | System Management |
+| FR7 | Client settings |
+| FR7.1 | View connection to server status |
+| FR7.2 | Modify server connection parameters |
+| FR7.3 | View connection to internet status |
 
 
 ## Non Functional Requirements
@@ -323,9 +331,23 @@ He/She inserts all necesseray data (price, name, producer, barcode...) and defin
 
 | Actors Involved        | Shop manager  |
 | ------------- |:-------------:| 
+|  Precondition     | The shop manager in logged in the system |  
+|  Post condition     | A new account for the clerk is present in the system |
+|  Nominal Scenario     | 1. Manager selects the users management option from the main menu <br> 2. He/She creates a new account inserting all necessary info<br> 3. Manager sets privileges for that account |
 
 
+##### Scenario 11.1
 
+
+| Scenario 11.1 | |
+| ------------- |:-------------:| 
+|  Precondition     | The shop manager in logged in the system |
+|  Post condition     | A new account for the clerk is present in the system |
+| Step#        | Description  |
+|  1     | Shop manager selects users management option in the main menu |  
+|  2     | Shop manager creates new account |
+|  3     | Inserts all necessary info |
+|  4     | Set account privileges |
 
 
 
