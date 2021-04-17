@@ -245,7 +245,7 @@ He/She inserts all necesseray data (price, name, producer, barcode...) and defin
 
 ### Clerk performs cash-closing procedure, UC3
 | Actors Involved        | Shop clerk  |
-| ------------- |:-------------:| 
+| ------------- |:-------------| 
 |  Precondition     | The clerk is logged in the system, the cash-desk is open  |  
 |  Post condition     | The system is not able to perform checkout operations |
 |  Nominal Scenario     | 1. The shop clerk selects the close cash-desk option and counts all the money inside the cash register 2. He/she inserts the amount in the proper field on the touch screen, the amount is correct (Amount at cash-opening+earning[cash]=amount at cash-closing) and the cash - closing procedure ends succesfully |
@@ -283,7 +283,7 @@ He/She inserts all necesseray data (price, name, producer, barcode...) and defin
 
 ### Checking price at barcode scanner inside market, UC4
 | Actors Involved        | barcode scanner  |
-| ------------- |:-------------:| 
+| ------------- |:-------------| 
 |  Precondition     | The system is up and running, the barcode scanner is working and connected to the system |  
 |  Post condition     | The barcode scanner display shows the price of the scanned item |
 |  Nominal Scenario     | 1. The customer takes a product and scans its barcode on the barcode scanner <br> 2. The barcode scanner asks the application for the price <br> 3. The price is displayed |
@@ -305,7 +305,7 @@ He/She inserts all necesseray data (price, name, producer, barcode...) and defin
 
 ### Manager handles return of a product, UC5
 | Actors Involved        | Shop manager, cash register, barcode scanner  |
-| ------------- |:-------------:| 
+| ------------- |:-------------| 
 |  Precondition     |  The customer has the cashout receipt and the product, the manager is logged in the system  |  
 |  Post condition     | The item is returned, the quantity in the inventory is updated and the money is returned to the customer |
 |  Nominal Scenario     | 1. The manager scans the product(s) to get product code <br> 2. The product is deleted from the original transaction <br> 3. The application updates balance of cash register <br> 4. The system adds the retuned product to the inventory |
@@ -326,7 +326,7 @@ He/She inserts all necesseray data (price, name, producer, barcode...) and defin
 
 ### Logistic employee creates product, UC6
 | Actors Involved        | Shop manager, logistic employee  |
-| ------------- |:-------------:| 
+| ------------- |:-------------| 
 |  Precondition     | The product does not exist in the inventory  |  
 |  Post condition     | The product is added in the inventory |
 |  Nominal Scenario     | 1. The logistic employee clicks "add new product" <br> 2. Inserts all the necessary data and confirms the operation <br> 3. The inventory is updated |
@@ -346,7 +346,7 @@ He/She inserts all necesseray data (price, name, producer, barcode...) and defin
 
 ### Clerk performs checkout for a customer, UC7
 | Actors Involved        | Clerk, customer, fidelity card system, Electronic Payment System, cash register  |
-| ------------- |:-------------:| 
+| ------------- |:-------------| 
 |  Precondition     | The clerk is succesfully logged in the system and the cash-opening procedure has been performed before   |  
 |  Post condition     | The checkout procedure ends and the inventory is updated |
 |  Nominal Scenario     | 1. The clerk scans the products and the fidelity card <br> 2. the system computes the total <br> 3. the clerk selects cash as paying method <br> 4. the cashout procedure ends, the inventory is updated and a receipt is printed |
