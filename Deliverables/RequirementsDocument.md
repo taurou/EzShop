@@ -203,24 +203,21 @@ He/She inserts all necesseray data (price, name, producer, barcode...) and defin
 ### Clerk performs login operations, UC1
 | Actors Involved        | Shop clerk  |
 | ------------- |:-------------| 
-|  Precondition     | The whole system is up and running and there is no one logged in|  
+|  Precondition     | The system is up and running and there is no one logged in|  
 |  Post condition     | The shop clerk is logged in the system |
 |  Nominal Scenario     | 1. The shop clerks inserts username and password on the touch screen attached to the cash register. <br>2. If the U/P are correct the system allows the log in |
-|  Variants     | The U/P are not correct|
-| | After 5 unsuccessful tries the system blocks|
-| | The manager must perform the log in in order to unlock the system and allow others to login |
+|  Variants     | 1. The shop clerks inserts username and password on the touch screen attached to the cash register. <br>2. The system shows a message "Uncorrect credentials" <br> 3. After 5 unsuccessful login attempts the system blocks and the shop manager has to login in order to unblock the system |
 
 ##### Scenario 1.1 
 
 
 | Scenario 1.1 | |
 | ------------- |:-------------:| 
-|  Precondition     | The whole system is up and running and there is no one logged in |
+|  Precondition     | The system is up and running and there is no one logged in |
 |  Post condition     | The shop clerk is logged in the system |
 | Step#        | Description  |
-|  1     | Shop clerk selects "Authorize and authenticate shop clerk" on the main page of the application |  
-|  2     | Inserts his/her username and password and clicks log-in |
-|  3     | Application looks up privileges of account and enables options |
+|  1     | Shop clerk inserts his/her username and password and clicks log-in |
+|  2     | Application looks up privileges of account and enables options |
 
 
 
@@ -229,7 +226,7 @@ He/She inserts all necesseray data (price, name, producer, barcode...) and defin
 | ------------- |:-------------| 
 |  Precondition     | The clerk is logged in the system, the last operation performed (in the check-out option) is a cash-closing procedure |  
 |  Post condition     | The system is ready to perform checkout operations |
-|  Nominal Scenario     | 1. The shop clerk initiates the procedure and counts all the money inside the cash register<br> 2. Inserts the amount in the proper field on the touch screen |
+|  Nominal Scenario     | 1. The shop clerk initiates the procedure and counts all the money inside the cash register<br> 2. He/she inserts the amount in the proper field on the touch screen |
 
 
 ##### Scenario 2.1 
@@ -243,32 +240,75 @@ He/She inserts all necesseray data (price, name, producer, barcode...) and defin
 |  1     | Shop clerk selects cashdesk option in the main menu |  
 |  2     | Shop clerk selects "Open cash-desk" |
 |  3     | Shop clerk insert amount of money present in cash register in the form |
-|  4     | Application enable check-out operations |
+|  4     | Shop clerk selects confirm |
+|  5     | Application enables check-out operations |
 
 ### Clerk performs cash-closing procedure, UC3
 | Actors Involved        | Shop clerk  |
 | ------------- |:-------------:| 
-|  Precondition     | The clerk is logged in the system, the last operation performed is a cash-opening procedure |  
+|  Precondition     | The clerk is logged in the system, the cash-desk is open  |  
 |  Post condition     | The system is not able to perform checkout operations |
-|  Nominal Scenario     | The shop clerk initiates the procedure and counts all the money inside the cash register, and inserts the amount in the proper field on the touch screen, the amount is correct (Amount at cash-opening+earning[cash]=amount at cash-closing) and the cash - closing procedure ends succesfully |
-|  Variant     |  The shop clerk initiates the procedure and counts all the money inside the cash register, and inserts the amount in the proper field on the touch screen, the amount is not correct (Amount at cash-opening+earning[cash]=amount at cash-closing) an error message is shown and the cash-closing procedure is not performed. Only the manager has the right to perform this operation anyway |
+|  Nominal Scenario     | 1. The shop clerk selects the close cash-desk option and counts all the money inside the cash register 2. He/she inserts the amount in the proper field on the touch screen, the amount is correct (Amount at cash-opening+earning[cash]=amount at cash-closing) and the cash - closing procedure ends succesfully |
+|  Variant     | 1.The shop clerk selects the close cash-desk option and counts all the money inside the cash register <br>2. He/she inserts the amount in the proper field on the touch screen, the amount is not correct (Amount at cash-opening+earning[cash]=amount at cash-closing) an error message is shown |
 
 
-### Customer checks price ad barcode scanner inside market, UC4
-| Actors Involved        | Customer, barcode scanner  |
+##### Scenario 3.1
+
+
+| Scenario 3.1 | |
 | ------------- |:-------------:| 
-|  Precondition     | The whole system is up and running, the barcode scanner must be working and connected to the system |  
+|  Precondition     | The clerk is logged in the system, the cash-desk is open |
+|  Post condition     | The system is not able to perform checkout operations |
+| Step#        | Description  |
+|  1     | Shop clerk selects cashdesk option in the main menu |  
+|  2     | Shop clerk selects "Close cash-desk" |
+|  3     | Shop clerk insert amount of money present in cash register in the form|
+|  4     | Shop clerk selects confirm |
+|  5     | Application disables check-out operations |
+
+##### Scenario 3.2
+
+
+| Scenario 3.2 | |
+| ------------- |:-------------:| 
+|  Precondition     | The clerk is logged in the system, the cash-desk is open |
+|  Post condition     | The system shows an error, the cash-desk is open |
+| Step#        | Description  |
+|  1     | Shop clerk selects cashdesk option in the main menu |  
+|  2     | Shop clerk selects "Close cash-desk" |
+|  3     | Shop clerk insert amount of money present in cash register in the form|
+|  4     | Shop clerk selects confirm |
+|  5     | The display shows an error |
+
+
+### Checking price at barcode scanner inside market, UC4
+| Actors Involved        | barcode scanner  |
+| ------------- |:-------------:| 
+|  Precondition     | The system is up and running, the barcode scanner is working and connected to the system |  
 |  Post condition     | The barcode scanner display shows the price of the scanned item |
 |  Nominal Scenario     | 1. The customer takes a product and scans its barcode on the barcode scanner <br> 2. The barcode scanner asks the application for the price <br> 3. The price is displayed |
-|  Variant        | The customer takes a product and scans its barcode on the barcode scanner, the price is not displayed because the product is not in the inventory and a "Go to information box" message is shown |
-| Variant |    The customer takes a product and attempts to scan its barcode on the barcode scanner, but the barcode is corrupt and no message is shown on the barcode reader display |
+|  Variant        | 1. The customer takes a product and scans its barcode on the barcode scanner  <br> 2. The barcode scanner asks the application for the price <br> 3. The price is not displayed because the product is not in the inventory <br> 4. "Go to information box" message is shown |
+
+##### Scenario 4.1 
+
+
+| Scenario 4.1 | |
+| ------------- |:-------------:| 
+|  Precondition     | The system is up and running, the barcode scanner is working and connected to the system |
+|  Post condition     | The barcode scanner display shows the price of the scanned item  |
+| Step#        | Description  |
+|  1     | The barcode scanner scans the product barcode |  
+|  2     | The barcode scanner gets the price of product  |
+|  3     | The display shows product name and price |
+
+
 
 ### Manager handles return of a product, UC5
 | Actors Involved        | Shop manager, cash register, barcode scanner  |
 | ------------- |:-------------:| 
 |  Precondition     |  The customer has the cashout receipt and the product, the manager is logged in the system  |  
 |  Post condition     | The item is returned, the quantity in the inventory is updated and the money is returned to the customer |
-|  Nominal Scenario     | 1. The manager scans the product(s) t0 get product code <br> 2. The product is deleted from the transaction <br> 3. The application updates balance of cash register <br> 4. The system removes the retuned product from the inventory |
+|  Nominal Scenario     | 1. The manager scans the product(s) to get product code <br> 2. The product is deleted from the original transaction <br> 3. The application updates balance of cash register <br> 4. The system adds the retuned product to the inventory |
 
 ##### Scenario 5.1 
 
@@ -279,27 +319,55 @@ He/She inserts all necesseray data (price, name, producer, barcode...) and defin
 |  Post condition     | The product is returned, inventory and cash register are updated  |
 | Step#        | Description  |
 |  1     | Shop manager scans the product to obtain product code |  
-|  2     | He Deletes product from transactio |
-|  3     |The balance of the cash register is updated |
+|  2     | He Deletes product from original transaction |
+|  3     | The balance of the cash register is updated |
 |  4     | The product is added to the inventory |
 
 
-### Logistic employee create product, UC6
+### Logistic employee creates product, UC6
 | Actors Involved        | Shop manager, logistic employee  |
 | ------------- |:-------------:| 
-|  Precondition     | The product does not exist in the inventory (yet)  |  
+|  Precondition     | The product does not exist in the inventory  |  
 |  Post condition     | The product is added in the inventory |
-|  Nominal Scenario     | The (logistic) employee clicks "add new product", inserts all the necessary data (name, producer, category, barcode, price....), confirms the operation and the inventory is updated |
+|  Nominal Scenario     | 1. The logistic employee clicks "add new product" <br> 2. Inserts all the necessary data and confirms the operation <br> 3. The inventory is updated |
+
+##### Scenario 6.1 
+
+| Scenario 6.1 | |
+| ------------- |:-------------:| 
+|  Precondition     | The product does not exist in the inventory |
+|  Post condition     | The product is added in the inventory  |
+| Step#        | Description  |
+|  1     | The employee selects "Add new product" |  
+|  2     | ID, Name, Price, Supplier, Quantity, barcode are inserted in the forms  |
+|  3     | The employee clicks "Ok" to confirm | 
+|  4     | The product is added to the inventory |
+
 
 ### Clerk performs checkout for a customer, UC7
 | Actors Involved        | Clerk, customer, fidelity card system, Electronic Payment System, cash register  |
 | ------------- |:-------------:| 
 |  Precondition     | The clerk is succesfully logged in the system and the cash-opening procedure has been performed before   |  
 |  Post condition     | The checkout procedure ends and the inventory is updated |
-|  Nominal Scenario     | The clerk scans the products (the customer can check the price of each item on the cash register display) and, eventually, the fidelity card; the system computes the total, the clerk selects cash as paying method, the cashout procedure ends,  the inventory is updated and a receipt is printed |
+|  Nominal Scenario     | 1. The clerk scans the products and the fidelity card <br> 2. the system computes the total <br> 3. the clerk selects cash as paying method <br> 4. the cashout procedure ends, the inventory is updated and a receipt is printed |
 | Variant |   The clerk scans the products (the customer can check the price of each item on the cash register display) and, eventually, the fidelity card; the system computes the total, the clerk selects Credit Card as paying method, the customer authorizes the transaction by inserting the card (and the PIN, eventually) in the POS; the system receives a confirmation of the payment from the POS, the cashout procedure ends, the inventory is updated and a receipt is printed  |
 | Variant |  The clerk scans the products (the customer can check the price of each item on the cash register display) and, eventually, the fidelity card; the system computes the total, the clerk selects Electronic Voucher as paying method, the customer authorizes the transaction by inserting the voucher card (and the PIN, eventually) in the POS; the system receives a confirmation of the payment from the POS, if the amount that must be paid is greater than the vouchers' value, the difference must be paid either by cash or credit card, otherwise if the amount is less, the difference is lost; then the cashout procedure ends, the inventory is updated and a receipt is printed  |
 | Variant |  The clerk scans the products (the customer can check the price of each item on the cash register display) and the fidelity card; the system computes the total, the clerk selects Store Credit as paying method, scans the Store Credits' barcode and the system receives a confirmation of its validity; if the amount that must be paid is greater than the store credit value, the difference must be paid either by cash or credit card, otherwise if the amount is less, the difference is lost; then the cashout procedure ends, the inventory is updated and a receipt is printed  |
+
+
+#### Scenario  7.1 / to be finished!!!!!!!  /
+| Scenario 7.1 | |
+| ------------- |:-------------:| 
+|  Precondition     | The product does not exist in the inventory |
+|  Post condition     | The product is added in the inventory  |
+| Step#        | Description  |
+|  1     | The clerk scans the product(s) |  
+|  2     | The system gets the product(s) price and computes the total |
+|  3     | The clerk scans the fidelity card | 
+|  4     | The cash payment option is selected |
+|  5     | The receipt is printed 
+
+Update product Update fidelity card points 
 
 ### Check points of fidelity card at barcode scanner, UC8
 | Actors Involved        | Shop clerk, customer, fidelity card system  |
