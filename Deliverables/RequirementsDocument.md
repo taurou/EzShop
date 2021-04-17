@@ -56,7 +56,7 @@ EZShop is a software application to:
 | Cash register | Hardware device where that stores money and print receipts  |
 | Software developer(s)/mainter(s) | Whoever is involved in the development of the app |
 | Fidelity program circuit | The fidelity program that the market uses to retain customers(may be common to many markets) | 
-| barcode scanner | Hardware device to scan products' barcode|
+| Barcode scanner | Hardware device to scan products' barcode|
 | Product | Products sold by the supermarket |
 | POS credit card | Hardware device to accept credit cards |
 # Context Diagram and interfaces
@@ -79,7 +79,7 @@ EZShop is a software application to:
 | Electronic Payment system(s) | API | Internet cable | 
 | Cash register | API | LAN Connectors |
 | Fidelity Program system | API | Internet cable |
-| barcode scanner | API | Cable |
+| Barcode scanner | API | Cable |
 | POS credit card | API | Cable |
 
 
@@ -87,6 +87,7 @@ EZShop is a software application to:
 
 
 - Manager
+
 The manager is the one in charge of the supermaket. He/she must supervise everything. When a new clerk is hired, the manager must someway give to the new employee an account to log in the system to carry out daily operations. The manager wants this to be a quick and painless procedure, without the need to insert too much date.
 He also wants to set up privileges for the account, as the employee must no be able to access some part of the system.
 The manager is also in charge of returns. Typically, a customer shows up at any time with a recipt and the product(s) to return. The supermarket does not earn money from this operation, so the manager must be quick in dealing with it. He/she wants to tell the system to initiate a product, scan the barcode of the product and return the money to the customer. He/she does not want to deal with updating the inventory, the amount of money in the cash register and so on.
@@ -282,7 +283,7 @@ He/She inserts all necesseray data (price, name, producer, barcode...) and defin
 
 
 ### Checking price at barcode scanner inside market, UC4
-| Actors Involved        | barcode scanner  |
+| Actors Involved        | Barcode scanner  |
 | ------------- |:-------------| 
 |  Precondition     | The system is up and running, the barcode scanner is working and connected to the system |  
 |  Post condition     | The barcode scanner display shows the price of the scanned item |
@@ -370,21 +371,47 @@ He/She inserts all necesseray data (price, name, producer, barcode...) and defin
 Update product Update fidelity card points 
 
 ### Check points of fidelity card at barcode scanner, UC8
-| Actors Involved        | Shop clerk, customer, fidelity card system  |
+| Actors Involved        | Barcode scanner, fidelity card system  |
 | ------------- |:-------------:| 
-|  Precondition     | The customer has the fidelity card of the shop, the fidelity program system is working, and the barcode scanner is working and connected to fidelity system|  
-|  Post condition     | The number of points of the card, the card serial number, the last name of the customer, and the date of expiry are shown at the screen |
-|  Nominal Scenario     | The shop clerk and/or the customer at the barcode scanner system scans the fidelity card, the fidelity card holder lastname, the number of points in the card balance, and the card's serial number are shown on the display |
-|  Variant  1   |  The shop clerk and/or the customer at the barcode scanner system scans the fidelity card, but the barcode is corrupted, then a message of "Corrupted barcode" is displayed on the screen |
-|  Variant  2   |  The shop clerk and/or the customer at the barcode scanner system scans the fidelity card, but the card is expired, then a message of "Expired Card" is displayed on the screen |
+|  Precondition     | The customer has the fidelity card of the shop, the fidelity card system is working, the barcode scanner is working and connected to the fidelity card system |  
+|  Post condition     | The number of points of the card, the card serial number, the last name of the customer and the expiration date are shown on the screen |
+|  Nominal Scenario     | 1. The shop clerk and/or the customer at the barcode scanner system scans the fidelity card <br> 2. The fidelity card holder lastname, the number of points in the card balance and the card's serial number are shown on the screen <br> |
+|  Variant  1   | 1. The shop clerk and/or the customer at the barcode scanner system scans the fidelity card <br> 2. The barcode scanner is corrupted, so a message of "Corrupted barcode" is displayed on the screen <br> |
+|  Variant  2   | 1. The shop clerk and/or the customer at the barcode scanner system scans the fidelity card <br> 2. The fidelity card is expired, so a message of "Expired Card" is displayed on the screen <br> |
+
+##### Scenario 8.1 
+
+
+| Scenario 8.1 | |
+| ------------- |:-------------:| 
+|  Precondition     | The customer has the fidelity card of the shop, the fidelity card system is working, the barcode scanner is working and connected to the fidelity card system |  
+|  Post condition     | The number of points of the card, the card serial number, the last name of the customer and the expiration date are shown on the screen |
+| Step#        | Description  |
+|  1     | The barcode scanner scans the fidelity card |  
+|  2     | The fidelity card system retrieves the informations on the fidelity card |
+|  3     | The fidelity card informations are show on the screen |
 
 ### Convert points into prizes at information box, UC9
 | Actors Involved        | Shop clerk/manager, fidelity card system  |
 | ------------- |:-------------:| 
 |  Precondition     | The clerk/manager is logged in the fidelity card system, the customer has a fidelity card with enough points to be converted in store credit ( at least N points ->  N points = 1 euro ) |  
 |  Post condition     | The amount of points converted in store credit is deducted from the customer's fidelity card, a store credit barcode is printed |
-|  Nominal Scenario     | The shop manager/clerk at the information box scans the fidelity card, the fidelity card holder information and the available points are shown on the display, the manager/clerk inserts the desired amount M in euros (1 euro for N points, M is integer), M*N points are deducted from the fidelity card available points and a store credit receipt with a barcode is printed |
-|  Variant     |  The shop manager/clerk at the information box scans the fidelity card, the fidelity card holder information and the available points are shown on the display; the manager/clerk inserts the desired amount M in euros (1 euro for N points), M*N is greater than the available points, an error message is shown and the shop manager/clerk is prompted to insert a correct value |
+|  Nominal Scenario     | 1. The shop manager/clerk at the information box scans the fidelity card <br> 2. The fidelity card holder informations and the available points are shown on the display <br> 3. The manager/clerk inserts the desired amount M in euros (1 euro for N points, M is integer) <br> 4. M*N points are deducted from the fidelity card available points <br> 5. A store credit receipt with a barcode is printed |
+|  Variant     | 1. The shop manager/clerk at the information box scans the fidelity card <br> 2. The fidelity card holder information and the available points are shown on the display <br> 3. The manager/clerk inserts the desired amount M in euros (1 euro for N points) <br> 4. M*N is greater than the available points <br> 5. An error message is shown and the shop manager/clerk is prompted to insert a correct value <br> |
+
+##### Scenario 9.1 
+
+
+| Scenario 9.1 | |
+| ------------- |:-------------:| 
+|  Precondition     | The clerk/manager is logged in the fidelity card system, the customer has a fidelity card with enough points to be converted in store credit ( at least N points ->  N points = 1 euro ) |  
+|  Post condition     | The amount of points converted in store credit is deducted from the customer's fidelity card, a store credit barcode is printed |
+| Step#        | Description  |
+|  1     | Shop manager is in the fidelity program menu |  
+|  2     | Shop manager selects "convert points in prizes" |
+|  3     | Shop manager scans the fidelity card |
+|  4     | Shop manager inserts the desired quantity to convert |
+|  5	 | The fidelity program system converts points |
 
 ### Insert customer into fidelity program, UC10
 | Actors Involved        | Shop manager, fidelity program system  |
@@ -411,7 +438,7 @@ Update product Update fidelity card points
 ##### Scenario 10.2 
 
 
-| Scenario 10.1 | Customer already present |
+| Scenario 10.2 | Customer already present |
 | ------------- |:-------------:| 
 |  Precondition     | The shop manager in logged in the system, the fidelity program server is active |  
 |  Post condition     | The system recovers the informations of the previous card |
