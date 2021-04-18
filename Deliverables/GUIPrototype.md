@@ -1,6 +1,6 @@
 # Graphical User Interface Prototype  
 
-Authors: Davide Perticone, Andrea Taurino, Francesco, Amr
+Authors: Amr Alashram, Davide Perticone, Andrea Taurino, Francesco Vaccaro
 
 Date:17/04/2021
 

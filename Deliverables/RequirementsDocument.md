@@ -1,6 +1,6 @@
 # Requirements Document 
 
-Authors: Davide Perticone 
+Authors: Amr Alashram, Davide Perticone, Andrea Taurino, Francesco Vaccaro 
 
 Date: 16/01/2021
 
