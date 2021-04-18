@@ -120,7 +120,7 @@ He/She inserts all necesseray data (price, name, producer, barcode...) and defin
 | FR1.3| Perform cash-opening procedure|
 | FR1.4| Perform cash-closing procedure |
 | FR1.5| Update amount of cash in the cash register| 
-| FR2 | Check-out of a customer |
+| FR2 | Manage check-out of a customer |
 | FR2.1| Start new check-out |
 | FR2.2| Scan a product/fidelity card | 
 | FR2.3| Remove scanned product |
@@ -160,20 +160,19 @@ He/She inserts all necesseray data (price, name, producer, barcode...) and defin
 | FR5.4| Update customer | 
 | FR5.5| Show points of a customer|
 | FR5.6| Convert points to prizes |
-| FR5 | Manage shop clerk accounts |
-| FR5.1| Add new account |
-| FR5.2 | Delete account |
-| FR5.3 | Edit account privileges |
-| FR5.4 | Block account |
-| FR5.5 | View account statistics |
-| FR5.6 | View account list |
-| FR5.7 | View account privileges |
-| FR6 | System Management |
-| FR7 | Client settings |
+| FR6 | Manage shop clerk accounts |
+| FR6.1| Add new account |
+| FR6.2 | Delete account |
+| FR6.3 | Edit account privileges |
+| FR6.4 | Block account |
+| FR6.5 | View account statistics |
+| FR6.6 | View account list |
+| FR6.7 | View account privileges |
+| FR7 | Manage client settings |
 | FR7.1 | View connection to server status |
 | FR7.2 | Modify server connection parameters |
 | FR7.3 | View connection to internet status |
-
+| FR8 | Manage System |
 
 ## Non Functional Requirements
 
@@ -196,7 +195,7 @@ He/She inserts all necesseray data (price, name, producer, barcode...) and defin
 
 
 ## Use case diagram
-\<define here UML Use case diagram UCD summarizing all use cases, and their relationships>
+<img src="../Images/UseCaseDiagram.png" width="1000" height="700">
 
 
 
