@@ -75,7 +75,6 @@ EZShop is a software application to:
 | Shop manager    | GUI  | Screen, keyboard, mouse |
 | Shop clerks | GUI | Touchscreen display, cash register |
 | Logistic employees | GUI |Screen, keyboard, mouse |
-| IT employee(s) | GUI | Screen, keyboard, mouse |
 | Electronic Payment system(s) | API | Internet cable | 
 | Cash register | API | LAN Connectors |
 | Fidelity Program system | API | Internet cable |
@@ -195,7 +194,7 @@ He/She inserts all necesseray data (price, name, producer, barcode...) and defin
 
 
 ## Use case diagram
-<img src="../Images/UseCaseDiagram.png" width="1000" height="700">
+<img src="../Images/UseCaseDiagram.png" width="800" height="700">
 
 
 
@@ -345,7 +344,7 @@ He/She inserts all necesseray data (price, name, producer, barcode...) and defin
 
 
 ### Clerk performs checkout for a customer, UC7
-| Actors Involved        | Clerk, customer, fidelity card system, Electronic Payment System, cash register  |
+| Actors Involved        | Clerk, customer, fidelity card system, Electronic Payment System, cash register, POS |
 | ------------- |:-------------| 
 |  Precondition     | The clerk is succesfully logged in the system and the cash-opening procedure has been performed before   |  
 |  Post condition     | The checkout procedure ends and the inventory is updated |
