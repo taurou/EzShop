@@ -348,23 +348,43 @@ He/She inserts all necesseray data (price, name, producer, barcode...) and defin
 | ------------- |:-------------| 
 |  Precondition     | The clerk is succesfully logged in the system and the cash-opening procedure has been performed before   |  
 |  Post condition     | The checkout procedure ends and the inventory is updated |
-|  Nominal Scenario     | 1. The clerk scans the products and the fidelity card <br> 2. the system computes the total <br> 3. the clerk selects cash as paying method <br> 4. the cashout procedure ends, the inventory is updated and a receipt is printed |
-| Variant |   The clerk scans the products (the customer can check the price of each item on the cash register display) and, eventually, the fidelity card; the system computes the total, the clerk selects Credit Card as paying method, the customer authorizes the transaction by inserting the card (and the PIN, eventually) in the POS; the system receives a confirmation of the payment from the POS, the cashout procedure ends, the inventory is updated and a receipt is printed  |
-| Variant |  The clerk scans the products (the customer can check the price of each item on the cash register display) and, eventually, the fidelity card; the system computes the total, the clerk selects Electronic Voucher as paying method, the customer authorizes the transaction by inserting the voucher card (and the PIN, eventually) in the POS; the system receives a confirmation of the payment from the POS, if the amount that must be paid is greater than the vouchers' value, the difference must be paid either by cash or credit card, otherwise if the amount is less, the difference is lost; then the cashout procedure ends, the inventory is updated and a receipt is printed  |
-| Variant |  The clerk scans the products (the customer can check the price of each item on the cash register display) and the fidelity card; the system computes the total, the clerk selects Store Credit as paying method, scans the Store Credits' barcode and the system receives a confirmation of its validity; if the amount that must be paid is greater than the store credit value, the difference must be paid either by cash or credit card, otherwise if the amount is less, the difference is lost; then the cashout procedure ends, the inventory is updated and a receipt is printed  |
+|  Nominal Scenario     | 1. The clerk scans the products  <br> 2. the system computes the total <br> 3. the clerk selects cash as paying method <br> 4. He/she inserts the money given by the customer in the proper form <br> 5. the cashout procedure is ended and the receipt is printed <br> 6. the inventory is updated  |
+| Variant | 1. The clerk scans the products and the fidelity card <br> 2. The system computes the total <br> 3. the clerk selects Credit Card as paying method <br> 4. the customer authorizes the transaction by inserting the card (and the PIN, eventually) in the POS <br>5. the system receives a confirmation of the payment from the POS, the cashout procedure is ended and the receipt is printed <br> 6. the inventory is updated <br> 7. The fidelity card system computes and adds the earned points  |
+| Variant |   1. The clerk scans the products and the fidelity card <br> 2. The system computes the total <br> 3. the clerk selects Electronic Voucher as paying method <br> 4. the customer authorizes the transaction by inserting the voucher card (and the PIN, eventually) in the POS <br> 5. The system receives a confirmation of the payment from the POS <br> 6. The voucher doesn't cover the total amount and the system computes the difference that must be paid <br> 7. the clerk selects Credit Card as paying method <br> 8. the customer authorizes the transaction by inserting the card (and the PIN, eventually) in the POS <br>9. the system receives a confirmation of the payment from the POS, the cashout procedure is ended and the receipt is printed <br> 10. the inventory is updated  <br> 11. The fidelity card system computes and adds the earned points |
+| Variant |   1. The clerk scans the products and the fidelity card <br> 2. He/she scans the store credit barcode  <br> 3. The system computes the total <br> 4. the clerk selects cash as paying method <br> 5. He/she inserts the money given by the customer in the proper form <br> 6. the cashout procedure is ended and the receipt is printed <br> 7. the inventory is updated <br> 8. The fidelity card system computes and adds the earned points |
 
 
-#### Scenario  7.1 / to be finished!!!!!!!  /
+#### Scenario  7.1 
 | Scenario 7.1 | |
 | ------------- |:-------------:| 
-|  Precondition     | The product does not exist in the inventory |
-|  Post condition     | The product is added in the inventory  |
+|  Precondition     | The clerk is succesfully logged in the system and the cash-opening procedure has been performed before |
+|  Post condition     | The checkout procedure ends and the inventory is updated  |
 | Step#        | Description  |
 |  1     | The clerk scans the product(s) |  
 |  2     | The system gets the product(s) price and computes the total |
-|  3     | The clerk scans the fidelity card | 
-|  4     | The cash payment option is selected |
-|  5     | The receipt is printed 
+|  3     | The cash payment option is selected | 
+|  4     | The given money is inserted in the proper form and the difference is computed |
+|  5     | The checkout transaction is ended  |
+|  6     | Print of the receipt |
+|  7     | Update of the inventory |
+
+
+#### Scenario  7.2
+| Scenario 7.2 | |
+| ------------- |:-------------:| 
+|  Precondition     | The clerk is succesfully logged in the system and the cash-opening procedure has been performed before |
+|  Post condition     | The checkout procedure ends, the inventory is updated and the fidelity program points are updated |
+| Step#        | Description  |
+|  1     | The clerk scans the product(s) and the fidelity card |  
+|  2     | The system gets the product(s) price and computes the total |
+|  3     | The credit card payment option is selected | 
+|  4     | The payment is authorized on the POS |
+|  5     | The checkout transaction is ended  |
+|  6     | Print of the receipt |
+|  7     | Update of the inventory |
+|  8     | Update of fidelity card points |
+
+
 
 Update product Update fidelity card points 
 
