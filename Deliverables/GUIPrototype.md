@@ -17,8 +17,10 @@ Version:1.0
 
 ### Logistic employee creates product, UC6
 <img src="../Images/GUI/MainMenu.png" width="850" height="500">
-<img src="../Images/GUI/Inventory.png" width="850" height="500">
+<img src="../Images/GUI/Inventory1.png" width="850" height="500">
 <img src="../Images/GUI/AddProduct.png" width="850" height="500">
+
+
 
 ### Clerk performs checkout for a customer, UC7
 <img src="../Images/GUI/OpenCashdesk.png" width="850" height="500">
@@ -31,3 +33,23 @@ Version:1.0
 <img src="../Images/GUI/FidelityProgramMenu.png" width="850" height="500">
 
 <img src="../Images/GUI/AddToFidelity.png" width="850" height="500">
+
+
+
+### Create account for employee, UC11
+
+<img src="../Images/GUI/UserManagementHP.png" width="850" height="500">
+
+<img src="../Images/GUI/AddUser.png" width="850" height="500">
+
+
+
+
+
+### Report payment of supplier invoice, UC12
+
+<img src="../Images/GUI/1-Main menu - Accounting selected.png" width="850" height="500">
+<img src="../Images/GUI/2-Accounting dashboard.png" width="850" height="500">
+<img src="../Images/GUI/3-Invoices menu.png" width="850" height="500">
+<img src="../Images/GUI/4-Invoices payment update.png" width="850" height="500">
+<img src="../Images/GUI/5-Invoice payment updated.png" width="850" height="500">
