@@ -172,6 +172,13 @@ He/She inserts all necesseray data (price, name, producer, barcode...) and defin
 | FR7.2 | Modify server connection parameters |
 | FR7.3 | View connection to internet status |
 | FR8 | Manage System |
+| FR9 | Manage accounting |
+| FR9.1 | View all the transactions |
+| FR9.2 | Manage the cash flow movement |
+| FR9.3 | Add invoice |
+| FR9.4 | Edit invoice |
+| FR9.6 | Display invoices |
+
 
 ## Non Functional Requirements
 
@@ -386,7 +393,6 @@ He/She inserts all necesseray data (price, name, producer, barcode...) and defin
 
 
 
-Update product Update fidelity card points 
 
 ### Check points of fidelity card at barcode scanner, UC8
 | Actors Involved        | Barcode scanner, fidelity card system  |
@@ -434,7 +440,7 @@ Update product Update fidelity card points
 ### Insert customer into fidelity program, UC10
 | Actors Involved        | Shop manager, fidelity program system  |
 | ------------- |:-------------:| 
-|  Precondition     | The shop manager in logged in the system, the fidelity program server is active |  
+|  Precondition     | The shop manager is logged in the system, the fidelity program server is active |  
 |  Post condition     | The customer is present in the fidelity program |
 |  Nominal Scenario     | 1. The shop manager enters in the manage customer menu (fidelity program) <br> 2. The shop manager select "add a new customer" in the fidelity program menu <br> 3. The shop manager submits customer's sensible data (name, surname, birth, ...) <br> 4. The system checks if the customer is already present <br> 5. If the customer is not present a new fidelity card is assigned to the customer <br> |
 | Variant | If the customer is already present (for example he lost his fidelity card) the system tries to recover the informations of the previous card (points, prizes,...) and to include these informations in the new fidelity card |
@@ -444,7 +450,7 @@ Update product Update fidelity card points
 
 | Scenario 10.1 | New customer inserted |
 | ------------- |:-------------:| 
-|  Precondition     | The shop manager in logged in the system, the fidelity program server is active |  
+|  Precondition     | The shop manager is logged in the system, the fidelity program server is active |  
 |  Post condition     | The customer enters in the fidelity program |
 | Step#        | Description  |
 |  1     | Shop manager is in the fidelity program menu |  
@@ -458,7 +464,7 @@ Update product Update fidelity card points
 
 | Scenario 10.2 | Customer already present |
 | ------------- |:-------------:| 
-|  Precondition     | The shop manager in logged in the system, the fidelity program server is active |  
+|  Precondition     | The shop manager is logged in the system, the fidelity program server is active |  
 |  Post condition     | The system recovers the informations of the previous card |
 | Step#        | Description  |
 |  1     | Shop manager is in the fidelity program menu |  
@@ -474,7 +480,7 @@ Update product Update fidelity card points
 
 | Actors Involved        | Shop manager  |
 | ------------- |:-------------:| 
-|  Precondition     | The shop manager in logged in the system |  
+|  Precondition     | The shop manager is logged in the system |  
 |  Post condition     | A new account for the clerk is present in the system |
 |  Nominal Scenario     | 1. Manager selects the users management option from the main menu <br> 2. He/She creates a new account inserting all necessary info<br> 3. Manager sets privileges for that account |
 
@@ -484,7 +490,7 @@ Update product Update fidelity card points
 
 | Scenario 11.1 | |
 | ------------- |:-------------:| 
-|  Precondition     | The shop manager in logged in the system |
+|  Precondition     | The shop manager is logged in the system |
 |  Post condition     | A new account for the clerk is present in the system |
 | Step#        | Description  |
 |  1     | Shop manager selects users management option in the main menu |  
@@ -492,7 +498,26 @@ Update product Update fidelity card points
 |  3     | Inserts all necessary info |
 |  4     | Set account privileges |
 
+### Report payment of supplier invoice, UC12
 
+| Actors Involved        | Shop manager  |
+| ------------- |:-------------| 
+|  Precondition     | The shop manager is logged in the system, the invoice is saved in the system and has not been paid |  
+|  Post condition     | The invoice payment status is updated |
+|  Nominal Scenario     | 1. Manager selects the accounting option from the main menu <br> 2. He/She selects the invoice management option <br> 3. He/she selects the invoice <br>4. He/she checks the option "paid" and confirms the operation <br> 5. The invoice status is updated |
+
+| Scenario 12.1 | |
+| ------------- |:-------------:| 
+|  Precondition     | The shop manager is logged in the system, the invoice is saved in the system and has not been paid |
+|  Post condition     | The invoice payment status is updated to "PAID" |
+| Step#        | Description  |
+|  1     | The shop manager selects "Accounting" in the main menu |  
+|  2     | The shop manager selects "Manage supplier invoice" |
+|  3     | Clicks on the "info" button on the left of the invoice |
+|  4     | Checks the payment status "paid" checkbox |
+|  5     | Notes are written in the text box |
+|  6     | The confirm button is clicked |
+|  7     | The invoice payment status is updated |
 
 # Glossary
 
