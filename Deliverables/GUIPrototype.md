@@ -16,6 +16,7 @@ Version:1.0
 <img src="../Images/GUI/CashOpening.png" width="850" height="500">
 <img src="../Images/GUI/OpenCashdesk.png" width="850" height="500">
 <br><br><br>
+
 ## Logistic employee creates product, UC6
 <img src="../Images/GUI/MainMenu.png" width="850" height="500">
 <img src="../Images/GUI/Inventory1.png" width="850" height="500">
