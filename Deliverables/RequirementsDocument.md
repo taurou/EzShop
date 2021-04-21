@@ -2,14 +2,11 @@
 
 Authors: Amr Alashram, Davide Perticone, Andrea Taurino, Francesco Vaccaro 
 
-Date: 16/01/2021
+Date: 21/01/2021
 
 Version: 1.0
 
-To do: - Update UCs (with list inside nominal case, left align)
-       - Do scenarios
-        - UC diagram
-		
+
 
 # Contents
 
