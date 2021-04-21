@@ -23,7 +23,6 @@ Version: 1.0
 - [Use case diagram and use cases](#use-case-diagram-and-use-cases)
 	+ [Use case diagram](#use-case-diagram)
 	+ [Use cases](#use-cases)
-    	+ [Relevant scenarios](#relevant-scenarios)
 - [Glossary](#glossary)
 - [System design](#system-design)
 - [Deployment diagram](#deployment-diagram)
@@ -202,7 +201,7 @@ He/She inserts all necesseray data (price, name, producer, barcode...) and defin
 <img src="../Images/UseCaseDiagram.png" width="800" height="700">
 
 
-
+## Use cases
 
 ### Clerk performs login operations, UC1
 | Actors Involved        | Shop clerk  |
@@ -353,10 +352,10 @@ He/She inserts all necesseray data (price, name, producer, barcode...) and defin
 | ------------- |:-------------| 
 |  Precondition     | The clerk is succesfully logged in the application and the cash-opening procedure has been performed before   |  
 |  Post condition     | The checkout procedure ends and the inventory is updated |
-|  Nominal Scenario     | 1. The clerk scans the products  <br> 2. the application computes the total <br> 3. the clerk selects cash as paying method <br> 4. He/she inserts the money given by the customer in the proper form <br> 5. the cashout procedure is ended and the receipt is printed <br> 6. the inventory is updated  |
-| Variant | 1. The clerk scans the products and the fidelity card <br> 2. The application computes the total <br> 3. the clerk selects Credit Card as paying method <br> 4. the customer authorizes the transaction by inserting the card (and the PIN, eventually) in the POS <br>5. the application receives a confirmation of the payment from the POS, the cashout procedure is ended and the receipt is printed <br> 6. the inventory is updated <br> 7. The fidelity card system computes and adds the earned points  |
-| Variant |   1. The clerk scans the products and the fidelity card <br> 2. The application computes the total <br> 3. the clerk selects Electronic Voucher as paying method <br> 4. the customer authorizes the transaction by inserting the voucher card (and the PIN, eventually) in the POS <br> 5. The application receives a confirmation of the payment from the POS <br> 6. The voucher doesn't cover the total amount and the application computes the difference that must be paid <br> 7. the clerk selects Credit Card as paying method <br> 8. the customer authorizes the transaction by inserting the card (and the PIN, eventually) in the POS <br>9. the application receives a confirmation of the payment from the POS, the cashout procedure is ended and the receipt is printed <br> 10. the inventory is updated  <br> 11. The fidelity card system computes and adds the earned points |
-| Variant |   1. The clerk scans the products and the fidelity card <br> 2. He/she scans the store credit barcode  <br> 3. The application computes the total <br> 4. the clerk selects cash as paying method <br> 5. He/she inserts the money given by the customer in the proper form <br> 6. the cashout procedure is ended and the receipt is printed <br> 7. the inventory is updated <br> 8. The fidelity card system computes and adds the earned points |
+|  Nominal Scenario     | 1. The clerk scans the products  <br> 2. The application computes the total <br> 3. The clerk selects cash as paying method <br> 4. He/she inserts the money given by the customer in the proper form <br> 5. The cashout procedure is ended and the receipt is printed <br> 6. The inventory is updated  |
+| Variant | 1. The clerk scans the products and the fidelity card <br> 2. The application computes the total <br> 3. The clerk selects Credit Card as paying method <br> 4. The customer authorizes the transaction by inserting the card (and the PIN, eventually) in the POS <br>5. The application receives a confirmation of the payment from the POS, the cashout procedure is ended and the receipt is printed <br> 6. The inventory is updated <br> 7. The fidelity card system computes and adds the earned points  |
+| Variant |   1. The clerk scans the products and the fidelity card <br> 2. The application computes the total <br> 3. The clerk selects Electronic Voucher as paying method <br> 4. The customer authorizes the transaction by inserting the voucher card (and the PIN, eventually) in the POS <br> 5. The application receives a confirmation of the payment from the POS <br> 6. The voucher doesn't cover the total amount and the application computes the difference that must be paid <br> 7. The clerk selects Credit Card as paying method <br> 8. The customer authorizes the transaction by inserting the card (and the PIN, eventually) in the POS <br>9. The application receives a confirmation of the payment from the POS, the cashout procedure is ended and the receipt is printed <br> 10. The inventory is updated  <br> 11. The fidelity card system computes and adds the earned points |
+| Variant |   1. The clerk scans the products and the fidelity card <br> 2. He/she scans the store credit barcode  <br> 3. The application computes the total <br> 4. The clerk selects cash as paying method <br> 5. He/she inserts the money given by the customer in the proper form <br> 6. The cashout procedure is ended and the receipt is printed <br> 7. The inventory is updated <br> 8. The fidelity card system computes and adds the earned points |
 
 
 #### Scenario  7.1 
@@ -394,7 +393,7 @@ He/She inserts all necesseray data (price, name, producer, barcode...) and defin
 
 ### Check points of fidelity card at barcode scanner, UC8
 | Actors Involved        | Barcode scanner, fidelity card system  |
-| ------------- |:-------------:| 
+| ------------- |:-------------| 
 |  Precondition     | The customer has the fidelity card of the shop, the fidelity card system is working, the barcode scanner is working and connected to the fidelity card system |  
 |  Post condition     | The number of points of the card, the card serial number, the last name of the customer and the expiration date are shown on the screen |
 |  Nominal Scenario     | 1. The shop clerk and/or the customer at the barcode scanner scans the fidelity card <br> 2. The fidelity card holder lastname, the number of points in the card balance and the card's serial number are shown on the screen <br> |
@@ -415,7 +414,7 @@ He/She inserts all necesseray data (price, name, producer, barcode...) and defin
 
 ### Convert points into prizes at information box, UC9
 | Actors Involved        | Shop clerk/manager, fidelity card system  |
-| ------------- |:-------------:| 
+| ------------- |:-------------| 
 |  Precondition     | The clerk/manager is logged in the fidelity card system, the customer has a fidelity card with enough points to be converted in store credit ( at least N points ->  N points = 1 euro ) |  
 |  Post condition     | The amount of points converted in store credit is deducted from the customer's fidelity card, a store credit barcode is printed |
 |  Nominal Scenario     | 1. The shop manager/clerk at the information box scans the fidelity card <br> 2. The fidelity card holder informations and the available points are shown on the display <br> 3. The manager/clerk inserts the desired amount M in euros (1 euro for N points, M is integer) <br> 4. M*N points are deducted from the fidelity card available points <br> 5. A store credit receipt with a barcode is printed |
@@ -437,7 +436,7 @@ He/She inserts all necesseray data (price, name, producer, barcode...) and defin
 
 ### Insert customer into fidelity program, UC10
 | Actors Involved        | Shop manager, fidelity program system  |
-| ------------- |:-------------:| 
+| ------------- |:-------------| 
 |  Precondition     | The shop manager is logged in the application, the fidelity program server is active |  
 |  Post condition     | The customer is present in the fidelity program |
 |  Nominal Scenario     | 1. The shop manager enters in the manage customer menu (fidelity program) <br> 2. The shop manager select "add a new customer" in the fidelity program menu <br> 3. The shop manager submits customer's sensible data (name, surname, birth, ...) <br> 4. The application checks if the customer is already present <br> 5. If the customer is not present a new fidelity card is assigned to the customer <br> |
@@ -477,7 +476,7 @@ He/She inserts all necesseray data (price, name, producer, barcode...) and defin
 ### Create account for employee, UC11
 
 | Actors Involved        | Shop manager  |
-| ------------- |:-------------:| 
+| ------------- |:-------------| 
 |  Precondition     | The shop manager is logged in the application |  
 |  Post condition     | A new account for the clerk is present in the application |
 |  Nominal Scenario     | 1. Manager selects the users management option from the main menu <br> 2. He/She creates a new account inserting all necessary info<br> 3. Manager sets privileges for that account |
