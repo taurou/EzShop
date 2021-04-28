@@ -44,7 +44,7 @@ The design must satisfy the Official Requirements document, notably functional a
 # Verification traceability matrix
 
 |        | EZShop | SaleTransaction.java | ReturnSaleTransaction.java | ProductType.java | Position.java | Order.java | Customer.java | Card.java | BalanceOperation.java | User |
-|--------|--------|----------------------|----------------------------|------------------|---------------|------------|---------------|-----------|-----------------------|------|
+|--------|:--------:|:----------------------:|:----------------------------:|:------------------:|:---------------:|:------------:|:---------------:|:-----------:|:-----------------------:|:------:|
 | FR1    | X      |                      |                            |                  |               |            |               |           |                       | X    |
 | FR1.1  | X      |                      |                            |                  |               |            |               |           |                       | X    |
 | FR1.2  | X      |                      |                            |                  |               |            |               |           |                       |      |
