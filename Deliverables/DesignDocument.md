@@ -111,5 +111,31 @@ The design must satisfy the Official Requirements document, notably functional a
 
 
 # Verification sequence diagrams 
-\<select key scenarios from the requirement document. For each of them define a sequence diagram showing that the scenario can be implemented by the classes and methods in the design>
+# Scenario 1-1
+<img src="../Images/SequenceDiagrams/1.1.png" width="750" height="430">
+
+# Scenario 1-2
+<img src="../Images/SequenceDiagrams/1.2.png" width="850" height="630">
+
+# Scenario 2-1
+<img src="../Images/SequenceDiagrams/2.1.png" width="750" height="430">
+
+# Scenario 3-1
+<img src="../Images/SequenceDiagrams/3.1.png" width="750" height="430">
+
+# Scenario 5-1
+<img src="../Images/SequenceDiagrams/5.1.png" width="552" height="350">
+
+# Scenario 6-3
+<img src="../Images/SequenceDiagrams/6.3.png" width="850" height="1000">
+
+# Scenario 7-1
+<img src="../Images/SequenceDiagrams/7.1.png" width="650" height="430">
+
+# Scenario 8-1
+<img src="../Images/SequenceDiagrams/8.1.png" width="900" height="700">
+
+# Scenario 9-1 Scenario 10-1
+<img src="../Images/SequenceDiagrams/9.1-10.1.png" width="750" height="800">
+
 
