@@ -21,7 +21,7 @@ The design must satisfy the Official Requirements document, notably functional a
 
 # High level design 
 
-<img src="../Images/HighLevelDiagrams/PackageDiagram.png" width="552" height="350">
+<img src="../Images/HighLevelDiagrams/PackageDiagram.png" width="552" height="450">
 
 
 
