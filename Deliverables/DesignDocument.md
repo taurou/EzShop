@@ -21,8 +21,7 @@ The design must satisfy the Official Requirements document, notably functional a
 
 # High level design 
 
-<discuss architectural styles used, if any>
-<report package diagram>
+<img src="../Images/HighLevelDiagrams/PackageDiagram.png" width="552" height="350">
 
 
 
@@ -31,7 +30,9 @@ The design must satisfy the Official Requirements document, notably functional a
 
 # Low level design
 
-<for each package, report class diagram>
+
+<img src="../Images/HighLevelDiagrams/ClassDiagram.png" width="1000" height="1000">
+
 
 
 
