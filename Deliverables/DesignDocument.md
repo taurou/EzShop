@@ -31,7 +31,7 @@ The design must satisfy the Official Requirements document, notably functional a
 # Low level design
 
 
-<img src="../Images/HighLevelDiagrams/ClassDiagram.png" width="1900" height="1900">
+<img src="../Images/HighLevelDiagrams/ClassDiagram.png" width="1900" height="1700">
 
 
 
