@@ -1,54 +1,3 @@
-1
-2
-3
-4
-5
-6
-7
-8
-9
-10
-11
-12
-13
-14
-15
-16
-17
-18
-19
-20
-21
-22
-23
-24
-25
-26
-27
-28
-29
-30
-31
-32
-33
-34
-35
-36
-37
-38
-39
-40
-41
-42
-43
-44
-45
-46
-47
-48
-49
-50
-51
 # Project Estimation  
 Authors:
 Date:
@@ -57,7 +6,7 @@ Version:
 - [Estimate by product decomposition]
 - [Estimate by activity decomposition ]
 # Estimation approach
-<Consider the EZGas  project as described in YOUR requirement document, assume that you are going to develop the project INDEPENDENT of the deadlines of the course>
+
 # Estimate by product decomposition
 ### 
 |             | Estimate                        |             
@@ -72,6 +21,14 @@ Version:
 ### 
 |         Activity name    | Estimated effort (person hours)   |             
 | ----------- | ------------------------------- | 
-| | |
+| Requirements Elicitation| 30|
+| Software Requirements Analysis| 50|
+| Software Design| 25|
+| Software Construction (Code and Unit Test)| 300|
+| Software Integration| 60|
+| Software Testing| 45|
+|  Software Installation| 15|
+
+
 ###
 Insert here Gantt chart with above activities
