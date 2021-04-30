@@ -33,5 +33,4 @@ Version:1.0
 |  Software Installation| 15|
 
 
-###
-Insert here Gantt chart with above activities
+<img src="../Images/Gantt.png" width="870" height="270">
