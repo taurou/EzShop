@@ -1,7 +1,10 @@
 # Project Estimation  
-Authors:
-Date:
-Version:
+Authors: Amr Alashram, Davide Perticone, Andrea Taurino, Francesco Vaccaro
+
+Date:30/04/2021
+
+Version:1.0
+
 # Contents
 - [Estimate by product decomposition]
 - [Estimate by activity decomposition ]

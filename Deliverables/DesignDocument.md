@@ -1,11 +1,11 @@
 # Design Document 
 
+Authors: Amr Alashram, Davide Perticone, Andrea Taurino, Francesco Vaccaro
 
-Authors: 
+Date:30/04/2021
 
-Date:
+Version:1.0
 
-Version:
 
 
 # Contents
