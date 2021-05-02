@@ -1,256 +1,375 @@
 package it.polito.ezshop.data;
 
 import it.polito.ezshop.exceptions.*;
+import it.polito.ezshop.model.EZShopData;
 
+
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.time.LocalDate;
 import java.util.List;
 
-
 public class EZShop implements EZShopInterface {
 
+	EZShopData applicationData;
 
-    @Override
-    public void reset() {
+	public EZShop() {
+		super();
+		loadData();
 
-    }
+	}
+	
+	
+	public boolean loadData() {
+		
+		 try
+	      {
+	         FileInputStream fis = new FileInputStream("EZShopData.ser");
+	         ObjectInputStream ois = new ObjectInputStream(fis);
+	        applicationData =  (EZShopData) ois.readObject();
+	         ois.close();
+	         fis.close();
+	      }catch(FileNotFoundException fnf){
+	    	  applicationData = new EZShopData();
+	    	  return true;
+	      }catch(IOException ioe)
+	      {
+	         ioe.printStackTrace();
+	         return false;
+	      }catch(ClassNotFoundException a)
+	      {
+	         System.out.println("Class not found");
+	         a.printStackTrace();
+	         return false;
+	      }
+	      
+		return false;
+	}
+	
+	public boolean saveData() {
+		
+		if(this.applicationData == null) {
+			return false;
+		}
+		
+		 try
+         {
+                FileOutputStream fos =
+                   new FileOutputStream("EZShopData.ser");
+                ObjectOutputStream oos = new ObjectOutputStream(fos);
+                oos.writeObject(this.applicationData);
+                oos.close();
+                fos.close();
+                System.out.printf("Serialized data is saved");
+         }catch(IOException ioe)
+          {
+                ioe.printStackTrace();
+          }
+		
+		return true;
+	}
+		
+	
+	
+	
 
-    @Override
-    public Integer createUser(String username, String password, String role) throws InvalidUsernameException, InvalidPasswordException, InvalidRoleException {
-        return null;
-    }
+	@Override
+	public void reset() {
 
-    @Override
-    public boolean deleteUser(Integer id) throws InvalidUserIdException, UnauthorizedException {
-        return false;
-    }
+	}
 
-    @Override
-    public List<User> getAllUsers() throws UnauthorizedException {
-        return null;
-    }
+	@Override
+	public Integer createUser(String username, String password, String role)
+			throws InvalidUsernameException, InvalidPasswordException, InvalidRoleException {
+		if (username.compareTo("") == 0 || username == null)
+			throw new InvalidUsernameException();
+		if (password.compareTo("") == 0 || password == null)
+			throw new InvalidPasswordException();
+		if (role.compareTo("Administrator") != 0 && role.compareTo("Cashier") != 0
+				&& role.compareTo("ShopManager") != 0)
+			throw new InvalidRoleException();
+		if (applicationData.users.containsKey(username))
+			return -1;
+		applicationData.users.put(username,
+				new it.polito.ezshop.model.User(applicationData.userIDs, username, password, role));
+        saveData();
+		return applicationData.userIDs++;
+	}
 
-    @Override
-    public User getUser(Integer id) throws InvalidUserIdException, UnauthorizedException {
-        return null;
-    }
+	@Override
+	public boolean deleteUser(Integer id) throws InvalidUserIdException, UnauthorizedException {
+		return false;
+	}
 
-    @Override
-    public boolean updateUserRights(Integer id, String role) throws InvalidUserIdException, InvalidRoleException, UnauthorizedException {
-        return false;
-    }
+	@Override
+	public List<User> getAllUsers() throws UnauthorizedException {
+		return null;
+	}
 
-    @Override
-    public User login(String username, String password) throws InvalidUsernameException, InvalidPasswordException {
-        return null;
-    }
+	@Override
+	public User getUser(Integer id) throws InvalidUserIdException, UnauthorizedException {
+		return null;
+	}
 
-    @Override
-    public boolean logout() {
-        return false;
-    }
+	@Override
+	public boolean updateUserRights(Integer id, String role)
+			throws InvalidUserIdException, InvalidRoleException, UnauthorizedException {
+		return false;
+	}
 
-    @Override
-    public Integer createProductType(String description, String productCode, double pricePerUnit, String note) throws InvalidProductDescriptionException, InvalidProductCodeException, InvalidPricePerUnitException, UnauthorizedException {
-        return null;
-    }
+	@Override
+	public User login(String username, String password) throws InvalidUsernameException, InvalidPasswordException {
+		if (username.compareTo("") == 0 || username == null)
+			throw new InvalidUsernameException();
+		if (password.compareTo("") == 0 || password == null)
+			throw new InvalidPasswordException();
+		applicationData.loggedInUser = applicationData.users.get(username);
+		return applicationData.loggedInUser;
+	}
 
-    @Override
-    public boolean updateProduct(Integer id, String newDescription, String newCode, double newPrice, String newNote) throws InvalidProductIdException, InvalidProductDescriptionException, InvalidProductCodeException, InvalidPricePerUnitException, UnauthorizedException {
-        return false;
-    }
+	@Override
+	public boolean logout() {
+		return false;
+	}
 
-    @Override
-    public boolean deleteProductType(Integer id) throws InvalidProductIdException, UnauthorizedException {
-        return false;
-    }
+	@Override
+	public Integer createProductType(String description, String productCode, double pricePerUnit, String note)
+			throws InvalidProductDescriptionException, InvalidProductCodeException, InvalidPricePerUnitException,
+			UnauthorizedException {
+		return null;
+	}
 
-    @Override
-    public List<ProductType> getAllProductTypes() throws UnauthorizedException {
-        return null;
-    }
+	@Override
+	public boolean updateProduct(Integer id, String newDescription, String newCode, double newPrice, String newNote)
+			throws InvalidProductIdException, InvalidProductDescriptionException, InvalidProductCodeException,
+			InvalidPricePerUnitException, UnauthorizedException {
+		return false;
+	}
 
-    @Override
-    public ProductType getProductTypeByBarCode(String barCode) throws InvalidProductCodeException, UnauthorizedException {
-        return null;
-    }
+	@Override
+	public boolean deleteProductType(Integer id) throws InvalidProductIdException, UnauthorizedException {
+		return false;
+	}
 
-    @Override
-    public List<ProductType> getProductTypesByDescription(String description) throws UnauthorizedException {
-        return null;
-    }
+	@Override
+	public List<ProductType> getAllProductTypes() throws UnauthorizedException {
+		return null;
+	}
 
-    @Override
-    public boolean updateQuantity(Integer productId, int toBeAdded) throws InvalidProductIdException, UnauthorizedException {
-        return false;
-    }
+	@Override
+	public ProductType getProductTypeByBarCode(String barCode)
+			throws InvalidProductCodeException, UnauthorizedException {
+		return null;
+	}
 
-    @Override
-    public boolean updatePosition(Integer productId, String newPos) throws InvalidProductIdException, InvalidLocationException, UnauthorizedException {
-        return false;
-    }
+	@Override
+	public List<ProductType> getProductTypesByDescription(String description) throws UnauthorizedException {
+		return null;
+	}
 
-    @Override
-    public Integer issueOrder(String productCode, int quantity, double pricePerUnit) throws InvalidProductCodeException, InvalidQuantityException, InvalidPricePerUnitException, UnauthorizedException {
-        return null;
-    }
+	@Override
+	public boolean updateQuantity(Integer productId, int toBeAdded)
+			throws InvalidProductIdException, UnauthorizedException {
+		return false;
+	}
 
-    @Override
-    public Integer payOrderFor(String productCode, int quantity, double pricePerUnit) throws InvalidProductCodeException, InvalidQuantityException, InvalidPricePerUnitException, UnauthorizedException {
-        return null;
-    }
+	@Override
+	public boolean updatePosition(Integer productId, String newPos)
+			throws InvalidProductIdException, InvalidLocationException, UnauthorizedException {
+		return false;
+	}
 
-    @Override
-    public boolean payOrder(Integer orderId) throws InvalidOrderIdException, UnauthorizedException {
-        return false;
-    }
+	@Override
+	public Integer issueOrder(String productCode, int quantity, double pricePerUnit) throws InvalidProductCodeException,
+			InvalidQuantityException, InvalidPricePerUnitException, UnauthorizedException {
+		return null;
+	}
 
-    @Override
-    public boolean recordOrderArrival(Integer orderId) throws InvalidOrderIdException, UnauthorizedException, InvalidLocationException {
-        return false;
-    }
+	@Override
+	public Integer payOrderFor(String productCode, int quantity, double pricePerUnit)
+			throws InvalidProductCodeException, InvalidQuantityException, InvalidPricePerUnitException,
+			UnauthorizedException {
+		return null;
+	}
 
-    @Override
-    public List<Order> getAllOrders() throws UnauthorizedException {
-        return null;
-    }
+	@Override
+	public boolean payOrder(Integer orderId) throws InvalidOrderIdException, UnauthorizedException {
+		return false;
+	}
 
-    @Override
-    public Integer defineCustomer(String customerName) throws InvalidCustomerNameException, UnauthorizedException {
-        return null;
-    }
+	@Override
+	public boolean recordOrderArrival(Integer orderId)
+			throws InvalidOrderIdException, UnauthorizedException, InvalidLocationException {
+		return false;
+	}
 
-    @Override
-    public boolean modifyCustomer(Integer id, String newCustomerName, String newCustomerCard) throws InvalidCustomerNameException, InvalidCustomerCardException, InvalidCustomerIdException, UnauthorizedException {
-        return false;
-    }
+	@Override
+	public List<Order> getAllOrders() throws UnauthorizedException {
+		return null;
+	}
 
-    @Override
-    public boolean deleteCustomer(Integer id) throws InvalidCustomerIdException, UnauthorizedException {
-        return false;
-    }
+	@Override
+	public Integer defineCustomer(String customerName) throws InvalidCustomerNameException, UnauthorizedException {
+		return null;
+	}
 
-    @Override
-    public Customer getCustomer(Integer id) throws InvalidCustomerIdException, UnauthorizedException {
-        return null;
-    }
+	@Override
+	public boolean modifyCustomer(Integer id, String newCustomerName, String newCustomerCard)
+			throws InvalidCustomerNameException, InvalidCustomerCardException, InvalidCustomerIdException,
+			UnauthorizedException {
+		return false;
+	}
 
-    @Override
-    public List<Customer> getAllCustomers() throws UnauthorizedException {
-        return null;
-    }
+	@Override
+	public boolean deleteCustomer(Integer id) throws InvalidCustomerIdException, UnauthorizedException {
+		return false;
+	}
 
-    @Override
-    public String createCard() throws UnauthorizedException {
-        return null;
-    }
+	@Override
+	public Customer getCustomer(Integer id) throws InvalidCustomerIdException, UnauthorizedException {
+		return null;
+	}
 
-    @Override
-    public boolean attachCardToCustomer(String customerCard, Integer customerId) throws InvalidCustomerIdException, InvalidCustomerCardException, UnauthorizedException {
-        return false;
-    }
+	@Override
+	public List<Customer> getAllCustomers() throws UnauthorizedException {
+		return null;
+	}
 
-    @Override
-    public boolean modifyPointsOnCard(String customerCard, int pointsToBeAdded) throws InvalidCustomerCardException, UnauthorizedException {
-        return false;
-    }
+	@Override
+	public String createCard() throws UnauthorizedException {
+		return null;
+	}
 
-    @Override
-    public Integer startSaleTransaction() throws UnauthorizedException {
-        return null;
-    }
+	@Override
+	public boolean attachCardToCustomer(String customerCard, Integer customerId)
+			throws InvalidCustomerIdException, InvalidCustomerCardException, UnauthorizedException {
+		return false;
+	}
 
-    @Override
-    public boolean addProductToSale(Integer transactionId, String productCode, int amount) throws InvalidTransactionIdException, InvalidProductCodeException, InvalidQuantityException, UnauthorizedException {
-        return false;
-    }
+	@Override
+	public boolean modifyPointsOnCard(String customerCard, int pointsToBeAdded)
+			throws InvalidCustomerCardException, UnauthorizedException {
+		return false;
+	}
 
-    @Override
-    public boolean deleteProductFromSale(Integer transactionId, String productCode, int amount) throws InvalidTransactionIdException, InvalidProductCodeException, InvalidQuantityException, UnauthorizedException {
-        return false;
-    }
+	@Override
+	public Integer startSaleTransaction() throws UnauthorizedException {
+		return null;
+	}
 
-    @Override
-    public boolean applyDiscountRateToProduct(Integer transactionId, String productCode, double discountRate) throws InvalidTransactionIdException, InvalidProductCodeException, InvalidDiscountRateException, UnauthorizedException {
-        return false;
-    }
+	@Override
+	public boolean addProductToSale(Integer transactionId, String productCode, int amount)
+			throws InvalidTransactionIdException, InvalidProductCodeException, InvalidQuantityException,
+			UnauthorizedException {
+		return false;
+	}
 
-    @Override
-    public boolean applyDiscountRateToSale(Integer transactionId, double discountRate) throws InvalidTransactionIdException, InvalidDiscountRateException, UnauthorizedException {
-        return false;
-    }
+	@Override
+	public boolean deleteProductFromSale(Integer transactionId, String productCode, int amount)
+			throws InvalidTransactionIdException, InvalidProductCodeException, InvalidQuantityException,
+			UnauthorizedException {
+		return false;
+	}
 
-    @Override
-    public int computePointsForSale(Integer transactionId) throws InvalidTransactionIdException, UnauthorizedException {
-        return 0;
-    }
+	@Override
+	public boolean applyDiscountRateToProduct(Integer transactionId, String productCode, double discountRate)
+			throws InvalidTransactionIdException, InvalidProductCodeException, InvalidDiscountRateException,
+			UnauthorizedException {
+		return false;
+	}
 
-    @Override
-    public boolean endSaleTransaction(Integer transactionId) throws InvalidTransactionIdException, UnauthorizedException {
-        return false;
-    }
+	@Override
+	public boolean applyDiscountRateToSale(Integer transactionId, double discountRate)
+			throws InvalidTransactionIdException, InvalidDiscountRateException, UnauthorizedException {
+		return false;
+	}
 
-    @Override
-    public boolean deleteSaleTransaction(Integer saleNumber) throws InvalidTransactionIdException, UnauthorizedException {
-        return false;
-    }
+	@Override
+	public int computePointsForSale(Integer transactionId) throws InvalidTransactionIdException, UnauthorizedException {
+		return 0;
+	}
 
-    @Override
-    public SaleTransaction getSaleTransaction(Integer transactionId) throws InvalidTransactionIdException, UnauthorizedException {
-        return null;
-    }
+	@Override
+	public boolean endSaleTransaction(Integer transactionId)
+			throws InvalidTransactionIdException, UnauthorizedException {
+		return false;
+	}
 
-    @Override
-    public Integer startReturnTransaction(Integer saleNumber) throws /*InvalidTicketNumberException,*/InvalidTransactionIdException, UnauthorizedException {
-        return null;
-    }
+	@Override
+	public boolean deleteSaleTransaction(Integer saleNumber)
+			throws InvalidTransactionIdException, UnauthorizedException {
+		return false;
+	}
 
-    @Override
-    public boolean returnProduct(Integer returnId, String productCode, int amount) throws InvalidTransactionIdException, InvalidProductCodeException, InvalidQuantityException, UnauthorizedException {
-        return false;
-    }
+	@Override
+	public SaleTransaction getSaleTransaction(Integer transactionId)
+			throws InvalidTransactionIdException, UnauthorizedException {
+		return null;
+	}
 
-    @Override
-    public boolean endReturnTransaction(Integer returnId, boolean commit) throws InvalidTransactionIdException, UnauthorizedException {
-        return false;
-    }
+	@Override
+	public Integer startReturnTransaction(Integer saleNumber)
+			throws /* InvalidTicketNumberException, */InvalidTransactionIdException, UnauthorizedException {
+		return null;
+	}
 
-    @Override
-    public boolean deleteReturnTransaction(Integer returnId) throws InvalidTransactionIdException, UnauthorizedException {
-        return false;
-    }
+	@Override
+	public boolean returnProduct(Integer returnId, String productCode, int amount) throws InvalidTransactionIdException,
+			InvalidProductCodeException, InvalidQuantityException, UnauthorizedException {
+		return false;
+	}
 
-    @Override
-    public double receiveCashPayment(Integer ticketNumber, double cash) throws InvalidTransactionIdException, InvalidPaymentException, UnauthorizedException {
-        return 0;
-    }
+	@Override
+	public boolean endReturnTransaction(Integer returnId, boolean commit)
+			throws InvalidTransactionIdException, UnauthorizedException {
+		return false;
+	}
 
-    @Override
-    public boolean receiveCreditCardPayment(Integer ticketNumber, String creditCard) throws InvalidTransactionIdException, InvalidCreditCardException, UnauthorizedException {
-        return false;
-    }
+	@Override
+	public boolean deleteReturnTransaction(Integer returnId)
+			throws InvalidTransactionIdException, UnauthorizedException {
+		return false;
+	}
 
-    @Override
-    public double returnCashPayment(Integer returnId) throws InvalidTransactionIdException, UnauthorizedException {
-        return 0;
-    }
+	@Override
+	public double receiveCashPayment(Integer ticketNumber, double cash)
+			throws InvalidTransactionIdException, InvalidPaymentException, UnauthorizedException {
+		return 0;
+	}
 
-    @Override
-    public double returnCreditCardPayment(Integer returnId, String creditCard) throws InvalidTransactionIdException, InvalidCreditCardException, UnauthorizedException {
-        return 0;
-    }
+	@Override
+	public boolean receiveCreditCardPayment(Integer ticketNumber, String creditCard)
+			throws InvalidTransactionIdException, InvalidCreditCardException, UnauthorizedException {
+		return false;
+	}
 
-    @Override
-    public boolean recordBalanceUpdate(double toBeAdded) throws UnauthorizedException {
-        return false;
-    }
+	@Override
+	public double returnCashPayment(Integer returnId) throws InvalidTransactionIdException, UnauthorizedException {
+		return 0;
+	}
 
-    @Override
-    public List<BalanceOperation> getCreditsAndDebits(LocalDate from, LocalDate to) throws UnauthorizedException {
-        return null;
-    }
+	@Override
+	public double returnCreditCardPayment(Integer returnId, String creditCard)
+			throws InvalidTransactionIdException, InvalidCreditCardException, UnauthorizedException {
+		return 0;
+	}
 
-    @Override
-    public double computeBalance() throws UnauthorizedException {
-        return 0;
-    }
+	@Override
+	public boolean recordBalanceUpdate(double toBeAdded) throws UnauthorizedException {
+		return false;
+	}
+
+	@Override
+	public List<BalanceOperation> getCreditsAndDebits(LocalDate from, LocalDate to) throws UnauthorizedException {
+		return null;
+	}
+
+	@Override
+	public double computeBalance() throws UnauthorizedException {
+		return 0;
+	}
 }

@@ -4,19 +4,19 @@ import java.time.LocalDate;
 
 public interface BalanceOperation {
 
-    int getBalanceId();
+	int getBalanceId();
 
-    void setBalanceId(int balanceId);
+	void setBalanceId(int balanceId);
 
-    LocalDate getDate();
+	LocalDate getDate();
 
-    void setDate(LocalDate date);
+	void setDate(LocalDate date);
 
-    double getMoney();
+	double getMoney();
 
-    void setMoney(double money);
+	void setMoney(double money);
 
-    String getType();
+	String getType();
 
-    void setType(String type);
+	void setType(String type);
 }
