@@ -11,8 +11,13 @@ import java.io.Serializable;
  */
 public class User implements it.polito.ezshop.data.User, Serializable {
 
-	Integer id;
-	String username, password, role;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -6356429832423358223L;
+	
+	private Integer id;
+	private String username, password, role;
 	
 	
 	
@@ -79,6 +84,10 @@ public class User implements it.polito.ezshop.data.User, Serializable {
 
 	public void setRole(String role) {
 		this.role = role;
+	}
+	
+	public boolean isAdmin() {
+		return this.role.compareTo("Administrator")==0 ? true : false;
 	}
 	
 
