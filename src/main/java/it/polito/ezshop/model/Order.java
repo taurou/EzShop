@@ -1,6 +1,8 @@
 package it.polito.ezshop.model;
 
-public class Order implements it.polito.ezshop.data.Order {
+import java.io.Serializable;
+
+public class Order implements it.polito.ezshop.data.Order, Serializable {
 	Integer balanceId;
 	String productCode;
 	it.polito.ezshop.model.ProductType product;

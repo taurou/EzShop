@@ -4,57 +4,54 @@ import java.io.Serializable;
 import java.time.LocalDate;
 
 public class BalanceOperation implements it.polito.ezshop.data.BalanceOperation, Serializable {
+	
+	int balanceId;
+	LocalDate date;
+	double money;
+	String type;
+	
+	
 
-	public BalanceOperation() {
-		// TODO Auto-generated constructor stub
+	public BalanceOperation(int balanceId, LocalDate date, double money, String type) {
+		super();
+		this.balanceId = balanceId;
+		this.date = date;
+		this.money = money;
+		this.type = type;
 	}
 
-	@Override
 	public int getBalanceId() {
-		// TODO Auto-generated method stub
-		return 0;
+		return balanceId;
 	}
 
-	@Override
 	public void setBalanceId(int balanceId) {
-		// TODO Auto-generated method stub
-
+		this.balanceId = balanceId;
 	}
 
-	@Override
 	public LocalDate getDate() {
-		// TODO Auto-generated method stub
-		return null;
+		return date;
 	}
 
-	@Override
 	public void setDate(LocalDate date) {
-		// TODO Auto-generated method stub
-
+		this.date = date;
 	}
 
-	@Override
 	public double getMoney() {
-		// TODO Auto-generated method stub
-		return 0;
+		return money;
 	}
 
-	@Override
 	public void setMoney(double money) {
-		// TODO Auto-generated method stub
-
+		this.money = money;
 	}
 
-	@Override
 	public String getType() {
-		// TODO Auto-generated method stub
-		return null;
+		return type;
 	}
 
-	@Override
 	public void setType(String type) {
-		// TODO Auto-generated method stub
-
+		this.type = type;
 	}
+
+
 
 }

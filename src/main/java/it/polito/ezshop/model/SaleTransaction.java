@@ -15,6 +15,7 @@ public class SaleTransaction implements it.polito.ezshop.data.SaleTransaction, S
 	double discountRate, price=0;
 	String status;
 	
+	
 	public boolean applyProductDiscount(String barcode) {
 		
 		/*it.polito.ezshop.model.TicketEntry prod = products.get(barcode);

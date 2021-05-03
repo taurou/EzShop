@@ -14,11 +14,13 @@ public class EZShopData implements Serializable {
 	public User loggedInUser;
 	public HashMap<String, User> users;
 	public HashMap<Integer, String> idToUsername;
-	public Integer userIDs, productTypeIDs, orderIDs, customerIDs, cardIDs, saleTransactionIDs;
+	public Integer userIDs, productTypeIDs, orderIDs, customerIDs, cardIDs, saleTransactionIDs, returnTransactionIDs, balanceOperationIDs;
 	public HashMap<String, Position> positions;
 	public HashMap<Integer, Order> orders;
 	public HashMap<Integer, Customer> customers;
 	public HashMap<Integer, Card> cards;
+	public HashMap<Integer, ReturnSaleTransaction> returnSaleTransactions;
+	public HashMap<Integer, BalanceOperation> balanceOperations;
 	public LinkedHashMap<Integer, SaleTransaction> saleTransactions;
 	public double balance;
 	
@@ -30,16 +32,20 @@ public class EZShopData implements Serializable {
 		idToUsername = new HashMap<>();
 		productTypes = new HashMap<>();
 		positions = new HashMap<>();
-		orders = new HashMap<Integer, Order>();
+		orders = new HashMap<>();
 		customers = new HashMap<>();
 		cards = new HashMap<>();
 		saleTransactions = new LinkedHashMap<>();
+		returnSaleTransactions = new HashMap<>();
+		balanceOperations = new HashMap<>();
 		userIDs=1;
 		productTypeIDs=1;
 		orderIDs=1;
 		customerIDs=1;
 		cardIDs=1000000000;
 		saleTransactionIDs=1;
+		returnTransactionIDs=1;
+		balanceOperationIDs=1;
 	}
 
 }

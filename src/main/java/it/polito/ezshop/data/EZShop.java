@@ -1,9 +1,11 @@
 package it.polito.ezshop.data;
 
 import it.polito.ezshop.exceptions.*;
+import it.polito.ezshop.model.BalanceOperation;
 import it.polito.ezshop.model.Card;
 import it.polito.ezshop.model.EZShopData;
 import it.polito.ezshop.model.Position;
+import it.polito.ezshop.model.ReturnSaleTransaction;
 import it.polito.ezshop.model.SaleTransaction;
 
 import java.io.FileInputStream;
@@ -16,7 +18,7 @@ import java.time.LocalDate;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
-
+import java.time.LocalDate;
 public class EZShop implements EZShopInterface {
 
 	EZShopData data;
@@ -107,8 +109,8 @@ public class EZShop implements EZShopInterface {
 			return false;
 		if (data.idToUsername.remove(id) == null)
 			return false;
-		saveData();
-		return true;
+		
+		return saveData();
 	}
 
 	@Override
@@ -148,8 +150,8 @@ public class EZShop implements EZShopInterface {
 		if (data.users.get(data.idToUsername.get(id)) == null)
 			return false;
 		data.users.get(data.idToUsername.get(id)).setRole(role);
-		saveData();
-		return true;
+		
+		return saveData();
 	}
 
 	@Override
@@ -226,8 +228,8 @@ public class EZShop implements EZShopInterface {
 
 		data.productTypes.remove(id);
 		data.productTypes.put(productId, tmp);
-		saveData();
-		return true;
+		
+		return saveData();
 	}
 
 	@Override
@@ -238,8 +240,8 @@ public class EZShop implements EZShopInterface {
 		// check id
 		if (data.productTypes.remove(id) == null)
 			return false;
-		saveData();
-		return true;
+		
+		return saveData();
 	}
 
 	@Override
@@ -293,10 +295,10 @@ public class EZShop implements EZShopInterface {
 			return false;
 
 		if (p.addQuantity(toBeAdded) >= 0) {
-			saveData();
-			return true;
+			
+			return saveData();
 		}
-		return false;
+		return false; 
 	}
 
 	@Override
@@ -321,8 +323,8 @@ public class EZShop implements EZShopInterface {
 		Position p = new Position(newPos);
 		data.positions.put(newPos, p);
 		p.setProduct(data.productTypes.get(productId));
-		saveData();
-		return true;
+		
+		return saveData();
 	}
 
 	@Override
@@ -359,11 +361,12 @@ public class EZShop implements EZShopInterface {
 			throw new UnauthorizedException();
 
 		it.polito.ezshop.model.ProductType p = data.productTypes.get(Integer.valueOf(productCode));
-		if (p == null || data.balance < pricePerUnit * quantity)
+		if (p == null || computeBalance() < pricePerUnit * quantity)
 			return -1;
 		data.orders.put(data.orderIDs,
 				new it.polito.ezshop.model.Order(p, pricePerUnit, quantity, data.orderIDs, "PAYED"));
-		saveData();
+		data.balanceOperations.put(data.balanceOperationIDs, new BalanceOperation(data.balanceOperationIDs++, LocalDate.now(),-pricePerUnit * quantity, "ORDER"));
+
 		return data.orderIDs++;
 	}
 
@@ -379,8 +382,10 @@ public class EZShop implements EZShopInterface {
 		if (o == null || o.getStatus().compareTo("ISSUED") != 0)
 			return false;
 		o.setStatus("PAYED");
-		data.balance -= o.getPricePerUnit() * o.getQuantity();
-		// create and link balance operation to order
+		
+		data.balanceOperations.put(data.balanceOperationIDs, new BalanceOperation(data.balanceOperationIDs++, LocalDate.now(),-o.getPricePerUnit() * o.getQuantity(), "ORDER"));
+		saveData();
+		
 		return true;
 	}
 
@@ -405,8 +410,8 @@ public class EZShop implements EZShopInterface {
 
 		o.setStatus("COMPLETED");
 		p.addQuantity(o.getQuantity());
-		saveData();
-		return true;
+		
+		return saveData();
 	}
 
 	@Override
@@ -460,8 +465,8 @@ public class EZShop implements EZShopInterface {
 			return false;
 		c.setCustomerCard(newCustomerCard);
 		card.setCustomer(c);
-		saveData();
-		return true;
+		
+		return saveData();
 	}
 
 	@Override
@@ -476,8 +481,8 @@ public class EZShop implements EZShopInterface {
 		if(c == null) return false;
 		data.customers.remove(id);
 		data.cards.get(Integer.valueOf(c.getCustomerCard())).setCustomer(null);
-		saveData();
-		return true;
+		
+		return saveData();
 	}
 
 	@Override
@@ -531,8 +536,8 @@ public class EZShop implements EZShopInterface {
 		
 		c.setCustomerCard(customerCard);
 		card.setCustomer(c);
-		saveData();
-		return true;
+		
+		return saveData();
 	}
 
 	@Override
@@ -547,8 +552,8 @@ public class EZShop implements EZShopInterface {
 		if( card==null || card.getCustomer() == null || card.getPoints()+pointsToBeAdded<0) return false;
 		
 		card.addPoints(pointsToBeAdded);
-		saveData();
-		return true;
+		
+		return saveData();
 	}
 
 	@Override
@@ -639,86 +644,252 @@ public class EZShop implements EZShopInterface {
 
 	@Override
 	public int computePointsForSale(Integer transactionId) throws InvalidTransactionIdException, UnauthorizedException {
-		return 0;
+		if (data.loggedInUser.getRole().compareTo("Administrator") != 0
+				&& data.loggedInUser.getRole().compareTo("Cashier") != 0
+				&& data.loggedInUser.getRole().compareTo("ShopManager") != 0)
+			throw new UnauthorizedException();
+		if (transactionId == null || transactionId <=0) throw new InvalidTransactionIdException();
+		it.polito.ezshop.model.SaleTransaction t = data.saleTransactions.get(transactionId);
+		if( t == null ) return -1;
+		return (int) Math.floor(t.getPrice());
 	}
 
 	@Override
 	public boolean endSaleTransaction(Integer transactionId)
 			throws InvalidTransactionIdException, UnauthorizedException {
-		return false;
+		if (data.loggedInUser.getRole().compareTo("Administrator") != 0
+				&& data.loggedInUser.getRole().compareTo("Cashier") != 0
+				&& data.loggedInUser.getRole().compareTo("ShopManager") != 0)
+			throw new UnauthorizedException();
+		if (transactionId == null || transactionId <=0) throw new InvalidTransactionIdException();
+		it.polito.ezshop.model.SaleTransaction t = data.saleTransactions.get(transactionId);
+		if( t == null  || t.getStatus().compareTo("CLOSED")==0 || t.getStatus().compareTo("PAYED")==0) return false;
+		t.setStatus("CLOSED");
+		
+		
+		return saveData();
 	}
 
 	@Override
 	public boolean deleteSaleTransaction(Integer saleNumber)
 			throws InvalidTransactionIdException, UnauthorizedException {
-		return false;
+		if (data.loggedInUser.getRole().compareTo("Administrator") != 0
+				&& data.loggedInUser.getRole().compareTo("Cashier") != 0
+				&& data.loggedInUser.getRole().compareTo("ShopManager") != 0)
+			throw new UnauthorizedException();
+		if (saleNumber == null || saleNumber <=0) throw new InvalidTransactionIdException();
+		it.polito.ezshop.model.SaleTransaction t = data.saleTransactions.get(saleNumber);
+		if( t == null  || t.getStatus().compareTo("PAYED")==0) return false;
+		data.saleTransactions.remove(saleNumber);
+		t.entries.forEach( x -> data.productTypes.get(Integer.valueOf(x.getBarCode())).addQuantity(x.getAmount()));
+		
+		return saveData();
 	}
 
 	@Override
 	public SaleTransaction getSaleTransaction(Integer transactionId)
 			throws InvalidTransactionIdException, UnauthorizedException {
-		return null;
+		if (data.loggedInUser.getRole().compareTo("Administrator") != 0
+				&& data.loggedInUser.getRole().compareTo("Cashier") != 0
+				&& data.loggedInUser.getRole().compareTo("ShopManager") != 0)
+			throw new UnauthorizedException();
+		if (transactionId == null || transactionId <=0) throw new InvalidTransactionIdException();
+		it.polito.ezshop.model.SaleTransaction t = data.saleTransactions.get(transactionId);
+		if( t == null  || t.getStatus().compareTo("CLOSED")!=0) return null;
+		
+		return t;
 	}
 
 	@Override
 	public Integer startReturnTransaction(Integer saleNumber)
 			throws /* InvalidTicketNumberException, */InvalidTransactionIdException, UnauthorizedException {
-		return null;
+		if (data.loggedInUser.getRole().compareTo("Administrator") != 0
+				&& data.loggedInUser.getRole().compareTo("Cashier") != 0
+				&& data.loggedInUser.getRole().compareTo("ShopManager") != 0)
+			throw new UnauthorizedException();
+		if (saleNumber == null || saleNumber <=0) throw new InvalidTransactionIdException();
+		it.polito.ezshop.model.SaleTransaction t = data.saleTransactions.get(saleNumber);
+		if( t == null  || t.getStatus().compareTo("PAYED")!=0) return -1;
+		data.returnSaleTransactions.put(data.returnTransactionIDs, new ReturnSaleTransaction(data.returnTransactionIDs, t));
+		return data.returnTransactionIDs++;
 	}
 
 	@Override
 	public boolean returnProduct(Integer returnId, String productCode, int amount) throws InvalidTransactionIdException,
 			InvalidProductCodeException, InvalidQuantityException, UnauthorizedException {
-		return false;
+		if (data.loggedInUser.getRole().compareTo("Administrator") != 0
+				&& data.loggedInUser.getRole().compareTo("Cashier") != 0
+				&& data.loggedInUser.getRole().compareTo("ShopManager") != 0)
+			throw new UnauthorizedException();
+		if (returnId == null || returnId <=0) throw new InvalidTransactionIdException();
+		//check barcode
+		if (amount <=0) throw new InvalidQuantityException();
+		it.polito.ezshop.model.ProductType p = data.productTypes.get(Integer.valueOf(productCode));
+		it.polito.ezshop.model.ReturnSaleTransaction rt = data.returnSaleTransactions.get(returnId);
+		if(rt == null ) return false;
+		it.polito.ezshop.data.TicketEntry te = rt.getReturnOfSaleTransaction().getEntries().stream().filter( x -> x.getBarCode().compareTo(productCode)==0).findFirst().orElse(null);
+		if (p == null || te == null || te.getAmount() < amount) return false;
+		
+		rt.addProduct(p, amount);
+		
+		return true;
 	}
 
 	@Override
 	public boolean endReturnTransaction(Integer returnId, boolean commit)
 			throws InvalidTransactionIdException, UnauthorizedException {
-		return false;
+		if (data.loggedInUser.getRole().compareTo("Administrator") != 0
+				&& data.loggedInUser.getRole().compareTo("Cashier") != 0
+				&& data.loggedInUser.getRole().compareTo("ShopManager") != 0)
+			throw new UnauthorizedException();
+		if (returnId == null || returnId <=0) throw new InvalidTransactionIdException();
+		ReturnSaleTransaction rt = data.returnSaleTransactions.get(returnId);
+		if (rt.isCommitted() == true) return false;
+		if(commit) {
+		rt.setCommitted(true);
+		rt.entries.forEach( x -> rt.getReturnOfSaleTransaction().addProduct(data.productTypes.get(Integer.valueOf(x.getBarCode())), -x.getAmount()));
+		
+		
+		}else {
+			data.returnSaleTransactions.remove(returnId);
+			
+		}
+		
+		return saveData();
 	}
 
 	@Override
 	public boolean deleteReturnTransaction(Integer returnId)
 			throws InvalidTransactionIdException, UnauthorizedException {
-		return false;
+		if (data.loggedInUser.getRole().compareTo("Administrator") != 0
+				&& data.loggedInUser.getRole().compareTo("Cashier") != 0
+				&& data.loggedInUser.getRole().compareTo("ShopManager") != 0)
+			throw new UnauthorizedException();
+		if (returnId == null || returnId <=0) throw new InvalidTransactionIdException();
+		ReturnSaleTransaction rt = data.returnSaleTransactions.get(returnId);
+		if(rt == null || rt.getStatus().compareTo("PAYED")==0) return false;
+		rt.entries.forEach( x -> rt.getReturnOfSaleTransaction().addProduct(data.productTypes.get(Integer.valueOf(x.getBarCode())), x.getAmount()));
+		
+		
+		return saveData();
 	}
 
 	@Override
 	public double receiveCashPayment(Integer ticketNumber, double cash)
 			throws InvalidTransactionIdException, InvalidPaymentException, UnauthorizedException {
-		return 0;
+		if (data.loggedInUser.getRole().compareTo("Administrator") != 0
+				&& data.loggedInUser.getRole().compareTo("Cashier") != 0
+				&& data.loggedInUser.getRole().compareTo("ShopManager") != 0)
+			throw new UnauthorizedException();
+		if(cash <= 0 ) throw new InvalidPaymentException();
+		if(ticketNumber == null || ticketNumber<=0) throw new InvalidTransactionIdException();
+		it.polito.ezshop.model.SaleTransaction t = data.saleTransactions.get(ticketNumber);
+		if(t == null || t.getPrice() > cash) return -1;
+		t.setStatus("PAYED");
+		
+		data.balanceOperations.put(data.balanceOperationIDs, new BalanceOperation(data.balanceOperationIDs++, LocalDate.now(), t.getPrice(), "SALE"));
+		saveData();
+		return cash-t.getPrice(); 
 	}
 
 	@Override
 	public boolean receiveCreditCardPayment(Integer ticketNumber, String creditCard)
 			throws InvalidTransactionIdException, InvalidCreditCardException, UnauthorizedException {
-		return false;
+		if (data.loggedInUser.getRole().compareTo("Administrator") != 0
+				&& data.loggedInUser.getRole().compareTo("Cashier") != 0
+				&& data.loggedInUser.getRole().compareTo("ShopManager") != 0)
+			throw new UnauthorizedException();
+		if(/*credit card not valid*/ creditCard == null || creditCard.isBlank() ||  false/*check luh alg*/) throw new InvalidCreditCardException();
+		if(ticketNumber == null || ticketNumber<=0) throw new InvalidTransactionIdException();
+		it.polito.ezshop.model.SaleTransaction t = data.saleTransactions.get(ticketNumber);
+		if(t == null || t.getPrice() > 10000 /*check amount on credit card*/) return false;
+		t.setStatus("PAYED");
+		data.balanceOperations.put(data.balanceOperationIDs, new BalanceOperation(data.balanceOperationIDs++, LocalDate.now(), t.getPrice(), "SALE"));
+		saveData();
+		return true;
 	}
 
 	@Override
 	public double returnCashPayment(Integer returnId) throws InvalidTransactionIdException, UnauthorizedException {
-		return 0;
+		if (data.loggedInUser.getRole().compareTo("Administrator") != 0
+				&& data.loggedInUser.getRole().compareTo("Cashier") != 0
+				&& data.loggedInUser.getRole().compareTo("ShopManager") != 0)
+			throw new UnauthorizedException();
+		if(returnId == null || returnId <= 0) throw new InvalidTransactionIdException();
+		it.polito.ezshop.model.ReturnSaleTransaction rt = data.returnSaleTransactions.get(returnId);
+		if (rt == null || !rt.isCommitted()) return -1;
+		rt.setStatus("PAYED");
+		data.balanceOperations.put(data.balanceOperationIDs, new BalanceOperation(data.balanceOperationIDs++, LocalDate.now(), rt.getPrice(), "RETURN"));
+		saveData();
+		return rt.getPrice();
 	}
 
 	@Override
 	public double returnCreditCardPayment(Integer returnId, String creditCard)
 			throws InvalidTransactionIdException, InvalidCreditCardException, UnauthorizedException {
-		return 0;
+		if (data.loggedInUser.getRole().compareTo("Administrator") != 0
+				&& data.loggedInUser.getRole().compareTo("Cashier") != 0
+				&& data.loggedInUser.getRole().compareTo("ShopManager") != 0)
+			throw new UnauthorizedException();
+		if(returnId == null || returnId <= 0) throw new InvalidTransactionIdException();
+		if(/*credit card not valid*/ creditCard == null || creditCard.isBlank() ||  false/*check luh alg*/) throw new InvalidCreditCardException();
+		it.polito.ezshop.model.ReturnSaleTransaction rt = data.returnSaleTransactions.get(returnId);
+		if (rt == null || !rt.isCommitted()) return -1;
+		rt.setStatus("PAYED");
+		data.balanceOperations.put(data.balanceOperationIDs, new BalanceOperation(data.balanceOperationIDs++, LocalDate.now(), rt.getPrice(), "RETURN"));
+		saveData();
+		return rt.getPrice();
 	}
 
 	@Override
 	public boolean recordBalanceUpdate(double toBeAdded) throws UnauthorizedException {
-		return false;
+		if (data.loggedInUser.getRole().compareTo("Administrator") != 0				
+				&& data.loggedInUser.getRole().compareTo("ShopManager") != 0)
+			throw new UnauthorizedException();
+		if(computeBalance()+toBeAdded < 0) return false;
+		data.balanceOperations.put(data.balanceOperationIDs, new BalanceOperation(data.balanceOperationIDs++, LocalDate.now(), toBeAdded, toBeAdded >= 0 ? "CREDIT" : "DEBIT"));
+		saveData();
+		return true;
 	}
 
 	@Override
-	public List<BalanceOperation> getCreditsAndDebits(LocalDate from, LocalDate to) throws UnauthorizedException {
+	public List<it.polito.ezshop.data.BalanceOperation> getCreditsAndDebits(LocalDate from, LocalDate to) throws UnauthorizedException {
+		if (data.loggedInUser.getRole().compareTo("Administrator") != 0
+				&& data.loggedInUser.getRole().compareTo("Cashier") != 0
+				&& data.loggedInUser.getRole().compareTo("ShopManager") != 0)
+			throw new UnauthorizedException();
+			LinkedList<it.polito.ezshop.data.BalanceOperation> l = new LinkedList<>();
+		
+		if(data.balanceOperations.size() == 0) return l;
+		if( from == null && to == null) {
+			l.addAll(data.balanceOperations.values());
+			return l;
+		}
+		if( from == null ) {
+			data.balanceOperations.values().stream().filter( x -> x.getDate().compareTo(to)<=0).collect(Collectors.toList());
+		}
+		if( to == null) {
+			data.balanceOperations.values().stream().filter( x -> x.getDate().compareTo(from)>=0).collect(Collectors.toList());
+
+		}
+		
+		data.balanceOperations.values().stream().filter( x -> x.getDate().compareTo(to)<=0 && x.getDate().compareTo(from)>=0).collect(Collectors.toList());
+		
+		
+		
+		
 		return null;
 	}
 
 	@Override
 	public double computeBalance() throws UnauthorizedException {
+		if (data.loggedInUser.getRole().compareTo("Administrator") != 0
+				&& data.loggedInUser.getRole().compareTo("Cashier") != 0
+				&& data.loggedInUser.getRole().compareTo("ShopManager") != 0)
+			throw new UnauthorizedException();
+		data.balanceOperations.values().stream().mapToDouble( x -> x.getMoney()).sum();
+		if(data.balanceOperations.size()!=0) {
+		return data.balanceOperations.values().stream().mapToDouble( x -> x.getMoney()).sum();}
 		return 0;
 	}
 }
