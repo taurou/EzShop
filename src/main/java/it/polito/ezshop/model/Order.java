@@ -1,6 +1,7 @@
 package it.polito.ezshop.model;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 
 public class Order implements it.polito.ezshop.data.Order, Serializable {
 	Integer balanceId;
@@ -18,7 +19,7 @@ public class Order implements it.polito.ezshop.data.Order, Serializable {
 		return balanceId;
 	}
 
-	public Order(it.polito.ezshop.model.ProductType product, double pricePerUnit, int quantity, Integer orderId, String status) {
+	public Order(it.polito.ezshop.model.ProductType product, double pricePerUnit, int quantity, Integer orderId, String status, LocalDate date) {
 		super();
 		this.product = product;
 		this.productCode = this.product.getBarCode();
