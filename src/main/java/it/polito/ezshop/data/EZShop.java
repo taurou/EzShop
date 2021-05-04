@@ -14,7 +14,10 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.lang.reflect.Array;
 import java.time.LocalDate;
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -72,10 +75,30 @@ public class EZShop implements EZShopInterface {
 
 		return true;
 	}
+	//48 = 0
 
+	private boolean checkBarcodeValidity(String barcode) {
+		if(barcode == null || barcode.isBlank() || !barcode.chars().allMatch(Character::isDigit)) return false;
+		int l = barcode.length();
+		if(l != 12 && l != 13 && l!=14) return false;
+		Integer sum=0, nextTen=10;
+		
+		char[] barcodeChar = barcode.toCharArray();
+        for(int i=0; i< l; i++) {
+        	sum+= i%2 == 0 ? (barcodeChar[i]-48)*3 : (barcodeChar[i]-48);
+        }
+        while(nextTen < sum) {
+        	nextTen+=10;
+        }
+        
+        if(nextTen-sum == barcodeChar[l-1]) return true;
+
+		return false;
+	}
+	
 	@Override
 	public void reset() {
-
+       
 	}
 
 	@Override
@@ -185,7 +208,7 @@ public class EZShop implements EZShopInterface {
 			throw new InvalidProductDescriptionException();
 		if (pricePerUnit <= 0)
 			throw new InvalidPricePerUnitException();
-		// check barcode validity
+		if(checkBarcodeValidity(productCode) ) throw new InvalidProductCodeException();
 
 		Integer productId = Integer.valueOf(productCode);
 		if (note == null)
@@ -211,7 +234,7 @@ public class EZShop implements EZShopInterface {
 			throw new InvalidProductDescriptionException();
 		if (id <= 0 || id == null)
 			throw new InvalidProductIdException();
-		// check barcode
+		if(checkBarcodeValidity(newCode) ) throw new InvalidProductCodeException();
 
 		Integer productId = Integer.valueOf(newCode);
 		if (!data.productTypes.containsKey(id))
@@ -264,7 +287,7 @@ public class EZShop implements EZShopInterface {
 		if (data.loggedInUser == null
 				|| (!data.loggedInUser.isAdmin() && data.loggedInUser.getRole().compareTo("ShopManager") == 0))
 			throw new UnauthorizedException();
-//check barcode
+		if(checkBarcodeValidity(barCode) ) throw new InvalidProductCodeException();
 		Integer productId = Integer.valueOf(barCode);
 
 		return data.productTypes.get(productId);
@@ -308,7 +331,7 @@ public class EZShop implements EZShopInterface {
 				|| (!data.loggedInUser.isAdmin() && data.loggedInUser.getRole().compareTo("ShopManager") == 0))
 			throw new UnauthorizedException();
 		// check position format
-		// check barcode
+		if(checkBarcodeValidity(String.valueOf(productId)) ) throw new InvalidProductIdException();
 		if (data.positions.containsKey(newPos))
 			return false;
 		if (!data.productTypes.containsKey(productId))
@@ -333,7 +356,7 @@ public class EZShop implements EZShopInterface {
 		if (data.loggedInUser == null
 				|| (!data.loggedInUser.isAdmin() && data.loggedInUser.getRole().compareTo("ShopManager") == 0))
 			throw new UnauthorizedException();
-		// check barcode
+		if(checkBarcodeValidity(productCode) ) throw new InvalidProductCodeException();
 		if (quantity <= 0)
 			throw new InvalidQuantityException();
 		if (pricePerUnit <= 0)
@@ -351,7 +374,7 @@ public class EZShop implements EZShopInterface {
 	public Integer payOrderFor(String productCode, int quantity, double pricePerUnit)
 			throws InvalidProductCodeException, InvalidQuantityException, InvalidPricePerUnitException,
 			UnauthorizedException {
-		// check barcode
+		if(checkBarcodeValidity(productCode) ) throw new InvalidProductCodeException();
 		if (quantity <= 0)
 			throw new InvalidQuantityException();
 		if (pricePerUnit <= 0)
@@ -366,7 +389,7 @@ public class EZShop implements EZShopInterface {
 		data.orders.put(data.orderIDs,
 				new it.polito.ezshop.model.Order(p, pricePerUnit, quantity, data.orderIDs, "PAYED"));
 		data.balanceOperations.put(data.balanceOperationIDs, new BalanceOperation(data.balanceOperationIDs++, LocalDate.now(),-pricePerUnit * quantity, "ORDER"));
-
+        data.orders.get(data.orderIDs).setBalanceId(data.balanceOperationIDs);
 		return data.orderIDs++;
 	}
 
@@ -383,6 +406,7 @@ public class EZShop implements EZShopInterface {
 			return false;
 		o.setStatus("PAYED");
 		
+		o.setBalanceId(data.balanceOperationIDs);
 		data.balanceOperations.put(data.balanceOperationIDs, new BalanceOperation(data.balanceOperationIDs++, LocalDate.now(),-o.getPricePerUnit() * o.getQuantity(), "ORDER"));
 		saveData();
 		
@@ -575,7 +599,7 @@ public class EZShop implements EZShopInterface {
 				&& data.loggedInUser.getRole().compareTo("ShopManager") != 0)
 			throw new UnauthorizedException();
 		if( amount < 0) throw new InvalidQuantityException();
-		//check product code
+		if(checkBarcodeValidity(productCode) ) throw new InvalidProductCodeException();
 		if (transactionId == null || transactionId <=0) throw new InvalidTransactionIdException();
 		it.polito.ezshop.model.ProductType p = data.productTypes.get(Integer.valueOf(productCode));
 		it.polito.ezshop.model.SaleTransaction t = data.saleTransactions.get(transactionId);
@@ -595,7 +619,7 @@ public class EZShop implements EZShopInterface {
 				&& data.loggedInUser.getRole().compareTo("ShopManager") != 0)
 			throw new UnauthorizedException();
 		if( amount < 0) throw new InvalidQuantityException();
-		//check product code
+		if(checkBarcodeValidity(productCode) ) throw new InvalidProductCodeException();
 		if (transactionId == null || transactionId <=0) throw new InvalidTransactionIdException();
 		it.polito.ezshop.model.ProductType p = data.productTypes.get(Integer.valueOf(productCode));
 		it.polito.ezshop.model.SaleTransaction t = data.saleTransactions.get(transactionId);
@@ -615,7 +639,7 @@ public class EZShop implements EZShopInterface {
 				&& data.loggedInUser.getRole().compareTo("ShopManager") != 0)
 			throw new UnauthorizedException();
 		if( discountRate < 0 || discountRate >1.00) throw new InvalidDiscountRateException();
-		//check product code
+		if(checkBarcodeValidity(productCode) ) throw new InvalidProductCodeException();
 		if (transactionId == null || transactionId <=0) throw new InvalidTransactionIdException();
 		
 		it.polito.ezshop.model.ProductType p = data.productTypes.get(Integer.valueOf(productCode));
@@ -722,7 +746,7 @@ public class EZShop implements EZShopInterface {
 				&& data.loggedInUser.getRole().compareTo("ShopManager") != 0)
 			throw new UnauthorizedException();
 		if (returnId == null || returnId <=0) throw new InvalidTransactionIdException();
-		//check barcode
+		if(checkBarcodeValidity(productCode) ) throw new InvalidProductCodeException();
 		if (amount <=0) throw new InvalidQuantityException();
 		it.polito.ezshop.model.ProductType p = data.productTypes.get(Integer.valueOf(productCode));
 		it.polito.ezshop.model.ReturnSaleTransaction rt = data.returnSaleTransactions.get(returnId);
