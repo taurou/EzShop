@@ -21,6 +21,7 @@ public class EZShopData implements Serializable {
 	public HashMap<Integer, Card> cards;
 	public HashMap<Integer, ReturnSaleTransaction> returnSaleTransactions;
 	public HashMap<Integer, BalanceOperation> balanceOperations;
+	public HashMap<String, Integer> barcodeToId;
 	public LinkedHashMap<Integer, SaleTransaction> saleTransactions;
 	public double balance;
 	
@@ -38,6 +39,7 @@ public class EZShopData implements Serializable {
 		saleTransactions = new LinkedHashMap<>();
 		returnSaleTransactions = new HashMap<>();
 		balanceOperations = new HashMap<>();
+		barcodeToId = new HashMap<>();
 		userIDs=1;
 		productTypeIDs=1;
 		orderIDs=1;
