@@ -73,6 +73,12 @@ public class EZShop implements EZShopInterface {
 		return true;
 	}
 
+	private boolean checkifAdminCashMan() {
+		return data.loggedInUser.getRole().compareTo("Administrator") != 0
+				&& data.loggedInUser.getRole().compareTo("Cashier") != 0
+				&& data.loggedInUser.getRole().compareTo("ShopManager") != 0;
+	}
+
 	private boolean checkPosition(String position) {
 
 		return position.matches("[0-9]+-[0-9]+-[0-9]+") == true;
@@ -127,13 +133,13 @@ public class EZShop implements EZShopInterface {
 
 	@Override
 	public void reset() {
-		 File myObj = new File("EZShopData.ser"); 
-		    if (myObj.delete()) { 
-		      System.out.println("Deleted the file: " + myObj.getName());
-		    } else {
-		      System.out.println("Failed to delete the file.");
-		    } 
-		    loadData();
+		File myObj = new File("EZShopData.ser");
+		if (myObj.delete()) {
+			System.out.println("Deleted the file: " + myObj.getName());
+		} else {
+			System.out.println("Failed to delete the file.");
+		}
+		loadData();
 	}
 
 	@Override
@@ -308,9 +314,7 @@ public class EZShop implements EZShopInterface {
 
 	@Override
 	public List<ProductType> getAllProductTypes() throws UnauthorizedException {
-		if (data.loggedInUser.getRole().compareTo("Administrator") != 0
-				&& data.loggedInUser.getRole().compareTo("Cashier") != 0
-				&& data.loggedInUser.getRole().compareTo("ShopManager") != 0)
+		if (checkifAdminCashMan())
 			throw new UnauthorizedException();
 		LinkedList<ProductType> list = new LinkedList<ProductType>();
 		if (data.productTypes.size() == 0)
@@ -495,9 +499,7 @@ public class EZShop implements EZShopInterface {
 
 	@Override
 	public Integer defineCustomer(String customerName) throws InvalidCustomerNameException, UnauthorizedException {
-		if (data.loggedInUser.getRole().compareTo("Administrator") != 0
-				&& data.loggedInUser.getRole().compareTo("Cashier") != 0
-				&& data.loggedInUser.getRole().compareTo("ShopManager") != 0)
+		if (checkifAdminCashMan())
 			throw new UnauthorizedException();
 		if (customerName == null || customerName.isBlank())
 			throw new InvalidCustomerNameException();
@@ -515,9 +517,7 @@ public class EZShop implements EZShopInterface {
 	public boolean modifyCustomer(Integer id, String newCustomerName, String newCustomerCard)
 			throws InvalidCustomerNameException, InvalidCustomerCardException, InvalidCustomerIdException,
 			UnauthorizedException {
-		if (data.loggedInUser.getRole().compareTo("Administrator") != 0
-				&& data.loggedInUser.getRole().compareTo("Cashier") != 0
-				&& data.loggedInUser.getRole().compareTo("ShopManager") != 0)
+		if (checkifAdminCashMan())
 			throw new UnauthorizedException();
 		if (newCustomerName == null || newCustomerName.isBlank())
 			throw new InvalidCustomerNameException();
@@ -535,15 +535,14 @@ public class EZShop implements EZShopInterface {
 			return false;
 		c.setCustomerCard(newCustomerCard);
 		card.setCustomer(c);
+		c.setCard(card);
 
 		return saveData();
 	}
 
 	@Override
 	public boolean deleteCustomer(Integer id) throws InvalidCustomerIdException, UnauthorizedException {
-		if (data.loggedInUser.getRole().compareTo("Administrator") != 0
-				&& data.loggedInUser.getRole().compareTo("Cashier") != 0
-				&& data.loggedInUser.getRole().compareTo("ShopManager") != 0)
+		if (checkifAdminCashMan())
 			throw new UnauthorizedException();
 		if (id == null || id <= 0)
 			throw new InvalidCustomerIdException();
@@ -558,9 +557,7 @@ public class EZShop implements EZShopInterface {
 
 	@Override
 	public Customer getCustomer(Integer id) throws InvalidCustomerIdException, UnauthorizedException {
-		if (data.loggedInUser.getRole().compareTo("Administrator") != 0
-				&& data.loggedInUser.getRole().compareTo("Cashier") != 0
-				&& data.loggedInUser.getRole().compareTo("ShopManager") != 0)
+		if (checkifAdminCashMan())
 			throw new UnauthorizedException();
 		if (id == null || id <= 0)
 			throw new InvalidCustomerIdException();
@@ -570,9 +567,7 @@ public class EZShop implements EZShopInterface {
 
 	@Override
 	public List<Customer> getAllCustomers() throws UnauthorizedException {
-		if (data.loggedInUser.getRole().compareTo("Administrator") != 0
-				&& data.loggedInUser.getRole().compareTo("Cashier") != 0
-				&& data.loggedInUser.getRole().compareTo("ShopManager") != 0)
+		if (checkifAdminCashMan())
 			throw new UnauthorizedException();
 		LinkedList<Customer> l = new LinkedList<>();
 		l.addAll(data.customers.values());
@@ -581,9 +576,7 @@ public class EZShop implements EZShopInterface {
 
 	@Override
 	public String createCard() throws UnauthorizedException {
-		if (data.loggedInUser.getRole().compareTo("Administrator") != 0
-				&& data.loggedInUser.getRole().compareTo("Cashier") != 0
-				&& data.loggedInUser.getRole().compareTo("ShopManager") != 0)
+		if (checkifAdminCashMan())
 			throw new UnauthorizedException();
 
 		data.cards.put(data.cardIDs, new it.polito.ezshop.model.Card(data.cardIDs));
@@ -595,9 +588,7 @@ public class EZShop implements EZShopInterface {
 	@Override
 	public boolean attachCardToCustomer(String customerCard, Integer customerId)
 			throws InvalidCustomerIdException, InvalidCustomerCardException, UnauthorizedException {
-		if (data.loggedInUser.getRole().compareTo("Administrator") != 0
-				&& data.loggedInUser.getRole().compareTo("Cashier") != 0
-				&& data.loggedInUser.getRole().compareTo("ShopManager") != 0)
+		if (checkifAdminCashMan())
 			throw new UnauthorizedException();
 		if (customerId == null || customerId <= 0)
 			throw new InvalidCustomerIdException();
@@ -618,9 +609,7 @@ public class EZShop implements EZShopInterface {
 	@Override
 	public boolean modifyPointsOnCard(String customerCard, int pointsToBeAdded)
 			throws InvalidCustomerCardException, UnauthorizedException {
-		if (data.loggedInUser.getRole().compareTo("Administrator") != 0
-				&& data.loggedInUser.getRole().compareTo("Cashier") != 0
-				&& data.loggedInUser.getRole().compareTo("ShopManager") != 0)
+		if (checkifAdminCashMan())
 			throw new UnauthorizedException();
 		if (customerCard == null || customerCard.isBlank() || !customerCard.chars().allMatch(Character::isDigit))
 			throw new InvalidCustomerCardException();
@@ -635,9 +624,7 @@ public class EZShop implements EZShopInterface {
 
 	@Override
 	public Integer startSaleTransaction() throws UnauthorizedException {
-		if (data.loggedInUser.getRole().compareTo("Administrator") != 0
-				&& data.loggedInUser.getRole().compareTo("Cashier") != 0
-				&& data.loggedInUser.getRole().compareTo("ShopManager") != 0)
+		if (checkifAdminCashMan())
 			throw new UnauthorizedException();
 		data.saleTransactions.put(data.saleTransactionIDs, new SaleTransaction(data.saleTransactionIDs));
 		return data.saleTransactionIDs++;
@@ -647,9 +634,7 @@ public class EZShop implements EZShopInterface {
 	public boolean addProductToSale(Integer transactionId, String productCode, int amount)
 			throws InvalidTransactionIdException, InvalidProductCodeException, InvalidQuantityException,
 			UnauthorizedException {
-		if (data.loggedInUser.getRole().compareTo("Administrator") != 0
-				&& data.loggedInUser.getRole().compareTo("Cashier") != 0
-				&& data.loggedInUser.getRole().compareTo("ShopManager") != 0)
+		if (checkifAdminCashMan())
 			throw new UnauthorizedException();
 		if (amount < 0)
 			throw new InvalidQuantityException();
@@ -670,9 +655,7 @@ public class EZShop implements EZShopInterface {
 	public boolean deleteProductFromSale(Integer transactionId, String productCode, int amount)
 			throws InvalidTransactionIdException, InvalidProductCodeException, InvalidQuantityException,
 			UnauthorizedException {
-		if (data.loggedInUser.getRole().compareTo("Administrator") != 0
-				&& data.loggedInUser.getRole().compareTo("Cashier") != 0
-				&& data.loggedInUser.getRole().compareTo("ShopManager") != 0)
+		if (checkifAdminCashMan())
 			throw new UnauthorizedException();
 		if (amount < 0)
 			throw new InvalidQuantityException();
@@ -693,9 +676,7 @@ public class EZShop implements EZShopInterface {
 	public boolean applyDiscountRateToProduct(Integer transactionId, String productCode, double discountRate)
 			throws InvalidTransactionIdException, InvalidProductCodeException, InvalidDiscountRateException,
 			UnauthorizedException {
-		if (data.loggedInUser.getRole().compareTo("Administrator") != 0
-				&& data.loggedInUser.getRole().compareTo("Cashier") != 0
-				&& data.loggedInUser.getRole().compareTo("ShopManager") != 0)
+		if (checkifAdminCashMan())
 			throw new UnauthorizedException();
 		if (discountRate < 0 || discountRate > 1.00)
 			throw new InvalidDiscountRateException();
@@ -717,9 +698,7 @@ public class EZShop implements EZShopInterface {
 	@Override
 	public boolean applyDiscountRateToSale(Integer transactionId, double discountRate)
 			throws InvalidTransactionIdException, InvalidDiscountRateException, UnauthorizedException {
-		if (data.loggedInUser.getRole().compareTo("Administrator") != 0
-				&& data.loggedInUser.getRole().compareTo("Cashier") != 0
-				&& data.loggedInUser.getRole().compareTo("ShopManager") != 0)
+		if (checkifAdminCashMan())
 			throw new UnauthorizedException();
 		if (discountRate < 0 || discountRate > 1.00)
 			throw new InvalidDiscountRateException();
@@ -734,9 +713,7 @@ public class EZShop implements EZShopInterface {
 
 	@Override
 	public int computePointsForSale(Integer transactionId) throws InvalidTransactionIdException, UnauthorizedException {
-		if (data.loggedInUser.getRole().compareTo("Administrator") != 0
-				&& data.loggedInUser.getRole().compareTo("Cashier") != 0
-				&& data.loggedInUser.getRole().compareTo("ShopManager") != 0)
+		if (checkifAdminCashMan())
 			throw new UnauthorizedException();
 		if (transactionId == null || transactionId <= 0)
 			throw new InvalidTransactionIdException();
@@ -749,9 +726,7 @@ public class EZShop implements EZShopInterface {
 	@Override
 	public boolean endSaleTransaction(Integer transactionId)
 			throws InvalidTransactionIdException, UnauthorizedException {
-		if (data.loggedInUser.getRole().compareTo("Administrator") != 0
-				&& data.loggedInUser.getRole().compareTo("Cashier") != 0
-				&& data.loggedInUser.getRole().compareTo("ShopManager") != 0)
+		if (checkifAdminCashMan())
 			throw new UnauthorizedException();
 		if (transactionId == null || transactionId <= 0)
 			throw new InvalidTransactionIdException();
@@ -766,9 +741,7 @@ public class EZShop implements EZShopInterface {
 	@Override
 	public boolean deleteSaleTransaction(Integer saleNumber)
 			throws InvalidTransactionIdException, UnauthorizedException {
-		if (data.loggedInUser.getRole().compareTo("Administrator") != 0
-				&& data.loggedInUser.getRole().compareTo("Cashier") != 0
-				&& data.loggedInUser.getRole().compareTo("ShopManager") != 0)
+		if (checkifAdminCashMan())
 			throw new UnauthorizedException();
 		if (saleNumber == null || saleNumber <= 0)
 			throw new InvalidTransactionIdException();
@@ -784,9 +757,7 @@ public class EZShop implements EZShopInterface {
 	@Override
 	public SaleTransaction getSaleTransaction(Integer transactionId)
 			throws InvalidTransactionIdException, UnauthorizedException {
-		if (data.loggedInUser.getRole().compareTo("Administrator") != 0
-				&& data.loggedInUser.getRole().compareTo("Cashier") != 0
-				&& data.loggedInUser.getRole().compareTo("ShopManager") != 0)
+		if (checkifAdminCashMan())
 			throw new UnauthorizedException();
 		if (transactionId == null || transactionId <= 0)
 			throw new InvalidTransactionIdException();
@@ -800,9 +771,7 @@ public class EZShop implements EZShopInterface {
 	@Override
 	public Integer startReturnTransaction(Integer saleNumber)
 			throws /* InvalidTicketNumberException, */InvalidTransactionIdException, UnauthorizedException {
-		if (data.loggedInUser.getRole().compareTo("Administrator") != 0
-				&& data.loggedInUser.getRole().compareTo("Cashier") != 0
-				&& data.loggedInUser.getRole().compareTo("ShopManager") != 0)
+		if (checkifAdminCashMan())
 			throw new UnauthorizedException();
 		if (saleNumber == null || saleNumber <= 0)
 			throw new InvalidTransactionIdException();
@@ -817,9 +786,7 @@ public class EZShop implements EZShopInterface {
 	@Override
 	public boolean returnProduct(Integer returnId, String productCode, int amount) throws InvalidTransactionIdException,
 			InvalidProductCodeException, InvalidQuantityException, UnauthorizedException {
-		if (data.loggedInUser.getRole().compareTo("Administrator") != 0
-				&& data.loggedInUser.getRole().compareTo("Cashier") != 0
-				&& data.loggedInUser.getRole().compareTo("ShopManager") != 0)
+		if (checkifAdminCashMan())
 			throw new UnauthorizedException();
 		if (returnId == null || returnId <= 0)
 			throw new InvalidTransactionIdException();
@@ -844,9 +811,7 @@ public class EZShop implements EZShopInterface {
 	@Override
 	public boolean endReturnTransaction(Integer returnId, boolean commit)
 			throws InvalidTransactionIdException, UnauthorizedException {
-		if (data.loggedInUser.getRole().compareTo("Administrator") != 0
-				&& data.loggedInUser.getRole().compareTo("Cashier") != 0
-				&& data.loggedInUser.getRole().compareTo("ShopManager") != 0)
+		if (checkifAdminCashMan())
 			throw new UnauthorizedException();
 		if (returnId == null || returnId <= 0)
 			throw new InvalidTransactionIdException();
@@ -869,9 +834,7 @@ public class EZShop implements EZShopInterface {
 	@Override
 	public boolean deleteReturnTransaction(Integer returnId)
 			throws InvalidTransactionIdException, UnauthorizedException {
-		if (data.loggedInUser.getRole().compareTo("Administrator") != 0
-				&& data.loggedInUser.getRole().compareTo("Cashier") != 0
-				&& data.loggedInUser.getRole().compareTo("ShopManager") != 0)
+		if (checkifAdminCashMan())
 			throw new UnauthorizedException();
 		if (returnId == null || returnId <= 0)
 			throw new InvalidTransactionIdException();
@@ -887,9 +850,7 @@ public class EZShop implements EZShopInterface {
 	@Override
 	public double receiveCashPayment(Integer ticketNumber, double cash)
 			throws InvalidTransactionIdException, InvalidPaymentException, UnauthorizedException {
-		if (data.loggedInUser.getRole().compareTo("Administrator") != 0
-				&& data.loggedInUser.getRole().compareTo("Cashier") != 0
-				&& data.loggedInUser.getRole().compareTo("ShopManager") != 0)
+		if (checkifAdminCashMan())
 			throw new UnauthorizedException();
 		if (cash <= 0)
 			throw new InvalidPaymentException();
@@ -909,9 +870,7 @@ public class EZShop implements EZShopInterface {
 	@Override
 	public boolean receiveCreditCardPayment(Integer ticketNumber, String creditCard)
 			throws InvalidTransactionIdException, InvalidCreditCardException, UnauthorizedException {
-		if (data.loggedInUser.getRole().compareTo("Administrator") != 0
-				&& data.loggedInUser.getRole().compareTo("Cashier") != 0
-				&& data.loggedInUser.getRole().compareTo("ShopManager") != 0)
+		if (checkifAdminCashMan())
 			throw new UnauthorizedException();
 		if (creditCard == null || creditCard.isBlank() || checkLuhn(creditCard))
 			throw new InvalidCreditCardException();
@@ -929,9 +888,7 @@ public class EZShop implements EZShopInterface {
 
 	@Override
 	public double returnCashPayment(Integer returnId) throws InvalidTransactionIdException, UnauthorizedException {
-		if (data.loggedInUser.getRole().compareTo("Administrator") != 0
-				&& data.loggedInUser.getRole().compareTo("Cashier") != 0
-				&& data.loggedInUser.getRole().compareTo("ShopManager") != 0)
+		if (checkifAdminCashMan())
 			throw new UnauthorizedException();
 		if (returnId == null || returnId <= 0)
 			throw new InvalidTransactionIdException();
@@ -948,9 +905,7 @@ public class EZShop implements EZShopInterface {
 	@Override
 	public double returnCreditCardPayment(Integer returnId, String creditCard)
 			throws InvalidTransactionIdException, InvalidCreditCardException, UnauthorizedException {
-		if (data.loggedInUser.getRole().compareTo("Administrator") != 0
-				&& data.loggedInUser.getRole().compareTo("Cashier") != 0
-				&& data.loggedInUser.getRole().compareTo("ShopManager") != 0)
+		if (checkifAdminCashMan())
 			throw new UnauthorizedException();
 		if (returnId == null || returnId <= 0)
 			throw new InvalidTransactionIdException();
@@ -982,9 +937,7 @@ public class EZShop implements EZShopInterface {
 	@Override
 	public List<it.polito.ezshop.data.BalanceOperation> getCreditsAndDebits(LocalDate from, LocalDate to)
 			throws UnauthorizedException {
-		if (data.loggedInUser.getRole().compareTo("Administrator") != 0
-				&& data.loggedInUser.getRole().compareTo("Cashier") != 0
-				&& data.loggedInUser.getRole().compareTo("ShopManager") != 0)
+		if (checkifAdminCashMan())
 			throw new UnauthorizedException();
 		LinkedList<it.polito.ezshop.data.BalanceOperation> l = new LinkedList<>();
 
@@ -995,11 +948,11 @@ public class EZShop implements EZShopInterface {
 			return l;
 		}
 		if (from == null) {
-		return	data.balanceOperations.values().stream().filter(x ->  x.getDate().compareTo(to) <= 0)
+			return data.balanceOperations.values().stream().filter(x -> x.getDate().compareTo(to) <= 0)
 					.collect(Collectors.toList());
 		}
 		if (to == null) {
-		 return	data.balanceOperations.values().stream().filter(x -> x.getDate().compareTo(from) >= 0)
+			return data.balanceOperations.values().stream().filter(x -> x.getDate().compareTo(from) >= 0)
 					.collect(Collectors.toList());
 
 		}
@@ -1012,9 +965,7 @@ public class EZShop implements EZShopInterface {
 
 	@Override
 	public double computeBalance() throws UnauthorizedException {
-		if (data.loggedInUser.getRole().compareTo("Administrator") != 0
-				&& data.loggedInUser.getRole().compareTo("Cashier") != 0
-				&& data.loggedInUser.getRole().compareTo("ShopManager") != 0)
+		if (checkifAdminCashMan())
 			throw new UnauthorizedException();
 		data.balanceOperations.values().stream().mapToDouble(x -> x.getMoney()).sum();
 		if (data.balanceOperations.size() != 0) {

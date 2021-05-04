@@ -10,6 +10,16 @@ public class Customer implements it.polito.ezshop.data.Customer, Serializable {
 	Card card;
 	
 
+	public Card getCard() {
+		return card;
+	}
+
+
+	public void setCard(Card card) {
+		this.card = card;
+	}
+
+
 	public Customer(String customerName, Integer id) {
 	 this.customerName=customerName;
 	 this.id = id;
