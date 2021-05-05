@@ -4,6 +4,10 @@ import java.io.Serializable;
 
 public class Card implements Serializable {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -7232725029952283583L;
 	private String cardNumber;
 	private Integer points;
 	private it.polito.ezshop.model.Customer customer;

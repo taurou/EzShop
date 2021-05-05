@@ -213,6 +213,7 @@ public class EZShop implements EZShopInterface {
 
 		if (data.users.get(data.idToUsername.get(id)) == null)
 			return false;
+		
 		data.users.get(data.idToUsername.get(id)).setRole(role);
 
 		return saveData();
@@ -967,7 +968,6 @@ public class EZShop implements EZShopInterface {
 	public double computeBalance() throws UnauthorizedException {
 		if (checkifAdminCashMan())
 			throw new UnauthorizedException();
-		data.balanceOperations.values().stream().mapToDouble(x -> x.getMoney()).sum();
 		if (data.balanceOperations.size() != 0) {
 			return data.balanceOperations.values().stream().mapToDouble(x -> x.getMoney()).sum();
 		}

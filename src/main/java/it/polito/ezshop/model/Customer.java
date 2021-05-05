@@ -4,6 +4,10 @@ import java.io.Serializable;
 
 public class Customer implements it.polito.ezshop.data.Customer, Serializable {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1189191097864456401L;
 	String customerName;
 	String customerCard;
 	Integer points, id;

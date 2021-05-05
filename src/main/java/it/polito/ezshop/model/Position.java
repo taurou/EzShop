@@ -6,6 +6,10 @@ import it.polito.ezshop.data.ProductType;
 
 public class Position implements Serializable{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -4834154879739494091L;
 	private ProductType product;
 	private String position;
 

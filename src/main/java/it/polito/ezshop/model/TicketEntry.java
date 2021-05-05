@@ -4,6 +4,10 @@ import java.io.Serializable;
 
 public class TicketEntry implements it.polito.ezshop.data.TicketEntry, Serializable {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -3842826487450523546L;
 	String barCode;
 	String productDescription;
 	double pricePerUnit;

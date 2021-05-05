@@ -2,6 +2,10 @@ package it.polito.ezshop.model;
 
 public class ReturnSaleTransaction extends SaleTransaction {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 2697175701011876018L;
 	it.polito.ezshop.model.SaleTransaction returnOfSaleTransaction;
 	boolean committed;
 

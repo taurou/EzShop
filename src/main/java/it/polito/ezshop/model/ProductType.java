@@ -4,6 +4,10 @@ import java.io.Serializable;
 
 public class ProductType implements it.polito.ezshop.data.ProductType, Serializable {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 7337288552175743339L;
 	Integer quantity;
 	String location;
 	String note;

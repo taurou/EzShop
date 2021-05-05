@@ -4,6 +4,10 @@ import java.io.Serializable;
 import java.time.LocalDate;
 
 public class Order implements it.polito.ezshop.data.Order, Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 5434864652264723879L;
 	Integer balanceId;
 	String productCode;
 	it.polito.ezshop.model.ProductType product;

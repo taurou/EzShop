@@ -9,6 +9,10 @@ import it.polito.ezshop.data.TicketEntry;
 
 public class SaleTransaction implements it.polito.ezshop.data.SaleTransaction, Serializable {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 6782988927774381138L;
 	protected Integer ticketNumber ;
 	public List<TicketEntry> entries;
 	//public HashMap<String, it.polito.ezshop.model.TicketEntry> products;

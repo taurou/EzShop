@@ -5,6 +5,10 @@ import java.time.LocalDate;
 
 public class BalanceOperation implements it.polito.ezshop.data.BalanceOperation, Serializable {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -8157819062232469923L;
 	int balanceId;
 	LocalDate date;
 	double money;
