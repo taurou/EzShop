@@ -73,12 +73,14 @@ public class EZShop implements EZShopInterface {
 		return true;
 	}
 
+	
+	
 	private boolean checkifAdminCashMan() {
 		return data.loggedInUser.getRole().compareTo("Administrator") != 0
 				&& data.loggedInUser.getRole().compareTo("Cashier") != 0
 				&& data.loggedInUser.getRole().compareTo("ShopManager") != 0;
 	}
-
+    /* UNIT TEST ON THESE */
 	private boolean checkPosition(String position) {
 
 		return position.matches("[0-9]+-[0-9]+-[0-9]+") == true;
@@ -131,6 +133,8 @@ public class EZShop implements EZShopInterface {
 		return true;
 	}
 
+	/* END UNIT TEST */
+	
 	@Override
 	public void reset() {
 		File myObj = new File("EZShopData.ser");
@@ -668,9 +672,9 @@ public class EZShop implements EZShopInterface {
 		it.polito.ezshop.model.SaleTransaction t = data.saleTransactions.get(transactionId);
 		if (p == null || p.getQuantity() < amount || t == null || t.getStatus().compareTo("OPEN") != 0)
 			return false;
-		t.addProduct(p, -amount);
-
-		return true;
+		
+        
+		return t.removeProduct(p, -amount);
 	}
 
 	@Override
@@ -691,9 +695,9 @@ public class EZShop implements EZShopInterface {
 		if (p == null || t == null || t.getStatus().compareTo("OPEN") != 0)
 			return false;
 
-		// t.products.get(productCode).setDiscountRate(discountRate);
-		t.applyProductDiscount(productCode);
-		return true;
+		
+		return t.applyProductDiscount(productCode, discountRate);
+		 
 	}
 
 	@Override
@@ -734,6 +738,7 @@ public class EZShop implements EZShopInterface {
 		it.polito.ezshop.model.SaleTransaction t = data.saleTransactions.get(transactionId);
 		if (t == null || t.getStatus().compareTo("CLOSED") == 0 || t.getStatus().compareTo("PAYED") == 0)
 			return false;
+		t.calculatePrice();
 		t.setStatus("CLOSED");
 
 		return saveData();
@@ -750,7 +755,7 @@ public class EZShop implements EZShopInterface {
 		if (t == null || t.getStatus().compareTo("PAYED") == 0)
 			return false;
 		data.saleTransactions.remove(saleNumber);
-		t.entries.forEach(x -> data.productTypes.get(data.barcodeToId.get(x.getBarCode())).addQuantity(x.getAmount()));
+		t.products.values().forEach(x -> data.productTypes.get(data.barcodeToId.get(x.getBarCode())).addQuantity(x.getAmount()));
 
 		return saveData();
 	}
@@ -804,8 +809,9 @@ public class EZShop implements EZShopInterface {
 		if (p == null || te == null || te.getAmount() < amount)
 			return false;
 
-		rt.addProduct(p, amount);
-
+		// use ticketentry to get right discount
+		rt.addReturnProduct(rt.products.get(p.getBarCode()), amount);
+        
 		return true;
 	}
 

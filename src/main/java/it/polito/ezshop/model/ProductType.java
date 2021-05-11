@@ -28,11 +28,15 @@ public class ProductType implements it.polito.ezshop.data.ProductType, Serializa
 		this.quantity=0;
 	}
 	
+	/* TO TEST */
+	
 	public Integer addQuantity(Integer quantity) {
 		this.quantity+=quantity;
 		return this.quantity;
 	}
 
+	/* END */
+	
 	public Integer getQuantity() {
 		return quantity;
 	}

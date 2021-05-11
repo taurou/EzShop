@@ -14,7 +14,35 @@ public class ReturnSaleTransaction extends SaleTransaction {
 		this.returnOfSaleTransaction=saleTransaction;
 	    committed=false;
 	}
+	
+	
+	/* TO TEST */
+	
+	public boolean addReturnProduct(it.polito.ezshop.model.TicketEntry prod, Integer amount) {
 
+		/*
+		 * it.polito.ezshop.model.TicketEntry entry = new
+		 * it.polito.ezshop.model.TicketEntry(prod.getBarCode(),
+		 * prod.productDescription, prod.pricePerUnit, amount); entries.add(entry);
+		 * price+=prod.getPricePerUnit()*amount*(1-entry.getDiscountRate()); return
+		 * true;
+		 */
+
+		
+			it.polito.ezshop.model.TicketEntry entry = new it.polito.ezshop.model.TicketEntry(prod.getBarCode(),
+					prod.productDescription, prod.pricePerUnit, amount, prod.getDiscountRate() );
+			double money=prod.getPricePerUnit()*amount*(1-prod.getDiscountRate());
+			returnOfSaleTransaction.price-=money;
+			
+
+			products.put(prod.getBarCode(), entry);
+			price *=money;
+			return true;
+		
+	}
+
+	/* TO TEST */
+	
 	public boolean isCommitted() {
 		return committed;
 	}

@@ -30,16 +30,18 @@ public class Card implements Serializable {
 		this.points = 0;
 	}
 
+	
+	
 	public Integer getPoints() {
 		return points;
 	}
-
+     /* TO TEST */
 	public void addPoints(Integer points) {
 		
 		this.points += points;
 		customer.setPoints(this.points);
 	}
-
+     /* END */
 	public String getCardNumber() {
 		return cardNumber;
 	}
