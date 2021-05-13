@@ -1,5 +1,7 @@
 package it.polito.ezshop.model;
 
+import it.polito.ezshop.data.TicketEntry;
+
 public class ReturnSaleTransaction extends SaleTransaction {
 	
 	/**
@@ -18,7 +20,7 @@ public class ReturnSaleTransaction extends SaleTransaction {
 	
 	/* TO TEST */
 	
-	public boolean addReturnProduct(it.polito.ezshop.model.TicketEntry prod, Integer amount) {
+	public boolean addReturnProduct(TicketEntry te, Integer amount) {
 
 		/*
 		 * it.polito.ezshop.model.TicketEntry entry = new
@@ -29,14 +31,14 @@ public class ReturnSaleTransaction extends SaleTransaction {
 		 */
 
 		
-			it.polito.ezshop.model.TicketEntry entry = new it.polito.ezshop.model.TicketEntry(prod.getBarCode(),
-					prod.productDescription, prod.pricePerUnit, amount, prod.getDiscountRate() );
-			double money=prod.getPricePerUnit()*amount*(1-prod.getDiscountRate());
+			it.polito.ezshop.model.TicketEntry entry = new it.polito.ezshop.model.TicketEntry(te.getBarCode(),
+					te.getProductDescription(), te.getPricePerUnit(), amount, te.getDiscountRate() );
+			double money=te.getPricePerUnit()*amount*(1-te.getDiscountRate());
 			returnOfSaleTransaction.price-=money;
 			
-
-			products.put(prod.getBarCode(), entry);
-			price *=money;
+            
+			products.put(te.getBarCode(), entry);
+			price +=money;
 			return true;
 		
 	}

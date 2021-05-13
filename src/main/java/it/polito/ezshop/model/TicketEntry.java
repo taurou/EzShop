@@ -30,6 +30,7 @@ public class TicketEntry implements it.polito.ezshop.data.TicketEntry, Serializa
 		this.productDescription = productDescription;
 		this.pricePerUnit = pricePerUnit;
 		this.amount = amount;
+		this.discountRate = discountRate;
 	}
 	
 	public void addAmount(Integer amount){

@@ -19,36 +19,28 @@ public class SaleTransaction implements it.polito.ezshop.data.SaleTransaction, S
 	public HashMap<String, it.polito.ezshop.model.TicketEntry> products;
 	double discountRate, price = 0;
 	String status;
-	
-	
-	/*TO TEST*/
-	
-	public void calculatePrice() {
-		price=(1-discountRate)*products.values().stream().mapToDouble( x -> x.getAmount()*x.getPricePerUnit()*(1-x.getDiscountRate())).sum();
+
+	/* TO TEST */
+
+	public double calculatePrice() {
+		price = (1 - discountRate) * products.values().stream()
+				.mapToDouble(x -> x.getAmount() * x.getPricePerUnit() * (1 - x.getDiscountRate())).sum();
+		return price;
 	}
 
-	public boolean applyProductDiscount(String barcode, double discountRate) {
 
-		
-		  it.polito.ezshop.model.TicketEntry prod = products.get(barcode);
-		  prod.setDiscountRate(discountRate);
-		  /*double d = prod.getDiscountRate(); 
-		  Integer q = prod.getAmount(); 
-		  double p = prod.getPricePerUnit(); 
-		  price-=d*q*p;*/
-		 
 
-		return true;
-	}
+	
 
-	public boolean removeProduct(it.polito.ezshop.model.ProductType prod, Integer amount) {
+	/* END TO TEST */
+		public boolean removeProduct(it.polito.ezshop.model.ProductType prod, Integer amount) {
 
 		if (!products.containsKey(prod.getBarCode()))
 			return false;
 
 		it.polito.ezshop.model.TicketEntry t = products.get(prod.getBarCode());
 
-	//	this.price -= amount * t.getPricePerUnit() * (1 - t.getDiscountRate());
+		// this.price -= amount * t.getPricePerUnit() * (1 - t.getDiscountRate());
 		if (amount == t.getAmount())
 			products.remove(t.getBarCode());
 		else {
@@ -58,22 +50,12 @@ public class SaleTransaction implements it.polito.ezshop.data.SaleTransaction, S
 
 		return true;
 	}
-
 	public boolean addProduct(it.polito.ezshop.model.ProductType prod, Integer amount) {
-
-		/*
-		 * it.polito.ezshop.model.TicketEntry entry = new
-		 * it.polito.ezshop.model.TicketEntry(prod.getBarCode(),
-		 * prod.productDescription, prod.pricePerUnit, amount); entries.add(entry);
-		 * price+=prod.getPricePerUnit()*amount*(1-entry.getDiscountRate()); return
-		 * true;
-		 */
 
 		if (products.containsKey(prod.getBarCode())) {
 
 			products.get(prod.getBarCode()).addAmount(amount);
 
-		//	this.price += amount * products.get(prod.getBarCode()).getPricePerUnit()*(1-products.get(prod.getBarCode()).getDiscountRate());
 			prod.addQuantity(-amount);
 
 			return true;
@@ -81,16 +63,19 @@ public class SaleTransaction implements it.polito.ezshop.data.SaleTransaction, S
 			it.polito.ezshop.model.TicketEntry entry = new it.polito.ezshop.model.TicketEntry(prod.getBarCode(),
 					prod.productDescription, prod.pricePerUnit, amount);
 			prod.addQuantity(-amount);
-            entries.add(entry);
+			entries.add(entry);
 			products.put(prod.getBarCode(), entry);
-		//	price += prod.getPricePerUnit() * amount;
 			return true;
 		}
 	}
+	public boolean applyProductDiscount(String barcode, double discountRate) {
 
-	/* END TO TEST*/
-	
-	
+		it.polito.ezshop.model.TicketEntry prod = products.get(barcode);
+		prod.setDiscountRate(discountRate);
+
+		return true;
+	}
+
 	public String getStatus() {
 		return status;
 	}
@@ -115,7 +100,7 @@ public class SaleTransaction implements it.polito.ezshop.data.SaleTransaction, S
 	}
 
 	public List<TicketEntry> getEntries() {
-		
+
 		return entries;
 	}
 
@@ -128,7 +113,7 @@ public class SaleTransaction implements it.polito.ezshop.data.SaleTransaction, S
 	}
 
 	public void setDiscountRate(double discountRate) {
-		//this.price*=(1-discountRate);
+	
 		this.discountRate = discountRate;
 	}
 

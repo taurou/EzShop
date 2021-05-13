@@ -22,6 +22,8 @@ import java.util.stream.Collectors;
 public class EZShop implements EZShopInterface {
 
 	EZShopData data;
+	
+	
 
 	public EZShop() {
 		super();
@@ -768,7 +770,7 @@ public class EZShop implements EZShopInterface {
 		if (transactionId == null || transactionId <= 0)
 			throw new InvalidTransactionIdException();
 		it.polito.ezshop.model.SaleTransaction t = data.saleTransactions.get(transactionId);
-		if (t == null || t.getStatus().compareTo("CLOSED") != 0)
+		if (t == null || t.getStatus().compareTo("PAYED") != 0 && t.getStatus().compareTo("CLOSED") != 0)
 			return null;
 
 		return t;
@@ -810,7 +812,7 @@ public class EZShop implements EZShopInterface {
 			return false;
 
 		// use ticketentry to get right discount
-		rt.addReturnProduct(rt.products.get(p.getBarCode()), amount);
+		rt.addReturnProduct(te, amount);
         
 		return true;
 	}
@@ -831,7 +833,7 @@ public class EZShop implements EZShopInterface {
 					.addProduct(data.productTypes.get(data.barcodeToId.get(x.getBarCode())), -x.getAmount()));
 
 		} else {
-			data.returnSaleTransactions.remove(returnId);
+			 deleteReturnTransaction(returnId);
 
 		}
 
@@ -848,8 +850,9 @@ public class EZShop implements EZShopInterface {
 		ReturnSaleTransaction rt = data.returnSaleTransactions.get(returnId);
 		if (rt == null || rt.getStatus().compareTo("PAYED") == 0)
 			return false;
-		rt.entries.forEach(x -> rt.getReturnOfSaleTransaction()
+		rt.products.values().forEach(x -> rt.getReturnOfSaleTransaction()
 				.addProduct(data.productTypes.get(data.barcodeToId.get(x.getBarCode())), x.getAmount()));
+		data.returnSaleTransactions.remove(returnId);
 
 		return saveData();
 	}
@@ -944,7 +947,8 @@ public class EZShop implements EZShopInterface {
 	@Override
 	public List<it.polito.ezshop.data.BalanceOperation> getCreditsAndDebits(LocalDate from, LocalDate to)
 			throws UnauthorizedException {
-		if (checkifAdminCashMan())
+		if (data.loggedInUser.getRole().compareTo("Administrator") != 0
+				&& data.loggedInUser.getRole().compareTo("ShopManager") != 0)
 			throw new UnauthorizedException();
 		LinkedList<it.polito.ezshop.data.BalanceOperation> l = new LinkedList<>();
 
