@@ -32,6 +32,8 @@ Version:
     <Some steps may  correspond to unit testing (ex step1 in ex above), presented in other document UnitTestReport.md>
     <One step will  correspond to API testing>
     
+    step1: Class ReturnSaleTransaction + Class SaleTransaction
+    step2: API
 
 
 #  Tests

@@ -76,6 +76,8 @@ public class SaleTransaction implements it.polito.ezshop.data.SaleTransaction, S
 		return true;
 	}
 
+	
+	
 	public String getStatus() {
 		return status;
 	}

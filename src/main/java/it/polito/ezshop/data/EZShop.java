@@ -7,14 +7,19 @@ import it.polito.ezshop.model.Position;
 import it.polito.ezshop.model.ReturnSaleTransaction;
 import it.polito.ezshop.model.SaleTransaction;
 
+import static java.util.stream.Collectors.toList;
+
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.time.LocalDate;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -37,11 +42,15 @@ public class EZShop implements EZShopInterface {
 			FileInputStream fis = new FileInputStream("EZShopData.ser");
 			ObjectInputStream ois = new ObjectInputStream(fis);
 			data = (EZShopData) ois.readObject();
+			
+			
 			ois.close();
 			fis.close();
 		} catch (FileNotFoundException fnf) {
 			data = new EZShopData();
 			data.loggedInUser = null;
+			readCreditard("creditcards.txt");
+			
 			return true;
 		} catch (IOException ioe) {
 			ioe.printStackTrace();
@@ -77,18 +86,32 @@ public class EZShop implements EZShopInterface {
 
 	
 	
-	private boolean checkifAdminCashMan() {
+	public boolean readCreditard(String file) {
+		try (BufferedReader in = new BufferedReader(new FileReader(file))) {
+			List<String> cclist= in.lines().collect(toList());
+			cclist.stream().filter( x -> x.charAt(0)!='#').forEach( x-> {
+				String[] fields = x.split(";");
+				data.creditCards.put(fields[0], Double.valueOf(fields[1]));
+			});
+			return true;
+		} catch (IOException e) {
+			System.err.println(e.getMessage());
+			return false;
+		}
+	}
+	
+	public boolean checkifAdminCashMan() {
 		return data.loggedInUser.getRole().compareTo("Administrator") != 0
 				&& data.loggedInUser.getRole().compareTo("Cashier") != 0
 				&& data.loggedInUser.getRole().compareTo("ShopManager") != 0;
 	}
     /* UNIT TEST ON THESE */
-	private boolean checkPosition(String position) {
+	public boolean checkPosition(String position) {
 
 		return position.matches("[0-9]+-[0-9]+-[0-9]+") == true;
 	}
 
-	private boolean checkLuhn(String cardNo) {
+	public boolean checkLuhn(String cardNo) {
 		if (cardNo.length() < 8 || cardNo.length() > 19)
 			return false;
 		int nDigits = cardNo.length();
@@ -113,7 +136,7 @@ public class EZShop implements EZShopInterface {
 		return (nSum % 10 == 0);
 	}
 
-	private boolean checkBarcodeValidity(String barcode) {
+	public boolean checkBarcodeValidity(String barcode) {
 		if (barcode == null || barcode.isBlank() || !barcode.chars().allMatch(Character::isDigit))
 			return true;
 		int l = barcode.length();
@@ -812,6 +835,7 @@ public class EZShop implements EZShopInterface {
 			return false;
 
 		// use ticketentry to get right discount
+		rt.setDiscountRate(rt.getReturnOfSaleTransaction().getDiscountRate());
 		rt.addReturnProduct(te, amount);
         
 		return true;
@@ -831,7 +855,7 @@ public class EZShop implements EZShopInterface {
 			rt.setCommitted(true);
 			rt.entries.forEach(x -> rt.getReturnOfSaleTransaction()
 					.addProduct(data.productTypes.get(data.barcodeToId.get(x.getBarCode())), -x.getAmount()));
-
+            rt.calculatePrice();
 		} else {
 			 deleteReturnTransaction(returnId);
 
@@ -887,11 +911,12 @@ public class EZShop implements EZShopInterface {
 		if (ticketNumber == null || ticketNumber <= 0)
 			throw new InvalidTransactionIdException();
 		it.polito.ezshop.model.SaleTransaction t = data.saleTransactions.get(ticketNumber);
-		if (t == null || t.getPrice() > 10000 /* check amount on credit card */)
+		if (t == null || t.getPrice() > 10000 || !data.creditCards.containsKey(creditCard) || data.creditCards.get(creditCard) < t.getPrice())
 			return false;
 		t.setStatus("PAYED");
 		data.balanceOperations.put(data.balanceOperationIDs,
-				new BalanceOperation(data.balanceOperationIDs++, LocalDate.now(), t.getPrice(), "SALE"));
+				new BalanceOperation(data.balanceOperationIDs++, LocalDate.now(), t.getPrice(), "SALE "));
+		data.creditCards.put(creditCard, data.creditCards.get(creditCard)-t.getPrice());
 		saveData();
 		return true;
 	}
@@ -909,6 +934,7 @@ public class EZShop implements EZShopInterface {
 		data.balanceOperations.put(data.balanceOperationIDs,
 				new BalanceOperation(data.balanceOperationIDs++, LocalDate.now(), rt.getPrice(), "RETURN"));
 		saveData();
+		//rt.calculatePrice();
 		return rt.getPrice();
 	}
 

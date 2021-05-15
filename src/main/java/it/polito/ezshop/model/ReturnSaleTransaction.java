@@ -18,7 +18,7 @@ public class ReturnSaleTransaction extends SaleTransaction {
 	}
 	
 	
-	/* TO TEST */
+	/* INTEGRATION TO TEST */
 	
 	public boolean addReturnProduct(TicketEntry te, Integer amount) {
 
@@ -33,7 +33,7 @@ public class ReturnSaleTransaction extends SaleTransaction {
 		
 			it.polito.ezshop.model.TicketEntry entry = new it.polito.ezshop.model.TicketEntry(te.getBarCode(),
 					te.getProductDescription(), te.getPricePerUnit(), amount, te.getDiscountRate() );
-			double money=te.getPricePerUnit()*amount*(1-te.getDiscountRate());
+			double money=te.getPricePerUnit()*amount*(1-te.getDiscountRate())*discountRate;
 			returnOfSaleTransaction.price-=money;
 			
             
