@@ -106,12 +106,16 @@ public class EZShop implements EZShopInterface {
 				&& data.loggedInUser.getRole().compareTo("Cashier") != 0
 				&& data.loggedInUser.getRole().compareTo("ShopManager") != 0;
 	}
+	
+	
+	
     /* UNIT TEST ON THESE */
 	public boolean checkPosition(String position) {
 
 		return position.matches("[0-9]+-[0-9]+-[0-9]+") == true;
 	}
 
+	
 	public boolean checkLuhn(String cardNo) {
 		if (cardNo.length() < 8 || cardNo.length() > 19)
 			return false;
