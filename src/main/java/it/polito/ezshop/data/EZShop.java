@@ -26,13 +26,14 @@ import java.util.stream.Collectors;
 
 public class EZShop implements EZShopInterface {
 
-	EZShopData data;
+	public EZShopData data;
 	
 	
 
 	public EZShop() {
 		super();
-		loadData();
+		data = new EZShopData();
+		//loadData();
 
 	}
 
@@ -193,15 +194,18 @@ public class EZShop implements EZShopInterface {
 	public boolean deleteUser(Integer id) throws InvalidUserIdException, UnauthorizedException {
 		if (data.loggedInUser == null || !data.loggedInUser.isAdmin())
 			throw new UnauthorizedException();
-		if (id < 1 || id == null)
+		if (id == null || id < 1 )
 			throw new InvalidUserIdException();
 		if (!data.idToUsername.containsKey(id))
 			throw new InvalidUserIdException();
 
+		if(data.loggedInUser.getId() == id)
+			return false;
 		if (data.users.remove(data.idToUsername.get(id)) == null)
 			return false;
 		if (data.idToUsername.remove(id) == null)
 			return false;
+		
 
 		return saveData();
 	}

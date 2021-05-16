@@ -33,24 +33,28 @@ public class SaleTransaction implements it.polito.ezshop.data.SaleTransaction, S
 	
 
 	/* END TO TEST */
-		public boolean removeProduct(it.polito.ezshop.model.ProductType prod, Integer amount) {
+	public boolean removeProduct(it.polito.ezshop.model.ProductType prod, Integer amount) {
 
-		if (!products.containsKey(prod.getBarCode()))
+		if (prod == null || !products.containsKey(prod.getBarCode()) || amount <=0)
 			return false;
-
+		
 		it.polito.ezshop.model.TicketEntry t = products.get(prod.getBarCode());
-
+		if(amount > t.getAmount())
+			return false;
 		// this.price -= amount * t.getPricePerUnit() * (1 - t.getDiscountRate());
 		if (amount == t.getAmount())
 			products.remove(t.getBarCode());
 		else {
 			t.addAmount(-amount);
-			prod.addQuantity(amount);
+			prod.addQuantity(+amount);
 		}
 
 		return true;
 	}
 	public boolean addProduct(it.polito.ezshop.model.ProductType prod, Integer amount) {
+		
+		if (prod == null || amount <=0 || prod.getQuantity()<amount)
+			return false;
 
 		if (products.containsKey(prod.getBarCode())) {
 
@@ -69,6 +73,9 @@ public class SaleTransaction implements it.polito.ezshop.data.SaleTransaction, S
 		}
 	}
 	public boolean applyProductDiscount(String barcode, double discountRate) {
+		
+		if(discountRate <=0 || discountRate >1)
+			return false;
 
 		it.polito.ezshop.model.TicketEntry prod = products.get(barcode);
 		prod.setDiscountRate(discountRate);

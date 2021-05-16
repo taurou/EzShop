@@ -1,4 +1,4 @@
-package it.polito.ezshop.acceptanceTests;
+package it.polito.ezshop.unitTests;
 
 import static org.junit.Assert.*;
 
@@ -11,10 +11,12 @@ import org.junit.Test;
 import it.polito.ezshop.model.SaleTransaction;
 import it.polito.ezshop.model.TicketEntry;
 
-public class SaleTransactionTest {
+public class SaleTransactionUnitTest {
    
-	SaleTransaction transaction = new SaleTransaction(1);
+	
 	Integer ticketNumber = 1;
+	SaleTransaction transaction = new SaleTransaction(ticketNumber);
+	
 	@Before
 	public void setUp() {
 		
