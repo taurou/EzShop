@@ -10,7 +10,7 @@ import it.polito.ezshop.exceptions.InvalidPasswordException;
 import it.polito.ezshop.exceptions.InvalidRoleException;
 import it.polito.ezshop.exceptions.InvalidUsernameException;
 
-public class CreateUserTest {
+public class CreateUserIntegrationTest {
 	it.polito.ezshop.data.EZShop shop;
 	@Before
 	public void setUp() {

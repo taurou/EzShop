@@ -1,5 +1,6 @@
 package it.polito.ezshop.unitTests;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
@@ -20,6 +21,18 @@ public class TestUser {
 	public void testIsAdmin2(){
 		user.setRole("Administrator");
 		assertTrue(user.isAdmin());
+	}
+	
+	@Test public void  gettersAndSetters() {
+		user.setId(1);
+		user.setPassword("psw");
+		user.setRole("Cashier");
+		user.setUsername("Mario");
+		assertEquals(user.getId(), 1, 0);
+		assertEquals(user.getPassword(), "psw");
+		assertEquals(user.getRole(), "Cashier");
+		assertEquals(user.getUsername(), "Mario");
+		
 	}
 	
 	 

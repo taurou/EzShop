@@ -12,7 +12,7 @@ import it.polito.ezshop.exceptions.InvalidUserIdException;
 import it.polito.ezshop.exceptions.InvalidUsernameException;
 import it.polito.ezshop.exceptions.UnauthorizedException;
 
-public class DeleteUserTest {
+public class DeleteUserIntegrationTest {
 
 	it.polito.ezshop.data.EZShop shop;
 	@Before

@@ -38,6 +38,14 @@ Version:
     step4: DeleteUser
 
 
+@startuml
+class SaleTransaction
+class TicketEntry
+class ProductType
+SaleTransaction --> ProductType
+SaleTransaction --> TicketEntry
+@enduml
+
 #  Tests
 
    <define below a table for each integration step. For each integration step report the group of classes under test, and the names of
