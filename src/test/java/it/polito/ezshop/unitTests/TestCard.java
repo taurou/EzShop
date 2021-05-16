@@ -1,4 +1,4 @@
-package it.polito.ezshop.acceptanceTests;
+package it.polito.ezshop.unitTests;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -24,7 +24,7 @@ public class TestCard {
 	@Test
 	public void testaddPoints(){                       // Problem here !!
 		assertEquals(0,card.getPoints(),0.01);
-		
+		card.setCustomer(customer);
 		card.addPoints(10);
 		assertEquals(10,card.getPoints(),0.01);
 		assertEquals(10,customer.getPoints(),0.01);
@@ -36,7 +36,7 @@ public class TestCard {
 	
 	@Test
 	public void testgetCardNumber(){
-		assertTrue(card.getCardNumber() == "123");
+		assertEquals(card.getCardNumber(), "123");
 	}
 	
 }

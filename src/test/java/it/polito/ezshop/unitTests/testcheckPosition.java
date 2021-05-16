@@ -1,4 +1,4 @@
-package it.polito.ezshop.acceptanceTests;
+package it.polito.ezshop.unitTests;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
@@ -18,7 +18,7 @@ public class testcheckPosition {
 	//TC2
 	@Test
 	public void testNonString() {
-		assert(ezshop.checkPosition(123));
+		assertFalse(ezshop.checkPosition("123"));
 	}
 	//TC3
 	@Test

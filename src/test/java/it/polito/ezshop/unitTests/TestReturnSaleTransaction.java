@@ -40,15 +40,18 @@ public class TestReturnSaleTransaction {
 	@Test
 	public void testAddReturnProductNegativeAmount(){
 		ReturnSaleTransaction returnsaletransaction = new ReturnSaleTransaction(28, saletransaction);
-		
+		producttype.addQuantity(5);
+		returnsaletransaction.returnOfSaleTransaction.addProduct(producttype, 5);
 		assertFalse(returnsaletransaction.addReturnProduct(ticket, -5));
 	}
 	
 	@Test
 	public void testAddReturnProductCorrectAmount(){
 		ReturnSaleTransaction returnsaletransaction = new ReturnSaleTransaction(28, saletransaction);
-		
-		assertFalse(returnsaletransaction.addReturnProduct(ticket, 5)); 
+		returnsaletransaction.returnOfSaleTransaction.addProduct(producttype, 5);
+		producttype.addQuantity(5);
+		returnsaletransaction.returnOfSaleTransaction.addProduct(producttype, 5);
+		assertTrue(returnsaletransaction.addReturnProduct(ticket, 5)); 
 	}
 	
 	@Test

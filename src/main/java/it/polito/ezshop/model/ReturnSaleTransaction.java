@@ -8,7 +8,7 @@ public class ReturnSaleTransaction extends SaleTransaction {
 	 * 
 	 */
 	private static final long serialVersionUID = 2697175701011876018L;
-	it.polito.ezshop.model.SaleTransaction returnOfSaleTransaction;
+	public it.polito.ezshop.model.SaleTransaction returnOfSaleTransaction;
 	boolean committed;
 
 	public ReturnSaleTransaction(Integer ticketNumber, it.polito.ezshop.model.SaleTransaction saleTransaction) {

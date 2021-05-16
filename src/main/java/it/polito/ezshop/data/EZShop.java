@@ -111,13 +111,15 @@ public class EZShop implements EZShopInterface {
 	
     /* UNIT TEST ON THESE */
 	public boolean checkPosition(String position) {
-
-		return position.matches("[0-9]+-[0-9]+-[0-9]+") == true;
+		if(position != null)
+			return position.matches("[0-9]+-[0-9]+-[0-9]+") == true;
+		
+		return false;
 	}
 
 	
 	public boolean checkLuhn(String cardNo) {
-		if (cardNo.length() < 8 || cardNo.length() > 19)
+		if (cardNo == null || cardNo.length() < 8 || cardNo.length() > 19 || !cardNo.chars().allMatch(Character::isDigit))
 			return false;
 		int nDigits = cardNo.length();
 

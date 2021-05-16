@@ -1,4 +1,4 @@
-package it.polito.ezshop.acceptanceTests;
+package it.polito.ezshop.unitTests;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.assertEquals;

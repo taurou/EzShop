@@ -1,4 +1,4 @@
-package it.polito.ezshop.acceptanceTests;
+package it.polito.ezshop.unitTests;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.assertEquals;
@@ -19,7 +19,7 @@ public class TestBalanceOperation {
 	@Test
 	public void testConstructor() {
 		assertEquals(transaction.getBalanceId(), 121);
-		assertTrue(transaction.getMoney()== -108.30);
+		assertEquals(transaction.getMoney(), -108.30, 0);
 		assertEquals(transaction.getBalanceId(), 121);
 		assertEquals(transaction.getType(), "ORDER");
 		assertTrue(transaction.getDate().isEqual(LocalDate.of(2021, 1, 29)));
@@ -32,7 +32,7 @@ public class TestBalanceOperation {
 		transaction.setDate(day);
 		assertTrue(transaction.getDate().isEqual(LocalDate.of(2021, 2, 20)));
 		transaction.setMoney(12.30);
-		assertTrue(transaction.getMoney()== 12.30);
+		assertEquals(transaction.getMoney(), 12.30, 0);
 		transaction.setType("SALE");
 		assertEquals(transaction.getType(), "SALE");
 	}

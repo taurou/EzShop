@@ -1,5 +1,6 @@
-package it.polito.ezshop.acceptanceTests;
+package it.polito.ezshop.unitTests;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
@@ -19,42 +20,42 @@ public class TestOrder {
 	@Test
 	public void testgetBalanceId(){
 		order.setBalanceId(5);
-		assertTrue(order.getBalanceId() == 5);
+		assertEquals(order.getBalanceId(), 5, 0);
 	}
 	
 	@Test
 	public void testgetProductCode(){
-		assertTrue(order.getProductCode() == "B");
+		assertEquals(order.getProductCode(), "B");
 		order.setProductCode("ABC123");
-		assertTrue(order.getProductCode() == "ABC123");
+		assertEquals(order.getProductCode(), "ABC123");
 	}
 	
 	@Test
 	public void testgetPricePerUnit(){
-		assertTrue(order.getPricePerUnit() == 2.5);		
+		assertEquals(order.getPricePerUnit(), 2.5, 0);		
 		order.setPricePerUnit(5.5);
-		assertTrue(order.getPricePerUnit() == 5.5);
+		assertEquals(order.getPricePerUnit(), 5.5, 0);
 	}
 	
 	@Test
 	public void testgetQuantity(){
-		assertTrue(order.getQuantity() == 5);
+		assertEquals(order.getQuantity(), 5, 0);
 		order.setQuantity(6);
-		assertTrue(order.getQuantity() == 6);
+		assertEquals(order.getQuantity(), 6, 0);
 	}
 	
 	@Test
 	public void testgetStatus(){
-		assertTrue(order.getStatus() == "ABC");
+		assertEquals(order.getStatus(), "ABC");
 		order.setStatus("K12");
-		assertTrue(order.getStatus() == "k12");
+		assertEquals(order.getStatus(), "K12");
 	}
 	
 	@Test
 	public void testgetOrderId(){
-		assertTrue(order.getOrderId() == 12);
+		assertEquals(order.getOrderId(),12, 0);
 		order.setOrderId(5);
-		assertTrue(order.getOrderId() == 5);
+		assertEquals(order.getOrderId(), 5, 0);
 	}
 }
 	
