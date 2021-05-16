@@ -18,11 +18,6 @@ public class Order implements it.polito.ezshop.data.Order, Serializable {
 	BalanceOperation operation;
 	
 	
-
-	public Integer getBalanceId() {
-		return balanceId;
-	}
-
 	public Order(it.polito.ezshop.model.ProductType product, double pricePerUnit, int quantity, Integer orderId, String status, LocalDate date) {
 		super();
 		this.product = product;
@@ -32,7 +27,9 @@ public class Order implements it.polito.ezshop.data.Order, Serializable {
 		this.orderId = orderId;
 		this.status=status;
 	}
-
+	public Integer getBalanceId() {
+		return balanceId;
+	}
 	public void setBalanceId(Integer balanceId) {
 		this.balanceId = balanceId;
 	}
