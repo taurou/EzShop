@@ -30,7 +30,7 @@ public class TestReturnSaleTransaction {
 		assertEquals(50,returnofsaletransaction.getPrice(),0.01);	// What's the meaning of line 37 and line 41 in ReturnSaleTransaction?
 	}
 	
-	/*
+	
 	ProductType producttype = new ProductType("firstproduct", "6291041500213", (double) 10, 1, "olio");
 	
 	SaleTransaction saletransaction = new SaleTransaction(28);
@@ -48,17 +48,17 @@ public class TestReturnSaleTransaction {
 	public void testAddReturnProductCorrectAmount(){
 		ReturnSaleTransaction returnsaletransaction = new ReturnSaleTransaction(28, saletransaction);
 		
-		assertFalse(returnsaletransaction.addReturnProduct(ticket, 5));
+		assertFalse(returnsaletransaction.addReturnProduct(ticket, 5)); 
 	}
 	
 	@Test
-	public void testAddReturnProduct(){
+	public void testAddReturnProduct2(){
 		saletransaction.addProduct(producttype, 10);
 		ReturnSaleTransaction returnsaletransaction = new ReturnSaleTransaction(28, saletransaction);
 		
 		assertTrue(returnsaletransaction.addReturnProduct(ticket, 5));
 	}
-	*/
+	
 
 }
  
