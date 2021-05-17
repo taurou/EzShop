@@ -49,7 +49,7 @@ public class TestProductType {
 
 	}
 	@Test
-	public void gettersAndSettersTest() {
+	public void testGettersAndSetters() {
 		prova.setBarCode("928001137862");
 		assertEquals(prova.getBarCode(), "928001137862");
 		prova.setId(901);

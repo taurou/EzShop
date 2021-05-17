@@ -25,7 +25,7 @@ public class TestBalanceOperation {
 		assertTrue(transaction.getDate().isEqual(LocalDate.of(2021, 1, 29)));
 	}
 	@Test
-	public void testSetters() {
+	public void testGettersAndSetters() {
 		day = LocalDate.of(2021,  02,  20);
 		transaction.setBalanceId(122);
 		assertEquals(transaction.getBalanceId(), 122);

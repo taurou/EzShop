@@ -47,7 +47,7 @@ Version:
 ||no|
 |   barcode respect GS1      |     yes      |
 ||no|
- 
+
 
 <br></br>
 
@@ -61,7 +61,7 @@ Version:
 
 | is null | isBlank() | is made of all digits | length is correct | respect GS1 | Valid / Invalid | Description of the test case | JUnit test case |
 |-------|-------|-------|-------|-------|-------|-------|-------|
-|true   |       |       |       |       |valid  |T1(null)--> true   |       |       
+|true   |       |       |       |       |valid  |T1(null)--> true   |       |
 |       |true   |       |       |       |valid  |T2("  ")-->true   |       |
 |       |       |false  |       |       |valid  |T3("a1234")-->true   |       |
 |       |       |true   |false  |       |valid  |T4("1234")-->true   |       |
@@ -289,7 +289,7 @@ Version:
 | Pattern correctness | Correct |
 || Incorrect |
 |||
- 
+
 
 <br></br>
 
@@ -298,7 +298,7 @@ Version:
 
 | is null | is string | length is correct | Pattern is correct | Validity | Description of the test case | JUnit test case |
 |---------|-----------|-------------------|--------------------|----------|------------------------------|-----------------|
-|null     | *         | *                 |  *                 | Invalid  |  T1(null) --> False          |    TC1    |       
+|null     | *         | *                 |  *                 | Invalid  |  T1(null) --> False          |    TC1    |
 | *       | False     | *                 |  *                 | Invalid  |  T2(1-2-3) --> False         |    TC2    |
 | *       | *         |   > 3 Digits      |  *                 | Invalid  |  T3("1-2-3-4") --> False     |    TC3    |
 | *       | *         |   < 3 Digits      |  *                 | Invalid  |  T4("1-2") --> False         |    TC3    |
@@ -328,11 +328,14 @@ Version:
 | TikcetEntry: setDiscountEntry | TestTicketEntry: testSetDiscountRate |
 | ReturnSaleTransaction Class | TestReturnSaleTransaction: testIsCommitted |
 | ReturnSaleTransaction: addReturnProduct | TestReturnSaleTransaction: testAddReturnProduct, testAddReturnProductNegativeAmount, testAddReturnProductCorrectAmount, testAddReturnProduct2 |
+| Customer Class | TestCustomer: testConstructor, testInsertionOfCard, testOtherGettersAndSetters |
+| ProductType Class | TestProductType: testContructor, testGettersAndSetters |
+| BalanceOperation Classe | TestBalanceOperation: testConstructor, testGettersAndSetters |
 
 
 ### Code coverage report
 
-  <img src="../Images/CoverageReport.JPG" width="850" height="300">
+  <img src="../Images/CoverageReport.png" width="850" height="360">
 
 
 
