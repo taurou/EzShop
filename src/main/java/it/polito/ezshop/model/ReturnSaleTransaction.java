@@ -22,19 +22,10 @@ public class ReturnSaleTransaction extends SaleTransaction {
 	
 	public boolean addReturnProduct(TicketEntry te, Integer amount) {
 
-		/*
-		 * it.polito.ezshop.model.TicketEntry entry = new
-		 * it.polito.ezshop.model.TicketEntry(prod.getBarCode(),
-		 * prod.productDescription, prod.pricePerUnit, amount); entries.add(entry);
-		 * price+=prod.getPricePerUnit()*amount*(1-entry.getDiscountRate()); return
-		 * true;
-		 */
+
 		if(amount<=0)
 			return false;
-	/*	if(!(returnOfSaleTransaction.products.containsKey(te.getBarCode())))
-			return false;*/
-
-		
+	
 			it.polito.ezshop.model.TicketEntry entry = new it.polito.ezshop.model.TicketEntry(te.getBarCode(),
 					te.getProductDescription(), te.getPricePerUnit(), amount, te.getDiscountRate() );
 			double money=te.getPricePerUnit()*amount*(1-te.getDiscountRate())*(1-discountRate);

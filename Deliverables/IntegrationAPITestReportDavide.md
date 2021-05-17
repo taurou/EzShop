@@ -49,6 +49,73 @@ EZShop --> SaleTransaction
 EZShop --> TicketEntry
 EZShop --> ProductType
 @enduml
+
+
+@startuml
+'left to right direction
+top to bottom direction
+class "createUser()"
+class "deleteUser()"
+class "getAllUsers()"
+class "getAllOrders()"
+class "defineCustomer()"
+class "recordOrderArrival()"
+class "createProductType()" 
+class "getCustomer()"
+class "getAllCustomers()"
+class "createCard()"
+class "startSaleTransaction()"
+class "addProductToSale()"
+class "getSaleTransaction()"
+class "receiveCashPayment()"
+class "receiveCreditCardPayment()"
+class "returnCashPayment()"
+class "recordBalanceUpdate()" 
+class "getCreditsAndDebits()"
+class "computeBalance()" 
+
+
+"deleteUser()" --> "createUser()"
+"getAllUsers()" --> "createUser()"
+"getUser()" --> "createUser()"
+"updateUserRights()" -->  "createUser()"
+"login()" --> "createUser()"
+"logout()" --> "createUser()"
+"updateProduct" --> "createProductType()" 
+"deleteProductType()" --> "createProductType()"
+"getAllProductTypes()" --> "createProductType()"
+"getProductTypeByBarCode()" --> "createProductType()"
+"getProductTypesByDescription()"  --> "createProductType()"
+"updateQuantity()" --> "createProductType()"
+" updatePosition()" -->  "createProductType()"
+" issueOrder()" --> "createProductType()"
+"payOrderFor()" --> "createProductType()"
+"payOrderFor()" -->  "computeBalance()"
+"payOrder()" --> "createProductType()"
+"modifyCustomer" --> "defineCustomer()"
+"deleteCustomer" --> "defineCustomer()"
+"attachCardToCustomer()" --> "createCard()"
+"modifyPointsOnCard()" --> "createCard()"
+"addProductToSale()" --> "createProductType()"
+"addProductToSale()" --> "startSaleTransaction()"
+"deleteProductToSale()" --> "createProductType()"
+"deleteProductToSale()" --> "startSaleTransaction()"
+"applyDiscountRateToProduct()" --> "createProductType()"
+"applyDiscountRateToSale()" --> "startSaleTransaction()"
+"computePointsForSale()" --> "startSaleTransaction()"
+"endSaleTransaction()" --> "startSaleTransaction()"
+"endSaleTransaction()" -->"startSaleTransaction()"
+"deleteSaleTransaction()" --> "startSaleTransaction()"
+"startReturnTransaction()" --> "startSaleTransaction()"
+"returnProduct()" --> "startReturnTransaction()" 
+"returnProduct()" --> "createProductType()"
+"endReturnTransaction()" --> "startReturnTransaction()" 
+"deleteReturnTransaction()" --> "startReturnTransaction()"
+"returnCashPayment()" -->  "startReturnTransaction()" 
+"returnCreditCardPayment()" --> "startReturnTransaction()" 
+"receiveCreditCardPayment()" --> "startSaleTransaction()"
+"receiveCashPayment()" --> "startSaleTransaction()"
+@enduml
      
 # Integration approach
 
