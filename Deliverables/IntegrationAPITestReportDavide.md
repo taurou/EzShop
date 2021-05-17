@@ -23,7 +23,32 @@ Version:
 
 # Dependency graph 
 
-     <report the here the dependency graph of the classes in EzShop, using plantuml>
+    @startuml
+class SaleTransaction
+class TicketEntry
+class ProductType
+class EZShop
+class BalanceOperation
+class Card
+class Customer
+class EZShopData
+class Order
+class ReturnSaleTransaction
+class User
+SaleTransaction --> ProductType
+SaleTransaction --> TicketEntry
+ReturnSaleTransaction --> TicketEntry
+EZShop --> BalanceOperation
+EZShop --> Card
+EZShop --> Order
+EZShop --> Customer
+EZShop --> EZShopData
+EZShop --> User
+EZShop --> ReturnSaleTransaction
+EZShop --> SaleTransaction
+EZShop --> TicketEntry
+EZShop --> ProductType
+@enduml
      
 # Integration approach
 
@@ -38,13 +63,6 @@ Version:
     step4: DeleteUser
 
 
-@startuml
-class SaleTransaction
-class TicketEntry
-class ProductType
-SaleTransaction --> ProductType
-SaleTransaction --> TicketEntry
-@enduml
 
 #  Tests
 
