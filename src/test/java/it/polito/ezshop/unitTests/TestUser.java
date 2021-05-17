@@ -23,7 +23,7 @@ public class TestUser {
 		assertTrue(user.isAdmin());
 	}
 	
-	@Test public void  gettersAndSetters() {
+	@Test public void  testGettersAndSetters() {
 		user.setId(1);
 		user.setPassword("psw");
 		user.setRole("Cashier");

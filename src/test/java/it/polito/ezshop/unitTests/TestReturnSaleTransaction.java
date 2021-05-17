@@ -21,13 +21,13 @@ public class TestReturnSaleTransaction {
 		return false;
 	 */
 	
-	ReturnSaleTransaction returnofsaletransaction = new ReturnSaleTransaction( 28, new SaleTransaction(28));
+	ReturnSaleTransaction returntransaction = new ReturnSaleTransaction( 28, new SaleTransaction(28));
 	
 	@Test
 	public void testAddReturnProduct(){
-		assertEquals(0,returnofsaletransaction.getPrice(),0.01);
-		returnofsaletransaction.addReturnProduct(new TicketEntry("6291041500213","olio",10,5), 5);
-		assertEquals(50,returnofsaletransaction.getPrice(),0.01);	// What's the meaning of line 37 and line 41 in ReturnSaleTransaction?
+		assertEquals(0,returntransaction.getPrice(),0.01);
+		returntransaction.addReturnProduct(new TicketEntry("6291041500213","olio",10,5), 5);
+		assertEquals(50,returntransaction.getPrice(),0.01);	// What's the meaning of line 37 and line 41 in ReturnSaleTransaction?
 	}
 	
 	
@@ -60,6 +60,13 @@ public class TestReturnSaleTransaction {
 		ReturnSaleTransaction returnsaletransaction = new ReturnSaleTransaction(28, saletransaction);
 		
 		assertTrue(returnsaletransaction.addReturnProduct(ticket, 5));
+	}
+	
+	@Test 
+	public void testIsCommitted() {
+		ReturnSaleTransaction returnsaletransaction = new ReturnSaleTransaction(28, saletransaction);
+		returnsaletransaction.setCommitted(true);
+		assertTrue(returnsaletransaction.isCommitted());
 	}
 	
 

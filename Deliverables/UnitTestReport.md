@@ -321,6 +321,13 @@ Version:
 |--|--|
 | SaleTransaction Class  | SaleTransactionTest: ConstructorTest, testGettersAndSetters |
 | SaleTransaction: CalculatePrice | SaleTransactionTest: testCalculatePrice |
+| User Class | TestUser: testGettersAndSetters |
+| User: isAdmin | TestUser: testIsAdmin1, testIsAdmin2 |
+| TicketEntry Class | TestTicketEntry: testSetters |
+| TicketEntry: addAmount | TestTicketEntry: testAmount |
+| TikcetEntry: setDiscountEntry | TestTicketEntry: testSetDiscountRate |
+| ReturnSaleTransaction Class | TestReturnSaleTransaction: testIsCommitted |
+| ReturnSaleTransaction: addReturnProduct | TestReturnSaleTransaction: testAddReturnProduct, testAddReturnProductNegativeAmount, testAddReturnProductCorrectAmount, testAddReturnProduct2 |
 
 
 ### Code coverage report

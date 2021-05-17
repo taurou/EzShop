@@ -30,6 +30,19 @@ public class TestTicketEntry {
 		
 		ticket.addAmount(-5);
 		assertEquals(10,ticket.getAmount(),0.01);
+		
+		ticket.setAmount(30);
+		assertEquals(30,ticket.getAmount(),0.01);
+	}
+	
+	@Test
+	public void testSetters() {
+		ticket.setBarCode("1234");
+		ticket.setProductDescription("birra");
+		ticket.setPricePerUnit(11);
+		assertEquals(ticket.getBarCode(),"1234");
+		assertEquals(ticket.getProductDescription(),"birra");
+		assertEquals(ticket.getPricePerUnit(),11,0.01);
 	}
 
 }
