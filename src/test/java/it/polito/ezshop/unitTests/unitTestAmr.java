@@ -86,7 +86,7 @@ class unitTests{
 		card.addPoints(10);
 		assertEquals(10,card.getPoints(),0.01);
 		assertEquals(10,customer.getPoints(),0.01);
-		ard.addPoints(-5);
+		card.addPoints(-5);
 		assertEquals(5,card.getPoints(),0.01);
 		assertEquals(5,customer.getPoints(),0.01);
 

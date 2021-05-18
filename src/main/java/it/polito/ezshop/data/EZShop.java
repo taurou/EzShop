@@ -514,6 +514,8 @@ public class EZShop implements EZShopInterface {
 		if (o == null)
 			return false;
 		it.polito.ezshop.model.ProductType p = data.productTypes.get(data.barcodeToId.get(o.getProductCode()));
+		if (p == null)
+			return false; 
 		if (p.getLocation() == null)
 			throw new InvalidLocationException();
 		if (o.getStatus().compareTo("COMPLETED") == 0)
