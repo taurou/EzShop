@@ -336,7 +336,7 @@ Version: 1.0
 | Card Class | TestOrderPositionCard |
 ### Code coverage report
 
-  <img src="../Images/CoverageReport.png" width="850" height="360">
+  <img src="../Images/CoverageReport.JPG" width="850" height="360">
 
 
 

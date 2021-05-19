@@ -1,4 +1,4 @@
-package it.polito.ezshop.integrationTests;
+package it.polito.ezshop.unitTests;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -12,7 +12,7 @@ import it.polito.ezshop.model.ProductType;
 import it.polito.ezshop.model.SaleTransaction;
 import it.polito.ezshop.model.TicketEntry;
 
-public class SaleTransactionIntegrationTest {
+public class SaleTransactionUnitTest2 {
 
 	Integer ticketNumber = 1;
 	SaleTransaction transaction;
@@ -30,23 +30,7 @@ public class SaleTransactionIntegrationTest {
 		transaction.products.put(barcode, tEntry);
 	}
 	
-	@Test
-	public void addProductTest() {
-		product.setQuantity(10);
-		assertFalse(transaction.addProduct(product, -5));
-		assertFalse(transaction.addProduct(product, 0));
-		assertFalse(transaction.addProduct(null, -5));
-		assertFalse(transaction.addProduct(product, 25));
-		assertTrue(transaction.addProduct(product, 1));
-		assertEquals(product.getQuantity(), 9, 0);
-		assertEquals(tEntry.getAmount(), quantity+1);
-		transaction.products.clear();
-		assertTrue(transaction.addProduct(product, 1));
-		assertTrue(transaction.products.containsKey(barcode));
-		assertEquals(transaction.products.get(barcode).getAmount(), 1, 0);
-		assertEquals(product.getQuantity(), 8, 0);
-	}
-	
+
 	@Test
 	public void removeProductTest() {
 		assertFalse(transaction.removeProduct(null, 5));
