@@ -51,9 +51,36 @@ public class SaleTransaction implements it.polito.ezshop.data.SaleTransaction, S
 
 		return true;
 	}
+	public boolean addProductDelRet(it.polito.ezshop.model.ProductType prod, Integer amount) {
+		if (prod == null || amount <=0)
+			return false;
+
+		if (products.containsKey(prod.getBarCode())) {
+
+			products.get(prod.getBarCode()).addAmount(amount);
+
+			prod.addQuantity(amount);
+
+			return true;
+		} else {
+			it.polito.ezshop.model.TicketEntry entry = new it.polito.ezshop.model.TicketEntry(prod.getBarCode(),
+					prod.productDescription, prod.pricePerUnit, amount);
+			prod.addQuantity(amount);
+			entries.add(entry);
+			products.put(prod.getBarCode(), entry);
+			return true;
+		}
+	}
+	
+	
+
+	
+	
+	
+	
 	public boolean addProduct(it.polito.ezshop.model.ProductType prod, Integer amount) {
 		
-		if (prod == null || amount <=0 || prod.getQuantity()<amount)
+		if (prod == null || amount <=0)
 			return false;
 
 		if (products.containsKey(prod.getBarCode())) {

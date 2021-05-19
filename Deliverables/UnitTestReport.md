@@ -330,7 +330,7 @@ Version:
 | ReturnSaleTransaction: addReturnProduct | TestReturnSaleTransaction: testAddReturnProduct, testAddReturnProductNegativeAmount, testAddReturnProductCorrectAmount, testAddReturnProduct2 |
 | Customer Class | TestCustomer: testConstructor, testInsertionOfCard, testOtherGettersAndSetters |
 | ProductType Class | TestProductType: testContructor, testGettersAndSetters |
-| BalanceOperation Classe | TestBalanceOperation: testConstructor, testGettersAndSetters |
+| BalanceOperation Class | TestBalanceOperation: testConstructor, testGettersAndSetters |
 
 
 ### Code coverage report

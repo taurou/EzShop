@@ -33,7 +33,7 @@ public class EZShop implements EZShopInterface {
 	public EZShop() {
 		super();
 		data = new EZShopData();
-		//loadData();
+		loadData();
 
 	}
 
@@ -863,8 +863,8 @@ public class EZShop implements EZShopInterface {
 			return false;
 		if (commit) {
 			rt.setCommitted(true);
-			rt.entries.forEach(x -> rt.getReturnOfSaleTransaction()
-					.addProduct(data.productTypes.get(data.barcodeToId.get(x.getBarCode())), -x.getAmount()));
+			rt.products.values().forEach(x -> rt.getReturnOfSaleTransaction()
+					.removeProduct(data.productTypes.get(data.barcodeToId.get(x.getBarCode())), x.getAmount()));
             rt.calculatePrice();
 		} else {
 			 deleteReturnTransaction(returnId);
@@ -885,7 +885,7 @@ public class EZShop implements EZShopInterface {
 		if (rt == null || rt.getStatus().compareTo("PAYED") == 0)
 			return false;
 		rt.products.values().forEach(x -> rt.getReturnOfSaleTransaction()
-				.addProduct(data.productTypes.get(data.barcodeToId.get(x.getBarCode())), x.getAmount()));
+				.addProductDelRet(data.productTypes.get(data.barcodeToId.get(x.getBarCode())), x.getAmount()));
 		data.returnSaleTransactions.remove(returnId);
 
 		return saveData();

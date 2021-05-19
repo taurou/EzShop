@@ -93,13 +93,13 @@ Report also for each of the scenarios the (one or more) API JUnit tests that cov
 
 | Scenario ID | Functional Requirements covered | JUnit  Test(s) | 
 | ----------- | ------------------------------- | ----------- | 
-|  ..         | FRx                             |             |             
-|  ..         | FRy                             |             |             
-| ...         |                                 |             |             
-| ...         |                                 |             |             
-| ...         |                                 |             |             
-| ...         |                                 |             |             
-
+|  1-1         | FRx                             |            |             
+|  1-2        | FRy                             |             |             
+|  1-3        |                                 |             |             
+|  2-1        |    FR1.1   FR1.5                       | CreateUserIntegrationTest             |             
+|  2-2        |        FR 1.2                         | DeleteUserIntegrationTest            |             
+|  2-3         |                                 |             |             
+| 5-1         |			FR 1.4			FR1.5			| LoginIntegrationTest |
 
 
 # Coverage of Non Functional Requirements
