@@ -1,10 +1,10 @@
 # Unit Testing Documentation
 
-Authors:
+Authors: Amr Alashram, Davide Perticone, Andrea Taurino, Francesco Vaccaro 
 
-Date:
+Date: 19/05/2021
 
-Version:
+Version: 1.0
 
 # Contents
 
@@ -331,8 +331,9 @@ Version:
 | Customer Class | TestCustomer: testConstructor, testInsertionOfCard, testOtherGettersAndSetters |
 | ProductType Class | TestProductType: testContructor, testGettersAndSetters |
 | BalanceOperation Class | TestBalanceOperation: testConstructor, testGettersAndSetters |
-
-
+| Order Class | TestOrderPositionCard |
+| Position Class | TestOrderPositionCard |
+| Card Class | TestOrderPositionCard |
 ### Code coverage report
 
   <img src="../Images/CoverageReport.png" width="850" height="360">

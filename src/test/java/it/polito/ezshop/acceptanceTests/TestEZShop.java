@@ -20,10 +20,10 @@ import it.polito.ezshop.unitTests.TestReturnSaleTransaction;
 import it.polito.ezshop.unitTests.TestTicketEntry;
 import it.polito.ezshop.unitTests.TestUser;
 import it.polito.ezshop.unitTests.testcheckPosition;
-
+import it.polito.ezshop.unitTests.TestOrderPositionCard;
 
 @RunWith(Suite.class)
-@Suite.SuiteClasses({CreateUserIntegrationTest.class, DeleteUserIntegrationTest.class, LoginIntegrationTest.class, TestCheckLuhn.class, TestCustomer.class, TestBalanceOperation.class, TestProductType.class, TestOrder.class, TestPosition.class, TestCard.class, TestTicketEntry.class, testcheckPosition.class, SaleTransactionUnitTest.class, TestCheckBarCode.class, TestReturnSaleTransaction.class, TestTicketEntry.class, TestUser.class, SaleTransactionIntegrationTest.class})
+@Suite.SuiteClasses({CreateUserIntegrationTest.class, DeleteUserIntegrationTest.class, LoginIntegrationTest.class, TestCheckLuhn.class, TestCustomer.class, TestBalanceOperation.class, TestProductType.class, TestOrder.class, TestPosition.class, TestCard.class, TestTicketEntry.class, testcheckPosition.class, SaleTransactionUnitTest.class, TestCheckBarCode.class, TestReturnSaleTransaction.class, TestTicketEntry.class, TestUser.class, SaleTransactionIntegrationTest.class, TestOrderPositionCard.class})
 
 public class TestEZShop {
     

@@ -14,7 +14,7 @@ import it.polito.ezshop.model.Customer;
 
 import java.time.LocalDate;
 
-class unitTests{
+public class TestOrderPositionCard{
     
     /* Test Class "Order" */
     @Test
