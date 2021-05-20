@@ -32,6 +32,8 @@ Version:
     <Some steps may  correspond to unit testing (ex step1 in ex above), presented in other document UnitTestReport.md>
     <One step will  correspond to API testing>
     
+    step1: Class ReturnSaleTransaction + Class SaleTransaction
+    step2: API
 
 
 #  Tests
@@ -91,13 +93,13 @@ Report also for each of the scenarios the (one or more) API JUnit tests that cov
 
 | Scenario ID | Functional Requirements covered | JUnit  Test(s) | 
 | ----------- | ------------------------------- | ----------- | 
-|  ..         | FRx                             |             |             
-|  ..         | FRy                             |             |             
-| ...         |                                 |             |             
-| ...         |                                 |             |             
-| ...         |                                 |             |             
-| ...         |                                 |             |             
-
+|  1-1         | FRx                             |            |             
+|  1-2        | FRy                             |             |             
+|  1-3        |                                 |             |             
+|  2-1        |                          |             |             
+|  2-2        |                            |            |             
+|  2-3         |                                 |             |             
+| 5-1         |					|  |
 
 
 # Coverage of Non Functional Requirements

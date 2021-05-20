@@ -1,5 +1,26 @@
 package it.polito.ezshop.acceptanceTests;
 
+import org.junit.runner.RunWith;
+import org.junit.runners.Suite;
+
+import it.polito.ezshop.unitTests.SaleTransactionUnitTest2;
+import it.polito.ezshop.unitTests.SaleTransactionUnitTest;
+import it.polito.ezshop.unitTests.TestBalanceOperation;
+import it.polito.ezshop.unitTests.TestCard;
+import it.polito.ezshop.unitTests.TestCheckBarCode;
+import it.polito.ezshop.unitTests.TestCheckLuhn;
+import it.polito.ezshop.unitTests.TestCustomer;
+import it.polito.ezshop.unitTests.TestOrder;
+import it.polito.ezshop.unitTests.TestPosition;
+import it.polito.ezshop.unitTests.TestProductType;
+import it.polito.ezshop.unitTests.TestReturnSaleTransaction;
+import it.polito.ezshop.unitTests.TestTicketEntry;
+import it.polito.ezshop.unitTests.TestUser;
+import it.polito.ezshop.unitTests.testcheckPosition;
+import it.polito.ezshop.unitTests.TestOrderPositionCard;
+
+@RunWith(Suite.class)
+@Suite.SuiteClasses({ TestCheckLuhn.class, TestCustomer.class, TestBalanceOperation.class, TestProductType.class, TestOrder.class, TestPosition.class, TestCard.class, TestTicketEntry.class, testcheckPosition.class, SaleTransactionUnitTest.class, TestCheckBarCode.class, TestReturnSaleTransaction.class, TestTicketEntry.class, TestUser.class, SaleTransactionUnitTest2.class, TestOrderPositionCard.class})
 
 public class TestEZShop {
     
