@@ -23,32 +23,6 @@ Version:
 
 # Dependency graph 
 
-@startuml
-class SaleTransaction
-class TicketEntry
-class ProductType
-class EZShop
-class BalanceOperation
-class Card
-class Customer
-class EZShopData
-class Order
-class ReturnSaleTransaction
-class User
-SaleTransaction --> ProductType
-SaleTransaction --> TicketEntry
-ReturnSaleTransaction --> TicketEntry
-EZShop --> BalanceOperation
-EZShop --> Card
-EZShop --> Order
-EZShop --> Customer
-EZShop --> EZShopData
-EZShop --> User
-EZShop --> ReturnSaleTransaction
-EZShop --> SaleTransaction
-EZShop --> TicketEntry
-EZShop --> ProductType
-@enduml
 
 
 <img src="../Images/DependencyGraph.JPG" width="850" height="400">
