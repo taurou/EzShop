@@ -5,10 +5,7 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 
 public class EZShopData implements Serializable {
-	
-	/**
-	 * 
-	 */
+
 	private static final long serialVersionUID = -6489647510184707833L;
 	
 	public User loggedInUser;
@@ -25,9 +22,8 @@ public class EZShopData implements Serializable {
 	public LinkedHashMap<Integer, SaleTransaction> saleTransactions;
 	public HashMap<String, Double> creditCards;
 	public double balance;
-	
-	
 	public HashMap<Integer, ProductType> productTypes;
+	
 	
 	public EZShopData() {
 		users = new HashMap<>();
