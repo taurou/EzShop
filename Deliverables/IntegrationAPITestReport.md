@@ -141,6 +141,7 @@ class "computeBalance()"
 
 ## Step 1
 | Classes  | JUnit test classes |
+| ---------| --------------------|
 | User | TestUser|
 | TicketEntry|TestTicketEntry|
 | ProductType | |
@@ -156,6 +157,7 @@ class "computeBalance()"
 
 ## Step 2
 | Classes  | JUnit test classes |
+| -------- | -------------------- |
 | SaleTransaction | SaleTransactionIntegrationTest|
 |||
 
