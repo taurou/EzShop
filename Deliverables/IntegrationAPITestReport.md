@@ -23,7 +23,99 @@ Version:
 
 # Dependency graph 
 
-     <report the here the dependency graph of the classes in EzShop, using plantuml>
+@startuml
+class SaleTransaction
+class TicketEntry
+class ProductType
+class EZShop
+class BalanceOperation
+class Card
+class Customer
+class EZShopData
+class Order
+class ReturnSaleTransaction
+class User
+SaleTransaction --> ProductType
+SaleTransaction --> TicketEntry
+ReturnSaleTransaction --> TicketEntry
+EZShop --> BalanceOperation
+EZShop --> Card
+EZShop --> Order
+EZShop --> Customer
+EZShop --> EZShopData
+EZShop --> User
+EZShop --> ReturnSaleTransaction
+EZShop --> SaleTransaction
+EZShop --> TicketEntry
+EZShop --> ProductType
+@enduml
+
+
+@startuml
+'left to right direction
+top to bottom direction
+class "createUser()"
+class "deleteUser()"
+class "getAllUsers()"
+class "getAllOrders()"
+class "defineCustomer()"
+class "recordOrderArrival()"
+class "createProductType()" 
+class "getCustomer()"
+class "getAllCustomers()"
+class "createCard()"
+class "startSaleTransaction()"
+class "addProductToSale()"
+class "getSaleTransaction()"
+class "receiveCashPayment()"
+class "receiveCreditCardPayment()"
+class "returnCashPayment()"
+class "recordBalanceUpdate()" 
+class "getCreditsAndDebits()"
+class "computeBalance()" 
+
+
+"deleteUser()" --> "createUser()"
+"getAllUsers()" --> "createUser()"
+"getUser()" --> "createUser()"
+"updateUserRights()" -->  "createUser()"
+"login()" --> "createUser()"
+"logout()" --> "createUser()"
+"updateProduct" --> "createProductType()" 
+"deleteProductType()" --> "createProductType()"
+"getAllProductTypes()" --> "createProductType()"
+"getProductTypeByBarCode()" --> "createProductType()"
+"getProductTypesByDescription()"  --> "createProductType()"
+"updateQuantity()" --> "createProductType()"
+" updatePosition()" -->  "createProductType()"
+" issueOrder()" --> "createProductType()"
+"payOrderFor()" --> "createProductType()"
+"payOrderFor()" -->  "computeBalance()"
+"payOrder()" --> "createProductType()"
+"modifyCustomer" --> "defineCustomer()"
+"deleteCustomer" --> "defineCustomer()"
+"attachCardToCustomer()" --> "createCard()"
+"modifyPointsOnCard()" --> "createCard()"
+"addProductToSale()" --> "createProductType()"
+"addProductToSale()" --> "startSaleTransaction()"
+"deleteProductToSale()" --> "createProductType()"
+"deleteProductToSale()" --> "startSaleTransaction()"
+"applyDiscountRateToProduct()" --> "createProductType()"
+"applyDiscountRateToSale()" --> "startSaleTransaction()"
+"computePointsForSale()" --> "startSaleTransaction()"
+"endSaleTransaction()" --> "startSaleTransaction()"
+"endSaleTransaction()" -->"startSaleTransaction()"
+"deleteSaleTransaction()" --> "startSaleTransaction()"
+"startReturnTransaction()" --> "startSaleTransaction()"
+"returnProduct()" --> "startReturnTransaction()" 
+"returnProduct()" --> "createProductType()"
+"endReturnTransaction()" --> "startReturnTransaction()" 
+"deleteReturnTransaction()" --> "startReturnTransaction()"
+"returnCashPayment()" -->  "startReturnTransaction()" 
+"returnCreditCardPayment()" --> "startReturnTransaction()" 
+"receiveCreditCardPayment()" --> "startSaleTransaction()"
+"receiveCashPayment()" --> "startSaleTransaction()"
+@enduml
      
 # Integration approach
 
@@ -33,7 +125,10 @@ Version:
     <One step will  correspond to API testing>
     
     step1: Class ReturnSaleTransaction + Class SaleTransaction
-    step2: API
+    step2: CreateUser
+    step3: login
+    step4: DeleteUser
+
 
 
 #  Tests
@@ -41,44 +136,35 @@ Version:
    <define below a table for each integration step. For each integration step report the group of classes under test, and the names of
      JUnit test cases applied to them> JUnit test classes should be here src/test/java/it/polito/ezshop
 
-## Step 1
-| Classes  | JUnit test cases |
-|--|--|
-|||
 
+
+
+## Step 1
+| Classes  | JUnit test classes |
+| User | TestUser|
+| TicketEntry|TestTicketEntry|
+| ProductType | |
+| Position ||
+| Order ||
+|Customer ||
+|Card || 
+| BalanceOperation||
+| SaleTransaction | SaleTransactionUnitTest |
+| EZShop : checkPosition | |
+| EZShop : CheckLuhn ||
+| EZShop : checkBarcodeValidity | |
 
 ## Step 2
-| Classes  | JUnit test cases |
-|--|--|
+| Classes  | JUnit test classes |
+| SaleTransaction | SaleTransactionIntegrationTest|
 |||
 
-
-## Step n 
-
-   
-
-| Classes  | JUnit test cases |
-|--|--|
-|||
 
 
 
 
 # Scenarios
 
-
-<If needed, define here additional scenarios for the application. Scenarios should be named
- referring the UC in the OfficialRequirements that they detail>
-
-## Scenario UCx.y
-
-| Scenario |  name |
-| ------------- |:-------------:| 
-|  Precondition     |  |
-|  Post condition     |   |
-| Step#        | Description  |
-|  1     |  ... |  
-|  2     |  ... |
 
 
 
@@ -93,13 +179,13 @@ Report also for each of the scenarios the (one or more) API JUnit tests that cov
 
 | Scenario ID | Functional Requirements covered | JUnit  Test(s) | 
 | ----------- | ------------------------------- | ----------- | 
-|  1-1         | FRx                             |            |             
-|  1-2        | FRy                             |             |             
-|  1-3        |                                 |             |             
-|  2-1        |                          |             |             
-|  2-2        |                            |            |             
-|  2-3         |                                 |             |             
-| 5-1         |					|  |
+|  ..         | FRx                             |             |             
+|  ..         | FRy                             |             |             
+| ...         |                                 |             |             
+| ...         |                                 |             |             
+| ...         |                                 |             |             
+| ...         |                                 |             |             
+
 
 
 # Coverage of Non Functional Requirements
