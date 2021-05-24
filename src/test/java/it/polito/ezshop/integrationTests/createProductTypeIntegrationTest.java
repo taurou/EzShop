@@ -67,14 +67,14 @@ public class createProductTypeIntegrationTest {
 	@Test
 	public void RepeatedProductTest() throws InvalidProductDescriptionException, InvalidProductCodeException, InvalidPricePerUnitException, UnauthorizedException, InvalidUsernameException, InvalidPasswordException  {	
 		user = shop.login("admin", "admin");
-		ProductID = shop.createProductType("Milk2", "6291041500213", 0, "Milk Company");
-		assertEquals(-1, shop.createProductType("Milk2", "6291041500213", 0, "Milk Company"), 0.01);
+		ProductID = shop.createProductType("Milk2", "6291041500213", 5, "Milk Company");
+		assertEquals(-1, shop.createProductType("Milk2", "6291041500213", 5, "Milk Company"), 0.01);
 	}
 	
 	@Test
 	public void VerifyCreateProductTest() throws InvalidProductDescriptionException, InvalidProductCodeException, InvalidPricePerUnitException, UnauthorizedException, InvalidUsernameException, InvalidPasswordException  {	
 		user = shop.login("admin", "admin");
-		ProductID = shop.createProductType("Milk2", "6291041500213", 0, "Milk Company");
+		ProductID = shop.createProductType("Milk2", "6291041500213", 5, "Milk Company");
 		assertEquals(ProductID, shop.getProductTypeByBarCode("6291041500213").getId(),0);
 	}
 	

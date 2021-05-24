@@ -24,6 +24,8 @@ public class updateQuantityIntegrationTest {
 		CashierID = shop.createUser("cashier", "cashier", "Cashier");
 		user = shop.login("admin", "admin");
 		ProductID = shop.createProductType("Description", "6291041500213", 1.5, "Note");
+		product = shop.getProductTypeByBarCode("6291041500213");
+		product.setLocation("51");
 		shop.logout();
 	}
 	
@@ -41,7 +43,7 @@ public class updateQuantityIntegrationTest {
 	@Test (expected = InvalidProductIdException.class)
 	public void NullIDTest() throws InvalidProductIdException, UnauthorizedException,InvalidUsernameException, InvalidPasswordException {
 		user = shop.login("admin", "admin");
-		isDone = shop.updateQuantity(null, 5);
+		isDone = shop.updateQuantity(null, 5);//check the comment in updateQuantity function to fix this error
 	}
 	
 	@Test (expected = InvalidProductIdException.class)

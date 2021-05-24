@@ -15,7 +15,7 @@ import it.polito.ezshop.exceptions.*;
 public class getAllProductTypesIntegrationTest {
 	
 	it.polito.ezshop.data.EZShop shop ;
-	int AdminID, CashierID, ProductID1, ProductID2, ProductID3;
+	int AdminID, CashierID, ManagerID, ProductID1, ProductID2, ProductID3;
 	User user;
 	List<ProductType> products;
 	ProductType product1, product2, product3;
@@ -27,7 +27,8 @@ public class getAllProductTypesIntegrationTest {
 		shop = new it.polito.ezshop.data.EZShop(1);
 		AdminID = shop.createUser("admin", "admin", "Administrator");
 		CashierID = shop.createUser("cashier", "cashier", "Cashier");
-		
+		ManagerID = shop.createUser("ShopManager", "ShopManager", "ShopManager");
+		products = new LinkedList<ProductType>();
 	}
 	
 	@Test (expected = UnauthorizedException.class)
@@ -36,22 +37,19 @@ public class getAllProductTypesIntegrationTest {
 	}
 	
 	@Test 
-	public void unauthorizedUserTest() throws UnauthorizedException,InvalidUsernameException, InvalidPasswordException  {	
-		user = shop.login("cashier", "cashier");
-		products = shop.getAllProductTypes();
-	}
+	public void NoProductsTest() throws UnauthorizedException,InvalidUsernameException, InvalidPasswordException  {	
+		user = shop.login("ShopManager", "ShopManager");
+		products = new LinkedList<ProductType>();
+		assertTrue(shop.getAllProductTypes().isEmpty());
+		}
 	
 	@Test
 	public void VerifyGetAllProductTypesTest() throws InvalidProductCodeException, UnauthorizedException,InvalidUsernameException, InvalidPasswordException, InvalidProductDescriptionException, InvalidPricePerUnitException {
-		user = shop.login("admin", "admin");
-		// Null list
-		products = new LinkedList<ProductType>();
-		assertTrue(shop.getAllProductTypes().isEmpty()); 
+		user = shop.login("admin", "admin"); 
 		Description = "Description";
 		ProductID1 = shop.createProductType(Description, "6291041500213", 1.5, "Note");
 		ProductID2 = shop.createProductType(Description, "123456789104", 2.5, "Note");
 		ProductID3 = shop.createProductType(Description, "923456789100", 3.5, "Note");
-		// Full List
 		products.add(shop.getProductTypeByBarCode("6291041500213"));
 		products.add(shop.getProductTypeByBarCode("123456789104"));
 		products.add(shop.getProductTypeByBarCode("923456789100"));

@@ -11,7 +11,7 @@ import it.polito.ezshop.exceptions.*;
 public class updateProductIntegrationTest {
 	
 	it.polito.ezshop.data.EZShop shop ;
-	int AdminID, CashierID, ProductID;
+	int AdminID, CashierID, ProductID, ShopManagerID;
 	Double newPrice;
 	User user;
 	ProductType product;
@@ -24,6 +24,7 @@ public class updateProductIntegrationTest {
 		newPrice = 5.5;
 		AdminID = shop.createUser("admin", "admin", "Administrator");
 		CashierID = shop.createUser("cashier", "cashier", "Cashier");
+		ShopManagerID = shop.createUser("ShopManager", "ShopManager", "ShopManager");
 		user = shop.login("admin", "admin");
 		ProductID = shop.createProductType("Description", "6291041500213", 1.5, "Note");
 		shop.logout();
@@ -108,9 +109,19 @@ public class updateProductIntegrationTest {
 	}
 		
 	@Test
-	public void VerifyUpdatrProductTest() throws InvalidProductIdException, InvalidProductDescriptionException, InvalidProductCodeException,
+	public void VerifyUpdatrProductAdminTest() throws InvalidProductIdException, InvalidProductDescriptionException, InvalidProductCodeException,
 	InvalidPricePerUnitException, UnauthorizedException,InvalidUsernameException, InvalidPasswordException {
 		user = shop.login("admin", "admin");
+		assertTrue(shop.updateProduct(ProductID, "newDescription", "6291041500213", newPrice, "newNote"));
+		assertEquals("newDescription", shop.getProductTypeByBarCode("6291041500213").getProductDescription());
+		assertEquals(newPrice, shop.getProductTypeByBarCode("6291041500213").getPricePerUnit(), 0.01);
+		assertEquals("newNote", shop.getProductTypeByBarCode("6291041500213").getNote());		
+	}
+	
+	@Test
+	public void VerifyUpdatrProductManagerTest() throws InvalidProductIdException, InvalidProductDescriptionException, InvalidProductCodeException,
+	InvalidPricePerUnitException, UnauthorizedException,InvalidUsernameException, InvalidPasswordException {
+		user = shop.login("ShopManager", "ShopManager");
 		assertTrue(shop.updateProduct(ProductID, "newDescription", "6291041500213", newPrice, "newNote"));
 		assertEquals("newDescription", shop.getProductTypeByBarCode("6291041500213").getProductDescription());
 		assertEquals(newPrice, shop.getProductTypeByBarCode("6291041500213").getPricePerUnit(), 0.01);

@@ -65,7 +65,7 @@ public class deleteProductTypeIntegrationTest {
 	public void NotExistingIDTest() throws InvalidProductIdException, InvalidProductDescriptionException, InvalidProductCodeException,
 	InvalidPricePerUnitException, UnauthorizedException,InvalidUsernameException, InvalidPasswordException {
 		user = shop.login("admin", "admin");
-		Integer NotExistingID = 948536;
+		Integer NotExistingID = 936;
 		assertFalse(shop.deleteProductType(NotExistingID));
 	}
 		
