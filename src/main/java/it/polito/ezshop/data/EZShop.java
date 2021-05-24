@@ -176,13 +176,20 @@ public class EZShop implements EZShopInterface {
 	
 	@Override
 	public void reset() {
-		File myObj = new File("EZShopData.ser");
-		if (myObj.delete()) {
-			System.out.println("Deleted the file: " + myObj.getName());
-		} else {
-			System.out.println("Failed to delete the file.");
-		}
-		loadData();
+		
+		this.data.balance=0;
+		this.data.returnSaleTransactions.clear();
+		this.data.returnTransactionIDs=1;
+		this.data.saleTransactions.clear();
+		this.data.saleTransactionIDs=1;
+		this.data.productTypeIDs=1;
+		this.data.productTypes.clear();
+		this.data.balanceOperationIDs=1;
+		this.data.balanceOperations.clear();
+		this.data.positions.clear();
+		this.data.barcodeToId.clear();
+		
+		saveData();
 	}
 
 	@Override
@@ -901,7 +908,8 @@ public class EZShop implements EZShopInterface {
 					.removeProduct(data.productTypes.get(data.barcodeToId.get(x.getBarCode())), x.getAmount()));
             rt.calculatePrice();
 		} else {
-			 deleteReturnTransaction(returnId);
+			
+			data.returnSaleTransactions.remove(returnId);
 
 		}
 
@@ -919,7 +927,7 @@ public class EZShop implements EZShopInterface {
 		if (rt == null || rt.getStatus().compareTo("PAYED") == 0)
 			return false;
 		rt.products.values().forEach(x -> rt.getReturnOfSaleTransaction()
-				.addProductDelRet(data.productTypes.get(data.barcodeToId.get(x.getBarCode())), x.getAmount()));
+				.addProductDelRet(data.productTypes.get(data.barcodeToId.get(x.getBarCode())), x.getAmount(), x.getDiscountRate()));
 		data.returnSaleTransactions.remove(returnId);
 
 		return saveData();

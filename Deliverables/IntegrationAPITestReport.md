@@ -179,11 +179,13 @@ Report also for each of the scenarios the (one or more) API JUnit tests that cov
 
 | Scenario ID | Functional Requirements covered | JUnit  Test(s) | 
 | ----------- | ------------------------------- | ----------- | 
-|  ..         | FRx                             |             |             
-|  ..         | FRy                             |             |             
-| ...         |                                 |             |             
-| ...         |                                 |             |             
-| ...         |                                 |             |             
+|  1.1       | FR3.1                              |    createProductTypeIntegrationTest.java |                      
+|  1.2         | FR4.2          FR3.4               |    updatePositionIntegrationTest.java         |        
+|     1.3        | FR 3.4 FR3.1 |      updateProductIntegrationTest.java        |    
+| 2.1         |          FR1.1                    |    CreateUserIntegrationTest.java       |       
+|    2.2           |   FR1.4 FR1.1  | DeleteUserIntegrationTest.java | 
+| 2.3        |           FR1.4 FR1.2                      |     ModifyCustomerIntegrationTest.java       |            
+|  9.1        |           FR8.3                       |   GetCreditsAndDebitsIntegrationTest.java          |             
 | ...         |                                 |             |             
 
 
@@ -198,6 +200,8 @@ Report also for each of the scenarios the (one or more) API JUnit tests that cov
 
 | Non Functional Requirement | Test name |
 | -------------------------- | --------- |
-|                            |           |
+|       NFR5                     |  TestCheckLuhn.java         |
+|NFR4|TestCheckBarCode.java|
+|NFR6|CreateUserIntegrationTest.java|
 
 
