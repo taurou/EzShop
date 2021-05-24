@@ -405,6 +405,10 @@ public class EZShop implements EZShopInterface {
 	@Override
 	public boolean updateQuantity(Integer productId, int toBeAdded)
 			throws InvalidProductIdException, UnauthorizedException {
+		/* 
+		 * if(productId == null)
+		 *	   throw new InvalidProductIdException();
+		*/
 		if(productId >= data.productTypeIDs){
 			throw new InvalidProductIdException();
 		}
