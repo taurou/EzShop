@@ -26,6 +26,7 @@ Version:
 
 
 <img src="../Images/DependencyGraph.JPG" width="850" height="400">
+
 # Integration approach
 
     <Write here the integration sequence you adopted, in general terms (top down, bottom up, mixed) and as sequence
