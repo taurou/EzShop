@@ -516,7 +516,10 @@ public class EZShop implements EZShopInterface {
 		if (o == null || o.getStatus().compareTo("ISSUED") != 0)
 			return false;
 		o.setStatus("PAYED");
-
+		
+		if (computeBalance() < o.getPricePerUnit() * o.getQuantity())
+			return false; //negative balance not possible
+		
 		o.setBalanceId(data.balanceOperationIDs);
 		data.balanceOperations.put(data.balanceOperationIDs, new BalanceOperation(data.balanceOperationIDs++,
 				LocalDate.now(), -o.getPricePerUnit() * o.getQuantity(), "ORDER"));
