@@ -81,11 +81,6 @@ Version:
 | recordBalanceUpdate         			| RecordBalanceUpdateIntegrationTest         |
 | getCreditsAndDebits       			| GetCreditsAndDebitsIntegrationTest       |
 | computeBalance           				| ComputeBalanceIntegrationTest           |
-| deleteProductFromSale      			| DeleteProductFromSaleIntegrationTest      |
-| applyDiscountRateToProduct 			| ApplyDiscountRateToProductIntegrationTest |
-| applyDiscountRateToSale    			| ApplyDiscountRateToSaleIntegrationTest    |
-| computePointsForSale       			| ComputePointsForSaleIntegrationTest       |
-| endSaleTransaction         			| EndSaleTransactionIntegrationTest         |
 
 
 
@@ -106,16 +101,11 @@ Report also for each of the scenarios the (one or more) API JUnit tests that cov
 | ----------- | ------------------------------- | ----------- |
 | 5.1 | FR1 | LoginIntegrationTest |
 | 5.2 | FR1 | logoutIntegrationTest |
-| 6.1 | FR6.1, FR6.2, FR6.10, FR7, FR8 | StartSaleTransactionIntegrationTest, AddProductToSaleIntegrationTest,
- EndSaleTransactionIntegrationTest, ReceiveCashPaymentIntegrationTest, RecordBalanceUpdateIntegrationTest |
-| 6.2 | FR6.1, FR6.2, FR6.5, FR6.10, FR7, FR8 | StartSaleTransactionIntegrationTest, AddProductToSaleIntegrationTest,
- EndSaleTransactionIntegrationTest, ReceiveCashPaymentIntegrationTest, RecordBalanceUpdateIntegrationTestApplyDiscountRateToProductIntegrationTest |
-| 6.3 | FR6.1, FR6.2, FR6.4, FR6.10, FR7, FR8 | StartSaleTransactionIntegrationTest, AddProductToSaleIntegrationTest,
- EndSaleTransactionIntegrationTest, ReceiveCashPaymentIntegrationTest, RecordBalanceUpdateIntegrationTestApplyDiscountRateToSaleIntegrationTest |
-| 6.4 | FR5.7, FR6.1, FR6.2, FR6.10, FR7, FR8 | StartSaleTransactionIntegrationTest, AddProductToSaleIntegrationTest,
- EndSaleTransactionIntegrationTest, ReceiveCashPaymentIntegrationTest, RecordBalanceUpdateIntegrationTestModifyPointsOnCardIntegrationTest |
-| 6.5 | FR6.1, FR6.2, FR6.10, FR6.11, FR7, FR8 | StartSaleTransactionIntegrationTest, AddProductToSaleIntegrationTest,
- EndSaleTransactionIntegrationTest, ReceiveCashPaymentIntegrationTest, RecordBalanceUpdateIntegrationTestDeleteSaleTransactionIntegrationTest |
+| 6.1 | FR6.1, FR6.2, FR6.10, FR7, FR8 | StartSaleTransactionIntegrationTest, AddProductToSaleIntegrationTest, EndSaleTransactionIntegrationTest, ReceiveCashPaymentIntegrationTest, RecordBalanceUpdateIntegrationTest |
+| 6.2 | FR6.1, FR6.2, FR6.5, FR6.10, FR7, FR8 | StartSaleTransactionIntegrationTest, AddProductToSaleIntegrationTest, EndSaleTransactionIntegrationTest, ReceiveCashPaymentIntegrationTest, RecordBalanceUpdateIntegrationTestApplyDiscountRateToProductIntegrationTest |
+| 6.3 | FR6.1, FR6.2, FR6.4, FR6.10, FR7, FR8 | StartSaleTransactionIntegrationTest, AddProductToSaleIntegrationTest, EndSaleTransactionIntegrationTest, ReceiveCashPaymentIntegrationTest, RecordBalanceUpdateIntegrationTestApplyDiscountRateToSaleIntegrationTest |
+| 6.4 | FR5.7, FR6.1, FR6.2, FR6.10, FR7, FR8 | StartSaleTransactionIntegrationTest, AddProductToSaleIntegrationTest, EndSaleTransactionIntegrationTest, ReceiveCashPaymentIntegrationTest, RecordBalanceUpdateIntegrationTestModifyPointsOnCardIntegrationTest |
+| 6.5 | FR6.1, FR6.2, FR6.10, FR6.11, FR7, FR8 | StartSaleTransactionIntegrationTest, AddProductToSaleIntegrationTest, EndSaleTransactionIntegrationTest, ReceiveCashPaymentIntegrationTest, RecordBalanceUpdateIntegrationTestDeleteSaleTransactionIntegrationTest |
 
 
 
