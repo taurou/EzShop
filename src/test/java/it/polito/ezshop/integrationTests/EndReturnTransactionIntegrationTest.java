@@ -18,7 +18,7 @@ import it.polito.ezshop.exceptions.InvalidTransactionIdException;
 import it.polito.ezshop.exceptions.InvalidUsernameException;
 import it.polito.ezshop.exceptions.UnauthorizedException;
 
-public class End_DeleteReturnTransactionIntegrationTest {
+public class EndReturnTransactionIntegrationTest {
 	
 	it.polito.ezshop.data.EZShop shop;
 
@@ -90,12 +90,13 @@ public class End_DeleteReturnTransactionIntegrationTest {
 		
 		shop.returnProduct(1, "6291041500213", 6);
 		
-		System.out.println(shop.data.returnSaleTransactions.get(1).products.values().stream().mapToInt(x-> x.getAmount()).sum());
-		System.out.println(shop.data.saleTransactions.get(1).products.values().stream().mapToInt(x-> x.getAmount()).sum());
+		//System.out.println(shop.data.returnSaleTransactions.get(1).products.values().stream().mapToInt(x-> x.getAmount()).sum());
+		//System.out.println(shop.data.saleTransactions.get(1).products.values().stream().mapToInt(x-> x.getAmount()).sum());
 		
 		assertTrue(shop.endReturnTransaction(1, false));
 		//System.out.println(shop.data.returnSaleTransactions.get(1).products.values().stream().mapToInt(x-> x.getAmount()).sum());
-		System.out.println(shop.data.saleTransactions.get(1).products.values().stream().mapToInt(x-> x.getAmount()).sum());
+		//System.out.println(shop.data.saleTransactions.get(1).products.values().stream().mapToInt(x-> x.getAmount()).sum());
+		assertEquals(10,shop.data.saleTransactions.get(1).products.values().stream().mapToInt(x-> x.getAmount()).sum());
 		
 		
 	}

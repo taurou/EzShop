@@ -18,7 +18,7 @@ import it.polito.ezshop.integrationTests.DeleteProductFromSaleIntegrationTest;
 import it.polito.ezshop.integrationTests.DeleteSaleTransactionIntegrationTest;
 import it.polito.ezshop.integrationTests.DeleteUserIntegrationTest;
 import it.polito.ezshop.integrationTests.EndSaleTransactionIntegrationTest;
-import it.polito.ezshop.integrationTests.End_DeleteReturnTransactionIntegrationTest;
+import it.polito.ezshop.integrationTests.EndReturnTransactionIntegrationTest;
 import it.polito.ezshop.integrationTests.GetAllCustomersIntegrationTest;
 import it.polito.ezshop.integrationTests.GetCreditsAndDebitsIntegrationTest;
 import it.polito.ezshop.integrationTests.GetCustomerIntegrationTest;
@@ -86,7 +86,7 @@ import it.polito.ezshop.unitTests.testcheckPosition;
 	deleteProductTypeIntegrationTest.class, 
 	DeleteSaleTransactionIntegrationTest.class, 
 	DeleteUserIntegrationTest.class, 
-	End_DeleteReturnTransactionIntegrationTest.class, 
+	EndReturnTransactionIntegrationTest.class, 
 	EndSaleTransactionIntegrationTest.class, 
 	GetAllCustomersIntegrationTest.class, 
 	getAllOrdersIntegrationTest.class, 
