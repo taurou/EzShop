@@ -36,6 +36,8 @@ public class PayOrderIntegrationTest {
 		product = new ProductType("Prodottoprova", "6291041500213", 29.30, 14029, "Prodottodescription");
 		o = new Order (product, 27.00, 100, 121768, "ISSUED", LocalDate.now());
 		shop.data.orders.put(121768, o);
+		shop.data.balanceOperations.put(shop.data.balanceOperationIDs, new BalanceOperation(shop.data.balanceOperationIDs++,
+				LocalDate.now(), 10000, "SALE"));
 		
 	}
 	
@@ -43,30 +45,29 @@ public class PayOrderIntegrationTest {
 	public void payOrderSuccessTest() throws InvalidOrderIdException, UnauthorizedException{
 		assertTrue(shop.payOrder(121768));
 		assertEquals(shop.data.orders.get(121768).getStatus(), "PAYED");
-		assertEquals(shop.computeBalance(), -2700, 0.001);
-
-	}
-	
-	@Test
-	public void balanceSetAndPutTest() throws InvalidOrderIdException, UnauthorizedException{
-		
-		assertTrue(shop.payOrder(121768));
+		assertEquals(shop.computeBalance(), 7300, 0.001);
 		int a = shop.data.balanceOperationIDs - 1; 
 		assertEquals(o.getBalanceId(), Integer.valueOf(a));
-	}
-	
-	@Test
-	public void checkBalanceOperationIsPutTest() throws InvalidOrderIdException, UnauthorizedException{
 		
-		assertTrue(shop.payOrder(121768));
-		int a = shop.data.balanceOperationIDs - 1; 
 		BalanceOperation bo = shop.data.balanceOperations.get(a);
 		assertEquals(bo.getBalanceId(), a);
 		assertEquals(bo.getMoney(), -o.getQuantity()*o.getPricePerUnit(), 0.001);
 		assertEquals(bo.getType(), "ORDER");
-		
+
+
 	}
 	
+	@Test
+	public void negativeBalanceTest() throws InvalidOrderIdException, UnauthorizedException{
+		shop.data.balanceOperations.put(shop.data.balanceOperationIDs, new BalanceOperation(shop.data.balanceOperationIDs++,
+		LocalDate.now(), -10000, "ORDER"));
+		
+		assertFalse(shop.payOrder(121768));
+		assertEquals(shop.computeBalance(), 0, 0.001);
+
+	}
+	
+
 	@Test (expected = InvalidOrderIdException.class)
 	public void negativeIdTest() throws InvalidOrderIdException, UnauthorizedException{
 		shop.payOrder(-12168);
