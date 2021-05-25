@@ -45,7 +45,7 @@ public class PayOrderForIntegrationTest {
 	public void InvalidBarcodeTest() throws InvalidProductDescriptionException, InvalidProductCodeException, InvalidPricePerUnitException, UnauthorizedException, InvalidUsernameException, InvalidPasswordException, InvalidQuantityException  {	
 		user = shop.login("admin", "admin");
 		String invalidBarCode = "5498321";
-		OrderID = shop.payOrderFor(invalidBarCode, Quantity, Price);
+		shop.payOrderFor(invalidBarCode, Quantity, Price);
 	}
 	
 	@Test (expected = InvalidQuantityException.class)
@@ -66,7 +66,7 @@ public class PayOrderForIntegrationTest {
 	public void NegativePriceTest() throws InvalidProductDescriptionException, InvalidProductCodeException, InvalidPricePerUnitException, UnauthorizedException, InvalidUsernameException, InvalidPasswordException, InvalidQuantityException  {	
 		user = shop.login("admin", "admin");
 		int invalidPrice = -5;
-		OrderID = shop.payOrderFor(BarCode, Quantity, invalidPrice);
+		shop.payOrderFor(BarCode, Quantity, invalidPrice);
 	}
 	
 	@Test (expected = InvalidPricePerUnitException.class)

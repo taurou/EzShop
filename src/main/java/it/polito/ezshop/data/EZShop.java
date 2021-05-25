@@ -358,6 +358,8 @@ public class EZShop implements EZShopInterface {
 			throw new UnauthorizedException();
 		if (id == null || id <= 0)
 			throw new InvalidProductIdException();
+		if( id >= data.productTypeIDs)
+			return false;
 		if (data.barcodeToId.remove(data.productTypes.get(id).getBarCode()) == null)
 			return false;
 		if (data.productTypes.remove(id) == null)
@@ -405,10 +407,10 @@ public class EZShop implements EZShopInterface {
 	@Override
 	public boolean updateQuantity(Integer productId, int toBeAdded)
 			throws InvalidProductIdException, UnauthorizedException {
-		/* 
-		 * if(productId == null)
-		 *	   throw new InvalidProductIdException();
-		*/
+		 
+		  if(productId == null)
+		 	   throw new InvalidProductIdException();
+		
 		if(productId >= data.productTypeIDs){
 			throw new InvalidProductIdException();
 		}
