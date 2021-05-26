@@ -68,36 +68,9 @@ public class ModifyCustomerIntegrationTest {
 		shop.modifyCustomer(0, "Giancarlo Rossi", null);
 	}
 	
-	@Test 
-	public void noCardPassedTest() throws InvalidCustomerNameException, InvalidCustomerCardException, InvalidCustomerIdException, UnauthorizedException {
-		String cardn = shop.createCard();
-		shop.attachCardToCustomer(cardn, 1);
-		assertTrue(shop.modifyCustomer(1, "Giancarlo Rossi", null));
-		assertEquals(shop.data.customers.get(1).getCard(), shop.data.cards.get(Integer.valueOf(cardn)));
 
-	}
 	
-	
-	@Test
-	public void blankCardPassedTest() throws InvalidCustomerNameException, InvalidCustomerCardException, InvalidCustomerIdException, UnauthorizedException {
-		String cardn = shop.createCard();
-		shop.attachCardToCustomer(cardn, 1);
-		assertEquals(shop.data.customers.get(1).getCard(), shop.data.cards.get(Integer.valueOf(cardn)));
-		assertTrue(shop.modifyCustomer(1, "Giancarlo Rossi", "   "));
-		assertNull(shop.data.customers.get(1).getCard());
-		assertEquals(shop.data.customers.get(1).getCustomerName(), "Giancarlo Rossi");
-		
-		
-		cardn = shop.createCard();
-		shop.attachCardToCustomer(cardn, 2);
-		assertEquals(shop.data.customers.get(2).getCard(), shop.data.cards.get(Integer.valueOf(cardn)));
-		assertTrue(shop.modifyCustomer(2, "Paolo Rossi", "   "));
-		assertNull(shop.data.customers.get(2).getCard());
-		assertEquals(shop.data.customers.get(2).getCustomerName(), "Paolo Rossi");
 
-
-		
-	}
 	
 	@Test (expected = InvalidCustomerCardException.class)
 	public void notExistingCardPassedTest() throws InvalidCustomerNameException, InvalidCustomerCardException, InvalidCustomerIdException, UnauthorizedException {
@@ -109,13 +82,7 @@ public class ModifyCustomerIntegrationTest {
 		shop.modifyCustomer(1, "Giancarlo Rossi", "1000000b01");
 	}
 	
-	@Test
-	public void cardAlreadyExistingTest() throws InvalidCustomerIdException, InvalidCustomerCardException, UnauthorizedException, InvalidCustomerNameException {
-		String cardn = shop.createCard();
-		assertTrue(shop.attachCardToCustomer(cardn, 1));
-		assertFalse(shop.modifyCustomer(1, "Giancarlo Rossi", cardn));
-		
-	}
+
 	@Test 
 	public void custCodeNotExists() throws InvalidCustomerIdException, InvalidCustomerCardException, UnauthorizedException, InvalidCustomerNameException {  
 		String cardn = shop.createCard();

@@ -30,9 +30,8 @@ Version:
 # Integration approach
 
    Approach: Bottom-Up testing
-    <Some steps may  correspond to unit testing (ex step1 in ex above), presented in other document UnitTestReport.md>
-    <One step will  correspond to API testing>
-    
+   
+   
     step1: Unit Testing
     step2: Integration testing
     step3: API testing
