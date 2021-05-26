@@ -52,16 +52,16 @@ Version:
 | ---------| --------------------|
 | User | TestUser|
 | TicketEntry|TestTicketEntry|
-| ProductType | |
-| Position ||
-| Order ||
-|Customer ||
-|Card || 
-| BalanceOperation||
+| ProductType | TestProductType|
+| Position | testcheckPosition|
+| Order | TestOrder|
+|Customer | TestCustomer|
+|Card | TestCard| 
+| BalanceOperation| TestBalanceOperation|
 | SaleTransaction | SaleTransactionUnitTest |
-| EZShop::checkPosition | |
-| EZShop::CheckLuhn ||
-| EZShop::checkBarcodeValidity | |
+| EZShop::checkPosition | testcheckPostion|
+| EZShop::CheckLuhn | TestCheckLuhn|
+| EZShop::checkBarcodeValidity | TestCheckBarCode|
 
 ## Step 2
 | Classes  | JUnit test classes |
