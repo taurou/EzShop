@@ -29,11 +29,9 @@ public class ReturnSaleTransaction extends SaleTransaction {
 			it.polito.ezshop.model.TicketEntry entry = new it.polito.ezshop.model.TicketEntry(te.getBarCode(),
 					te.getProductDescription(), te.getPricePerUnit(), amount, te.getDiscountRate() );
 			double money=te.getPricePerUnit()*amount*(1-te.getDiscountRate())*(1-discountRate);
-			returnOfSaleTransaction.price-=money;
 			
             
 			products.put(te.getBarCode(), entry);
-			price +=money;
 			return true;
 		
 	}
