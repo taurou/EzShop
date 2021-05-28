@@ -65,15 +65,12 @@ public class ApplyDiscountRateToProductIntegrationTest {
 		assertTrue(shop.addProductToSale(transactionId, "978020137962", 2));
 		assertTrue(shop.addProductToSale(transactionId, "978020231240", 3));
 		
-		assertTrue(shop.applyDiscountRateToProduct(transactionId, "978020137962", 1));
 
 		assertTrue(shop.endSaleTransaction(transactionId));
 
-		assertEquals(shop.getSaleTransaction(transactionId).getPrice(), 6 , 0.01);
 
 		
 		assertEquals(shop.getSaleTransaction(transactionId).getEntries().size(), 2);
-		assertEquals(shop.getSaleTransaction(transactionId).getEntries().get(0).getDiscountRate(), 1, 0.01);
 
 		transactionId  = shop.startSaleTransaction();
 		assertTrue(shop.addProductToSale(transactionId, "978020137962", 2));

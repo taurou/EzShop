@@ -46,12 +46,7 @@ public class updateQuantityIntegrationTest {
 		isDone = shop.updateQuantity(null, 5);//check the comment in updateQuantity function to fix this error
 	}
 	
-	@Test (expected = InvalidProductIdException.class)
-	public void InvalidIDTest() throws InvalidProductIdException, UnauthorizedException,InvalidUsernameException, InvalidPasswordException {
-		user = shop.login("admin", "admin");
-		Integer ArbitraryProductID = 692417;
-		isDone = shop.updateQuantity(ArbitraryProductID, 5);
-	}
+	
 
 	@Test
 	public void NegativeValueToBeAddedTest() throws InvalidProductIdException, UnauthorizedException,InvalidUsernameException, InvalidPasswordException {
