@@ -62,19 +62,19 @@ with all elements explosed, all dependencies, NO tangles; and report it here as 
 
 ezshop.it.polito.ezshop
 
-![ezshop.it.polito.ezshop](/Users/tauro/git/ezshop/Images/DesignAssessmentImgs/ezshop.it.polito.ezshop.png)
+![ezshop.it.polito.ezshop](../Images/DesignAssessmentImgs/ezshop.it.polito.ezshop.png)
 
 ezshop.it.polito.ezshop.data
 
-![ezshop.it.polito.ezshop.data](/Users/tauro/git/ezshop/Images/DesignAssessmentImgs/ezshop.it.polito.ezshop.data.png)
+![ezshop.it.polito.ezshop.data](../Images/DesignAssessmentImgs/ezshop.it.polito.ezshop.data.png)
 
 ezshop.it.polito.ezshop.exceptions
 
-![ezshop.it.polito.ezshop.exceptions](/Users/tauro/git/ezshop/Images/DesignAssessmentImgs/ezshop.it.polito.ezshop.exceptions.png)
+![ezshop.it.polito.ezshop.exceptions](../Images/DesignAssessmentImgs/ezshop.it.polito.ezshop.exceptions.png)
 
 ezshop.it.polito.ezshop.model
 
-![ezshop.it.polito.ezshop.model](/Users/tauro/git/ezshop/Images/DesignAssessmentImgs/ezshop.it.polito.ezshop.model.png)
+![ezshop.it.polito.ezshop.model](../Images/DesignAssessmentImgs/ezshop.it.polito.ezshop.model.png)
 
 # Summary analysis
 
