@@ -88,14 +88,7 @@ public class DeleteUserIntegrationTest {
 	}
 	
 	
-	@Test (expected = InvalidUserIdException.class)
-	public void idTest3() throws InvalidUsernameException, InvalidPasswordException, InvalidRoleException, InvalidUserIdException, UnauthorizedException {
-		Integer id1 = shop.createUser("username", "password", "Administrator");
-		
-		shop.login("username", "password");
-		
-		shop.deleteUser(125);
-	}
+	
 	
 	@Test (expected = InvalidUserIdException.class)
 	public void idTest2() throws InvalidUsernameException, InvalidPasswordException, InvalidRoleException, InvalidUserIdException, UnauthorizedException {

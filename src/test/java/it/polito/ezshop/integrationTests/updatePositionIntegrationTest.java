@@ -64,19 +64,9 @@ public class updatePositionIntegrationTest {
 		isDone = shop.updatePosition(0, newPosition);
 	}
 
-	@Test 
-	public void NullPositionTest() throws InvalidProductIdException, UnauthorizedException,InvalidUsernameException, InvalidPasswordException, InvalidLocationException, InvalidProductCodeException {
-		user = shop.login("admin", "admin");
-		assertTrue(shop.updatePosition(ProductID,null));
-		assertEquals(null,shop.getProductTypeByBarCode("6291041500213").getLocation());
-	}
+
 	
-	@Test 
-	public void BlankPositionTest() throws InvalidProductIdException, UnauthorizedException,InvalidUsernameException, InvalidPasswordException, InvalidLocationException, InvalidProductCodeException {
-		user = shop.login("admin", "admin");
-		assertTrue(shop.updatePosition(ProductID," "));
-		assertEquals(null,shop.getProductTypeByBarCode("6291041500213").getLocation());
-	}
+	
 	
 	@Test
 	public void InvalidIDTest() throws InvalidProductIdException, UnauthorizedException,InvalidUsernameException, InvalidPasswordException, InvalidLocationException {
