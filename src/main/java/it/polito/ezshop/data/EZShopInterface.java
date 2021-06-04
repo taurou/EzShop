@@ -918,3 +918,4 @@ public interface EZShopInterface {
     public double computeBalance() throws UnauthorizedException;
 
 }
+

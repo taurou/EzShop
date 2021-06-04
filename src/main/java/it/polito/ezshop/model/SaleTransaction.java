@@ -16,11 +16,12 @@ public class SaleTransaction implements it.polito.ezshop.data.SaleTransaction, S
 	private static final long serialVersionUID = 6782988927774381138L;
 	protected Integer ticketNumber;
 	public List<TicketEntry> entries;
+	public List<String> RFIDs;
 	public HashMap<String, it.polito.ezshop.model.TicketEntry> products;
 	double discountRate, price = 0;
 	String status;
 
-	/* TO TEST */
+
 
 	public double calculatePrice() {
 		price = (1 - discountRate) * products.values().stream()
@@ -29,10 +30,6 @@ public class SaleTransaction implements it.polito.ezshop.data.SaleTransaction, S
 	}
 
 
-
-	
-
-	/* END TO TEST */
 	public boolean removeProduct(it.polito.ezshop.model.ProductType prod, Integer amount) {
 
 		if (prod == null || !products.containsKey(prod.getBarCode()) || amount <=0)
@@ -128,6 +125,7 @@ public class SaleTransaction implements it.polito.ezshop.data.SaleTransaction, S
 		this.status = "OPEN";
 		products = new HashMap<>();
 		entries = new LinkedList<>();
+		RFIDs = new LinkedList<>();
 	}
 
 	public Integer getTicketNumber() {
