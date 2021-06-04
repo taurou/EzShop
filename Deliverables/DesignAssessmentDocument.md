@@ -62,7 +62,7 @@ ezshop.it.polito.ezshop.model
 
 # Summary analysis
 
-```
-<Discuss here main differences of the current structure of your project vs the design delivered on April 30>
-<Discuss if the current structure shows weaknesses that should be fixed>
-```
+There are no significant differences with the design delivered on April 30. Minor differences are linked with the visibility of classes and attributes. The tangles are due to the position on interface with respect to the actual implementation. 
+
+
+
