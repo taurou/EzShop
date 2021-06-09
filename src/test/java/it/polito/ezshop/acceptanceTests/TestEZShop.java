@@ -68,6 +68,8 @@ import it.polito.ezshop.unitTests.TestReturnSaleTransaction;
 import it.polito.ezshop.unitTests.TestTicketEntry;
 import it.polito.ezshop.unitTests.TestUser;
 import it.polito.ezshop.unitTests.testcheckPosition;
+import it.polito.ezshop.integrationTests.IsRFIDvalidIntegrationTest;
+import it.polito.ezshop.integrationTests.deleteProductFromSaleRFIDIntegrationTest;
 
 @RunWith(Suite.class)
 @Suite.SuiteClasses({AddProductToSaleIntegrationTesting.class, 
@@ -134,7 +136,10 @@ import it.polito.ezshop.unitTests.testcheckPosition;
 	TestProductType.class, 
 	TestReturnSaleTransaction.class, 
 	TestTicketEntry.class, 
-	TestUser.class })
+	TestUser.class,
+	deleteProductFromSaleRFIDIntegrationTest.class,
+	IsRFIDvalidIntegrationTest.class
+ })
 public class TestEZShop {
     
     
