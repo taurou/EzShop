@@ -23,14 +23,17 @@ public class deleteProductFromSaleRFIDIntegrationTest {
 		shop.createProductType("Banana", "978020137962", 1.50, "Bananas");
 		shop.updatePosition(shop.data.barcodeToId.get("978020137962"), "10-20-20");
 		shop.updateQuantity(shop.data.barcodeToId.get("978020137962"), 10);
+		
 		OrderId = shop.issueOrder("978020137962", 10, 1.50);
-		shop.recordOrderArrivalRFID(OrderId,"9853");
+		shop.payOrder(OrderId);
+		shop.recordOrderArrivalRFID(OrderId,"000000009853");
 		//Product 2
 		shop.createProductType("Apple", "978020137238", 1.50, "Apples");
-		shop.updatePosition(shop.data.barcodeToId.get("978020137238"), "10-20-20");
+		shop.updatePosition(shop.data.barcodeToId.get("978020137238"), "10-20-21");
 		shop.updateQuantity(shop.data.barcodeToId.get("978020137238"), 10);
 		OrderId = shop.issueOrder("978020137238", 10, 1.50);
-		shop.recordOrderArrivalRFID(OrderId,"1234");
+		shop.payOrder(OrderId);
+		shop.recordOrderArrivalRFID(OrderId,"000000001234");
 		shop.logout();
 	}
 	
@@ -38,7 +41,7 @@ public class deleteProductFromSaleRFIDIntegrationTest {
 	public void testBlankRFID() throws InvalidTransactionIdException, InvalidRFIDException, InvalidQuantityException, UnauthorizedException, InvalidUsernameException, InvalidPasswordException {
 		shop.login("admin", "admin");
 		transactionId  = shop.startSaleTransaction();
-		shop.addProductToSaleRFID(transactionId, "9853");
+		shop.addProductToSaleRFID(transactionId, "000000009853");
 		shop.deleteProductFromSaleRFID(transactionId, " ");
 		shop.logout();
 	}
@@ -47,7 +50,7 @@ public class deleteProductFromSaleRFIDIntegrationTest {
 	public void testNullRFID() throws InvalidTransactionIdException, InvalidRFIDException, InvalidQuantityException, UnauthorizedException, InvalidUsernameException, InvalidPasswordException {
 		shop.login("admin", "admin");
 		transactionId  = shop.startSaleTransaction();
-		shop.addProductToSaleRFID(transactionId, "9853");
+		shop.addProductToSaleRFID(transactionId, "000000009853");
 		shop.deleteProductFromSaleRFID(transactionId, null);
 		shop.logout();
 	}
@@ -56,7 +59,7 @@ public class deleteProductFromSaleRFIDIntegrationTest {
 	public void testNotDigitRFID() throws InvalidTransactionIdException, InvalidRFIDException, InvalidQuantityException, UnauthorizedException, InvalidUsernameException, InvalidPasswordException {
 		shop.login("admin", "admin");
 		transactionId  = shop.startSaleTransaction();
-		shop.addProductToSaleRFID(transactionId, "9853");
+		shop.addProductToSaleRFID(transactionId, "000000009853");
 		shop.deleteProductFromSaleRFID(transactionId, "ABC");
 		shop.logout();
 	}
@@ -65,24 +68,24 @@ public class deleteProductFromSaleRFIDIntegrationTest {
 	public void testNotRegisteredRFID() throws InvalidTransactionIdException, InvalidRFIDException, InvalidQuantityException, UnauthorizedException, InvalidUsernameException, InvalidPasswordException {
 		shop.login("admin", "admin");
 		transactionId  = shop.startSaleTransaction();
-		shop.addProductToSaleRFID(transactionId, "9853");
-		assertFalse(shop.deleteProductFromSaleRFID(transactionId, "1010"));
+		shop.addProductToSaleRFID(transactionId, "000000009853");
+		assertFalse(shop.deleteProductFromSaleRFID(transactionId, "000000001010"));
 		shop.logout();
 	}
 	
 	@Test (expected = UnauthorizedException.class)
 	public void testNoLogin() throws InvalidTransactionIdException, InvalidRFIDException, InvalidQuantityException, UnauthorizedException, InvalidUsernameException, InvalidPasswordException {
 		transactionId  = shop.startSaleTransaction();
-		shop.addProductToSaleRFID(transactionId, "9853");
-		assertFalse(shop.deleteProductFromSaleRFID(transactionId, "9853"));
+		shop.addProductToSaleRFID(transactionId, "000000009853");
+		assertFalse(shop.deleteProductFromSaleRFID(transactionId, "000000009853"));
 	}
 	
 	@Test (expected = InvalidTransactionIdException.class)  
 	public void testNullId() throws InvalidTransactionIdException, InvalidRFIDException, InvalidQuantityException, UnauthorizedException, InvalidUsernameException, InvalidPasswordException {
 		shop.login("admin", "admin");
 		transactionId  = shop.startSaleTransaction();
-		shop.addProductToSaleRFID(transactionId, "9853");
-		shop.deleteProductFromSaleRFID(null , "9853");
+		shop.addProductToSaleRFID(transactionId, "000000009853");
+		shop.deleteProductFromSaleRFID(null , "000000009853");
 		shop.logout();
 	}
 	
@@ -90,8 +93,8 @@ public class deleteProductFromSaleRFIDIntegrationTest {
 	public void testZeroId() throws InvalidTransactionIdException, InvalidRFIDException, InvalidQuantityException, UnauthorizedException, InvalidUsernameException, InvalidPasswordException {
 		shop.login("admin", "admin");
 		transactionId  = shop.startSaleTransaction();
-		shop.addProductToSaleRFID(transactionId, "9853");
-		shop.deleteProductFromSaleRFID(0 , "9853");
+		shop.addProductToSaleRFID(transactionId, "000000009853");
+		shop.deleteProductFromSaleRFID(0 , "000000009853");
 		shop.logout();
 	}
 	
@@ -99,8 +102,8 @@ public class deleteProductFromSaleRFIDIntegrationTest {
 	public void testNegativeId() throws InvalidTransactionIdException, InvalidRFIDException, InvalidQuantityException, UnauthorizedException, InvalidUsernameException, InvalidPasswordException {
 		shop.login("admin", "admin");
 		transactionId  = shop.startSaleTransaction();
-		shop.addProductToSaleRFID(transactionId, "9853");
-		shop.deleteProductFromSaleRFID(-53, "9853");
+		shop.addProductToSaleRFID(transactionId, "000000009853");
+		shop.deleteProductFromSaleRFID(-53, "000000009853");
 		shop.logout();
 	}
 	
@@ -108,8 +111,8 @@ public class deleteProductFromSaleRFIDIntegrationTest {
 	public void testNotRegisteredId() throws InvalidTransactionIdException, InvalidRFIDException, InvalidQuantityException, UnauthorizedException, InvalidUsernameException, InvalidPasswordException {
 		shop.login("admin", "admin");
 		transactionId  = shop.startSaleTransaction();
-		shop.addProductToSaleRFID(transactionId, "9853");
-		assertFalse(shop.deleteProductFromSaleRFID(123, "9853"));
+		shop.addProductToSaleRFID(transactionId, "000000009853");
+		assertFalse(shop.deleteProductFromSaleRFID(123, "000000009853"));
 		shop.logout();
 	}
 	
@@ -117,8 +120,8 @@ public class deleteProductFromSaleRFIDIntegrationTest {
 	public void testNotAddedRFIDToTransaction() throws InvalidTransactionIdException, InvalidRFIDException, InvalidQuantityException, UnauthorizedException, InvalidUsernameException, InvalidPasswordException {
 		shop.login("admin", "admin");
 		transactionId  = shop.startSaleTransaction();
-		shop.addProductToSaleRFID(transactionId, "9853");
-		assertFalse(shop.deleteProductFromSaleRFID(transactionId, "1234"));
+		shop.addProductToSaleRFID(transactionId, "000000009853");
+		assertFalse(shop.deleteProductFromSaleRFID(transactionId, "000000001234"));
 		shop.logout();
 	}
 	
@@ -126,7 +129,7 @@ public class deleteProductFromSaleRFIDIntegrationTest {
 	public void testNotAddedProductToTransaction() throws InvalidTransactionIdException, InvalidRFIDException, InvalidQuantityException, UnauthorizedException, InvalidUsernameException, InvalidPasswordException {
 		shop.login("admin", "admin");
 		transactionId  = shop.startSaleTransaction();
-		assertFalse(shop.deleteProductFromSaleRFID(transactionId, "9853"));
+		assertFalse(shop.deleteProductFromSaleRFID(transactionId, "000000009853"));
 		shop.logout();
 	}
 	
@@ -134,8 +137,8 @@ public class deleteProductFromSaleRFIDIntegrationTest {
 	public void VerifyDeleteProductFromSaleRFID() throws InvalidTransactionIdException, InvalidRFIDException, InvalidQuantityException, UnauthorizedException, InvalidUsernameException, InvalidPasswordException {
 		shop.login("admin", "admin");
 		transactionId  = shop.startSaleTransaction();
-		shop.addProductToSaleRFID(transactionId, "9853");
-		assertTrue(shop.deleteProductFromSaleRFID(transactionId, "9853"));
+		shop.addProductToSaleRFID(transactionId, "000000009853");
+		assertTrue(shop.deleteProductFromSaleRFID(transactionId, "000000009853"));
 		shop.logout();
 	}
 	

@@ -21,7 +21,7 @@ import it.polito.ezshop.exceptions.UnauthorizedException;
 
 public class IsRFIDvalidIntegrationTest {
 	
-    EZShop shop = new EZShop();
+    EZShop shop = new EZShop(1);
 	//TC1
 	@Test
 	public void testNull() {
@@ -48,7 +48,7 @@ public class IsRFIDvalidIntegrationTest {
 	
 	@Test
 	public void testNotDigits() {
-		assertFalse(shop.isRFIDvalid("ABCD"));
+		assertFalse(shop.isRFIDvalid("00000000ABCD"));
 	}
 	
 	// TC4
@@ -60,14 +60,15 @@ public class IsRFIDvalidIntegrationTest {
 		shop.updatePosition(shop.data.barcodeToId.get("978020137962"), "10-20-20");
 		shop.updateQuantity(shop.data.barcodeToId.get("978020137962"), 10);
 		int OrderId = shop.issueOrder("978020137962", 10, 1.50);
-		shop.recordOrderArrivalRFID(OrderId,"9853");
+		shop.payOrder(OrderId);
+		shop.recordOrderArrivalRFID(OrderId,"000000009853");
 		
-		assertFalse(shop.isRFIDvalid("9853"));
+		assertFalse(shop.isRFIDvalid("000000009853"));
 	}
 	
 	@Test
 	public void VerifyIsRFIDvalid() throws InvalidProductDescriptionException, InvalidProductCodeException, InvalidPricePerUnitException, UnauthorizedException, InvalidQuantityException, InvalidOrderIdException, InvalidLocationException, InvalidRFIDException {
-		assertFalse(shop.isRFIDvalid("1234"));
+		assertTrue(shop.isRFIDvalid("000000001234"));
 	}
 	
 }
