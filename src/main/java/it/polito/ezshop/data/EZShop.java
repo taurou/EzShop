@@ -167,7 +167,7 @@ public class EZShop implements EZShopInterface {
 	public boolean isRFIDvalid(String RFID) {
 		// return false if it is not valid, true if valid
 		return !(RFID == null || RFID.isBlank() || RFID.length() == 0 || !RFID.chars().allMatch(Character::isDigit)
-				|| RFID.length()!=RFIDlength ||data.RFIDtoBarcode.containsKey(RFID) );
+				|| RFID.length()!=RFIDlength || data.RFIDtoBarcode.containsKey(String.valueOf(Integer.valueOf(RFID))));
 	}
 
 	@Override
