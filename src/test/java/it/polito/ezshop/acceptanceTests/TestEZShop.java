@@ -4,6 +4,7 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 
 import it.polito.ezshop.integrationTests.AddProductToSaleIntegrationTesting;
+import it.polito.ezshop.integrationTests.AddProductToSaleRFIDIntegrationTesting;
 import it.polito.ezshop.integrationTests.ApplyDiscountRateToProductIntegrationTest;
 import it.polito.ezshop.integrationTests.ApplyDiscountRateToSaleIntegrationTest;
 import it.polito.ezshop.integrationTests.AttachCardToCustomerIntegrationTest;
@@ -33,10 +34,12 @@ import it.polito.ezshop.integrationTests.ReceiveCashPaymentIntegrationTest;
 import it.polito.ezshop.integrationTests.ReceiveCreditCardPaymentIntegrationTest;
 import it.polito.ezshop.integrationTests.RecordBalanceUpdateIntegrationTest;
 import it.polito.ezshop.integrationTests.RecordOrderArrivalIntegrationTest;
+import it.polito.ezshop.integrationTests.RecordOrderArrivalRFIDIntegrationTest;
 import it.polito.ezshop.integrationTests.ResetIntegrationTest;
 import it.polito.ezshop.integrationTests.ReturnCashPaymentIntegrationTest;
 import it.polito.ezshop.integrationTests.ReturnCreditCardPaymentIntegrationTest;
 import it.polito.ezshop.integrationTests.ReturnProductIntegrationTest;
+import it.polito.ezshop.integrationTests.ReturnProductRFIDIntegrationTest;
 import it.polito.ezshop.integrationTests.SaleTransactionIntegrationTest;
 import it.polito.ezshop.integrationTests.StartReturnTransactionIntegrationTest;
 import it.polito.ezshop.integrationTests.StartSaleTransactionIntegrationTest;
@@ -138,7 +141,10 @@ import it.polito.ezshop.integrationTests.deleteProductFromSaleRFIDIntegrationTes
 	TestTicketEntry.class, 
 	TestUser.class,
 	deleteProductFromSaleRFIDIntegrationTest.class,
-	IsRFIDvalidIntegrationTest.class
+	IsRFIDvalidIntegrationTest.class,
+	ReturnProductRFIDIntegrationTest.class,
+	RecordOrderArrivalRFIDIntegrationTest.class,
+	AddProductToSaleRFIDIntegrationTesting.class
  })
 public class TestEZShop {
     
