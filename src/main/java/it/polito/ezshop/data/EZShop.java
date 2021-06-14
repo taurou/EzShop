@@ -27,6 +27,7 @@ import java.util.stream.Collectors;
 public class EZShop implements EZShopInterface {
 
 	public EZShopData data;
+	private int RFIDlength=12;
 
 	public EZShop() {
 		super();
@@ -52,7 +53,6 @@ public class EZShop implements EZShopInterface {
 		} catch (FileNotFoundException fnf) {
 			data = new EZShopData();
 			data.loggedInUser = null;
-			
 
 			return true;
 		} catch (IOException ioe) {
@@ -109,7 +109,6 @@ public class EZShop implements EZShopInterface {
 				&& data.loggedInUser.getRole().compareTo("ShopManager") != 0;
 	}
 
-	
 	public boolean checkPosition(String position) {
 		if (position != null)
 			return position.matches("[0-9]+-[A-Z0-9]+-[0-9]+") == true;
@@ -165,12 +164,16 @@ public class EZShop implements EZShopInterface {
 		return true;
 	}
 
-	
+	public boolean isRFIDvalid(String RFID) {
+		// return false if it is not valid, true if valid
+		return !(RFID == null || RFID.isBlank() || RFID.length() == 0 || !RFID.chars().allMatch(Character::isDigit)
+				|| RFID.length()!=RFIDlength || data.RFIDtoBarcode.containsKey(String.valueOf(Integer.valueOf(RFID))));
+	}
 
 	@Override
 	public void reset() {
 
-		this.data= new EZShopData();
+		this.data = new EZShopData();
 		saveData();
 	}
 
@@ -181,7 +184,7 @@ public class EZShop implements EZShopInterface {
 			throw new InvalidUsernameException();
 		if (password == null || password.isBlank())
 			throw new InvalidPasswordException();
-		if(role== null)
+		if (role == null)
 			throw new InvalidRoleException();
 		if (role.compareTo("Administrator") != 0 && role.compareTo("Cashier") != 0
 				&& role.compareTo("ShopManager") != 0)
@@ -230,7 +233,7 @@ public class EZShop implements EZShopInterface {
 	public User getUser(Integer id) throws InvalidUserIdException, UnauthorizedException {
 		if (data.loggedInUser == null || !data.loggedInUser.isAdmin())
 			throw new UnauthorizedException();
-		if (id == null|| id < 1 )
+		if (id == null || id < 1)
 			throw new InvalidUserIdException();
 
 		return data.users.get(data.idToUsername.get(id));
@@ -262,7 +265,7 @@ public class EZShop implements EZShopInterface {
 		if (password == null || password.isBlank())
 			throw new InvalidPasswordException();
 		data.loggedInUser = data.users.get(username);
-		if(data.loggedInUser == null || data.loggedInUser.getPassword().compareTo(password)!=0){
+		if (data.loggedInUser == null || data.loggedInUser.getPassword().compareTo(password) != 0) {
 			return null;
 		}
 		return data.loggedInUser;
@@ -348,7 +351,8 @@ public class EZShop implements EZShopInterface {
 			return false;
 		if (data.barcodeToId.remove(data.productTypes.get(id).getBarCode()) == null)
 			return false;
-		if (data.productTypes.get(id).getLocation() !=null && data.positions.remove(data.productTypes.get(id).getLocation()) == null)
+		if (data.productTypes.get(id).getLocation() != null
+				&& data.positions.remove(data.productTypes.get(id).getLocation()) == null)
 			return false;
 		if (data.productTypes.remove(id) == null)
 			return false;
@@ -387,10 +391,10 @@ public class EZShop implements EZShopInterface {
 				|| (!data.loggedInUser.isAdmin() && data.loggedInUser.getRole().compareTo("ShopManager") != 0))
 			throw new UnauthorizedException();
 		String descr;
-		if(description == null) {
+		if (description == null) {
 			descr = "";
-		}else {
-			descr=description;
+		} else {
+			descr = description;
 		}
 		return data.productTypes.values().stream().filter(x -> x.getProductDescription().contains(descr))
 				.collect(Collectors.toList());
@@ -401,12 +405,13 @@ public class EZShop implements EZShopInterface {
 	public boolean updateQuantity(Integer productId, int toBeAdded)
 			throws InvalidProductIdException, UnauthorizedException {
 
-		if (productId == null || productId <=0)
+		if (productId == null || productId <= 0)
 			throw new InvalidProductIdException();
 
-		/*if (productId >= data.productTypeIDs) {
-			throw new InvalidProductIdException();
-		}*/
+		/*
+		 * if (productId >= data.productTypeIDs) { throw new
+		 * InvalidProductIdException(); }
+		 */
 		if (data.loggedInUser == null
 				|| (!data.loggedInUser.isAdmin() && data.loggedInUser.getRole().compareTo("ShopManager") != 0))
 			throw new UnauthorizedException();
@@ -582,28 +587,27 @@ public class EZShop implements EZShopInterface {
 	public boolean modifyCustomer(Integer id, String newCustomerName, String newCustomerCard)
 			throws InvalidCustomerNameException, InvalidCustomerCardException, InvalidCustomerIdException,
 			UnauthorizedException {
-		
+
 		if (checkifAdminCashMan())
 			throw new UnauthorizedException();
 		if (newCustomerName == null || newCustomerName.isBlank())
 			throw new InvalidCustomerNameException();
 		if (id == null || id <= 0)
 			throw new InvalidCustomerIdException();
-		if(newCustomerCard != null && !newCustomerCard.chars().allMatch(Character::isDigit)) {
+		if (newCustomerCard != null && !newCustomerCard.chars().allMatch(Character::isDigit)) {
 			throw new InvalidCustomerCardException();
-		
+
 		}
 		it.polito.ezshop.model.Customer c = data.customers.get(id);
 		if (c == null)
 			return false;
-		
-		
-		if(!data.cards.containsKey(Integer.valueOf(newCustomerCard))){
+
+		if (!data.cards.containsKey(Integer.valueOf(newCustomerCard))) {
 			throw new InvalidCustomerCardException();
 		}
 
-		if (newCustomerCard != null && !newCustomerCard.isBlank()
-				&& c.getCard()!=null && c.getCard().getCardNumber().compareTo(newCustomerCard) != 0) {
+		if (newCustomerCard != null && !newCustomerCard.isBlank() && c.getCard() != null
+				&& c.getCard().getCardNumber().compareTo(newCustomerCard) != 0) {
 
 			if (newCustomerCard != null && newCustomerCard.isBlank()) {
 				if (c.getCard() != null) {
@@ -877,7 +881,6 @@ public class EZShop implements EZShopInterface {
 		return data.returnTransactionIDs++;
 	}
 
-	
 	@Override
 	public boolean returnProduct(Integer returnId, String productCode, int amount) throws InvalidTransactionIdException,
 			InvalidProductCodeException, InvalidQuantityException, UnauthorizedException {
@@ -898,7 +901,6 @@ public class EZShop implements EZShopInterface {
 		if (p == null || te == null || te.getAmount() < amount)
 			return false;
 
-		
 		rt.setDiscountRate(rt.getReturnOfSaleTransaction().getDiscountRate());
 		rt.addReturnProduct(te, amount);
 
@@ -948,7 +950,6 @@ public class EZShop implements EZShopInterface {
 		return saveData();
 	}
 
-	
 	@Override
 	public double receiveCashPayment(Integer ticketNumber, double cash)
 			throws InvalidTransactionIdException, InvalidPaymentException, UnauthorizedException {
@@ -1003,7 +1004,7 @@ public class EZShop implements EZShopInterface {
 		data.balanceOperations.put(data.balanceOperationIDs,
 				new BalanceOperation(data.balanceOperationIDs++, LocalDate.now(), rt.getPrice(), "RETURN"));
 		saveData();
-		
+
 		return rt.getPrice();
 	}
 
@@ -1028,7 +1029,7 @@ public class EZShop implements EZShopInterface {
 
 	@Override
 	public boolean recordBalanceUpdate(double toBeAdded) throws UnauthorizedException {
-		if(data.loggedInUser== null)
+		if (data.loggedInUser == null)
 			throw new UnauthorizedException();
 		if (data.loggedInUser.getRole().compareTo("Administrator") != 0
 				&& data.loggedInUser.getRole().compareTo("ShopManager") != 0)
@@ -1044,10 +1045,10 @@ public class EZShop implements EZShopInterface {
 	@Override
 	public List<it.polito.ezshop.data.BalanceOperation> getCreditsAndDebits(LocalDate from, LocalDate to)
 			throws UnauthorizedException {
-		if(data.loggedInUser == null) {
+		if (data.loggedInUser == null) {
 			throw new UnauthorizedException();
 		}
-		if ( data.loggedInUser.getRole().compareTo("Administrator") != 0
+		if (data.loggedInUser.getRole().compareTo("Administrator") != 0
 				&& data.loggedInUser.getRole().compareTo("ShopManager") != 0)
 			throw new UnauthorizedException();
 		LinkedList<it.polito.ezshop.data.BalanceOperation> l = new LinkedList<>();
@@ -1084,37 +1085,166 @@ public class EZShop implements EZShopInterface {
 		return 0;
 	}
 
-	
+	// TO IMPLEMENT
 
-    @Override
-    public boolean recordOrderArrivalRFID(Integer orderId, String RFIDfrom) throws InvalidOrderIdException, UnauthorizedException, 
-InvalidLocationException, InvalidRFIDException {
-        return false;
-    }
-    
+	@Override
+	public boolean recordOrderArrivalRFID(Integer orderId, String RFIDfrom)
+			throws InvalidOrderIdException, UnauthorizedException, InvalidLocationException, InvalidRFIDException {
 
-    @Override
-    public boolean addProductToSaleRFID(Integer transactionId, String RFID) throws InvalidTransactionIdException, InvalidRFIDException, InvalidQuantityException, UnauthorizedException{
-        return false;
-    }
-    
-    
+		String barcode, RFID;
 
-    @Override
-    public boolean deleteProductFromSaleRFID(Integer transactionId, String RFID) throws InvalidTransactionIdException, InvalidRFIDException, InvalidQuantityException, UnauthorizedException{
-        return false;
-    }
+		if (data.loggedInUser == null
+				|| (!data.loggedInUser.isAdmin() && data.loggedInUser.getRole().compareTo("ShopManager") != 0))
+			throw new UnauthorizedException();
+		if (orderId == null || orderId <= 0)
+			throw new InvalidOrderIdException();
+		it.polito.ezshop.model.Order o = data.orders.get(orderId);
+		if (o == null)
+			return false;
 
-    
+		// perché posticipando if(!recordOrderArrival().... Non controllo l'esistenza
+		// dell'ordine
 
-    @Override
-    public boolean returnProductRFID(Integer returnId, String RFID) throws InvalidTransactionIdException, InvalidRFIDException, UnauthorizedException 
-    {
-        return false;
-    }
+		if (!isRFIDvalid(RFIDfrom))
+			throw new InvalidRFIDException();
+		// lascio l'if perché RFIDfrom potrebbe non avere un formato valido, in tal caso
+		// nel for succede un patatrac
+
+		for (int j = 0; j < data.orders.get(orderId).getQuantity(); j++) {
+			if (data.RFIDtoBarcode.containsKey((String.valueOf(Integer.valueOf(RFIDfrom) + j))))
+				throw new InvalidRFIDException();
+		}
+
+		if (!recordOrderArrival(orderId))
+			return false;
+
+		barcode = data.orders.get(orderId).getProductCode();
+
+		for (int i = 0; i < data.orders.get(orderId).getQuantity(); i++) {
+			RFID = String.valueOf(Integer.valueOf(RFIDfrom) + i);
+			data.RFIDtoBarcode.put(RFID, barcode);
+		}
+
+		return saveData();
+	}
+
+	@Override
+	public boolean addProductToSaleRFID(Integer transactionId, String RFID) throws InvalidTransactionIdException,
+			InvalidRFIDException, InvalidQuantityException, UnauthorizedException {
+		
+		if ((RFID == null || RFID.isBlank() || RFID.length() == 0 || RFID.length()!=RFIDlength || !RFID.chars().allMatch(Character::isDigit))) {
+			throw new InvalidRFIDException();
+		}
+
+		RFID = String.valueOf(Integer.valueOf(RFID));
+
+		int amount = 1;
+		String productCode;
+
+		
+
+		if (!data.RFIDtoBarcode.containsKey(RFID))
+			return false;
+
+		productCode = data.RFIDtoBarcode.get(RFID);
+
+		if (checkifAdminCashMan())
+			throw new UnauthorizedException();
+		if (amount <= 0)
+			throw new InvalidQuantityException();
+		if (transactionId == null || transactionId <= 0)
+			throw new InvalidTransactionIdException();
+		it.polito.ezshop.model.ProductType p = data.productTypes.get(data.barcodeToId.get(productCode));
+		it.polito.ezshop.model.SaleTransaction t = data.saleTransactions.get(transactionId);
+		if (p == null || p.getQuantity() < amount || t == null || t.getStatus().compareTo("OPEN") != 0)
+			return false;
+
+		if (t.RFIDs.contains(RFID))
+			return false;
+
+		t.addProduct(p, amount);
+		t.RFIDs.add(RFID);
+
+		return saveData();
+	}
+
+	@Override
+	public boolean deleteProductFromSaleRFID(Integer transactionId, String RFID) throws InvalidTransactionIdException,
+			InvalidRFIDException, InvalidQuantityException, UnauthorizedException {
+		
+		if ((RFID == null || RFID.isBlank() || RFID.length() == 0 || RFID.length()!=RFIDlength || !RFID.chars().allMatch(Character::isDigit))) {
+			throw new InvalidRFIDException();
+		}
+
+		RFID = String.valueOf(Integer.valueOf(RFID));
+		int amount = 1;
+		String productCode;
+
+		
+
+		if (!data.RFIDtoBarcode.containsKey(RFID))
+			return false;
+
+		productCode = data.RFIDtoBarcode.get(RFID);
+
+		if (checkifAdminCashMan())
+			throw new UnauthorizedException();
+		if (amount <= 0)
+			throw new InvalidQuantityException();
+		if (transactionId == null || transactionId <= 0)
+			throw new InvalidTransactionIdException();
+		it.polito.ezshop.model.ProductType p = data.productTypes.get(data.barcodeToId.get(productCode));
+		it.polito.ezshop.model.SaleTransaction t = data.saleTransactions.get(transactionId);
+		if (p == null || t == null || t.getStatus().compareTo("OPEN") != 0)
+			return false;
+
+		if (!t.RFIDs.contains(RFID))
+			return false;
+
+		if (!t.removeProduct(p, amount))
+			return false;
+
+		t.RFIDs.remove(RFID);
+
+		return true;
+	}
+
+	@Override
+	public boolean returnProductRFID(Integer returnId, String RFID)
+			throws InvalidTransactionIdException, InvalidRFIDException, UnauthorizedException {
+		
+		if ((RFID == null || RFID.isBlank() || RFID.length() == 0 ||  RFID.length()!=RFIDlength || !RFID.chars().allMatch(Character::isDigit))) {
+			throw new InvalidRFIDException();
+		}
 
 
-    
+		RFID = String.valueOf(Integer.valueOf(RFID));
+		int amount = 1;
+		String productCode;
 
-    
+		
+		if (!data.RFIDtoBarcode.containsKey(RFID))
+			return false;
+
+		productCode = data.RFIDtoBarcode.get(RFID);
+
+		if (checkifAdminCashMan())
+			throw new UnauthorizedException();
+		if (returnId == null || returnId <= 0)
+			throw new InvalidTransactionIdException();
+		it.polito.ezshop.model.ProductType p = data.productTypes.get(data.barcodeToId.get(productCode));
+		it.polito.ezshop.model.ReturnSaleTransaction rt = data.returnSaleTransactions.get(returnId);
+		if (rt == null)
+			return false;
+		it.polito.ezshop.data.TicketEntry te = rt.getReturnOfSaleTransaction().getEntries().stream()
+				.filter(x -> x.getBarCode().compareTo(productCode) == 0).findFirst().orElse(null);
+		if (p == null || te == null || te.getAmount() < amount)
+			return false;
+
+		rt.setDiscountRate(rt.getReturnOfSaleTransaction().getDiscountRate());
+		rt.addReturnProduct(te, amount);
+
+		return true;
+
+	}
 }

@@ -23,6 +23,7 @@ public class EZShopData implements Serializable {
 	public HashMap<String, Double> creditCards;
 	public double balance;
 	public HashMap<Integer, ProductType> productTypes;
+	public HashMap<String, String> RFIDtoBarcode;
 	
 	
 	public EZShopData() {
@@ -38,6 +39,7 @@ public class EZShopData implements Serializable {
 		balanceOperations = new HashMap<>();
 		barcodeToId = new HashMap<>();
 		creditCards = new HashMap<>();
+		RFIDtoBarcode = new HashMap<>();
 		userIDs=1;
 		productTypeIDs=1;
 		orderIDs=1;
